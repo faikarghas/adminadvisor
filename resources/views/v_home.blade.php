@@ -59,6 +59,9 @@
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
+      <li class="nav-item d-flex align-items-center">
+        <a href="/logout" class="text-white">Logout</a>
+      </li>
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -80,7 +83,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/appointment" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Appointment
@@ -101,7 +104,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">List Appointment</h1>
+            {{-- <h1 class="m-0">List Appointment</h1> --}}
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
