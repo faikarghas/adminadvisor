@@ -110,69 +110,7 @@
 
     <!-- Main content -->
     <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-            <!-- left column -->
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-lg-12 text-right">
-                                    <a href="/create-appointment" class="text-white">Create Appointment</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                          <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                              <th>Service</th>
-                              <th>Advisor</th>
-                              <th>Time</th>
-                              <th>Created at</th>
-                              <th>Status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($data as $item)
-                                <?php
-                                    $checkStatus = $item->status;
-                                    $status;
-
-                                    if ($checkStatus == 0) {
-                                        $status = 'Pending';
-                                    } else if ($checkStatus == 1) {
-                                        $status = 'Approved';
-                                    } else {
-                                        $status = 'Cancelled';
-                                    }
-                                ?>
-                                <tr>
-                                    <td>{{$item->service}}</td>
-                                    <td>{{$item->advisor}}</td>
-                                    <td>{{$item->date}}</td>
-                                    <td>{{$item->created_at}}</td>
-                                    <td>{{$status}}</td>
-                              </tr>
-                            @endforeach
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <th>Service</th>
-                                <th>Advisor</th>
-                                <th>Time</th>
-                                <th>Created at</th>
-                                <th>Status</th>
-                            </tr>
-                            </tfoot>
-                          </table>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                </div>
-            </div>
-        </div>
+       
     </section>
     <!-- /.content -->
   </div>
