@@ -31,7 +31,7 @@ if (file_exists(__DIR__.'/../storage/framework/maintenance.php')) {
 |
 */
 
-require __DIR__.'/../adminadvisor/vendor/autoload.php';
+require __DIR__.'/adminadvisor/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ require __DIR__.'/../adminadvisor/vendor/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../adminadvisor/bootstrap/app.php';
+$app = require_once __DIR__.'/adminadvisor/bootstrap/app.php';
 
 $kernel = $app->make(Kernel::class);
 
