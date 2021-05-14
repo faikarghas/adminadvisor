@@ -1,0 +1,10 @@
+
+---
+
+deployment:
+
+ tasks:
+
+ - export DEPLOYPATH=/public_html/adminadvisor
+
+ - /usr/bin/rsync -Paz * $DEPLOYPATH --delete
