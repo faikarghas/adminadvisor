@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+
+Route::get('login',[AuthController::class,'index'])->name('login');
+Route::post('proses_login',[AuthController::class,'proses_login']);
+Route::get('logout',[AuthController::class,'logout'])->name('logout');
+
+// auth
+
+Route::group(['middleware'=>['auth']],function(){
+    Route::group(['middleware'=>['check_auth:admin']],function(){
+        Route::get('/',[AdminController::class,'index']);
+        Route::get('appointment',[AppointmentController::class,'index'])->name('appointment');
+        Route::get('create-appointment',[AppointmentController::class,'create'])->name('create-appointment');
+        Route::post('appointment/post',[AppointmentController::class,'postForm']);
+    });
+    Route::group(['middleware'=>['check_auth:advisor']],function(){
+        Route::get('advisor',[EditorController::class,'index'])->name('advisor');
+    });
 });
