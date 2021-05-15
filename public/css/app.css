@@ -13,3 +13,8 @@
 .dark-mode select {
     color: black;
 }
+.swal2-actions button{
+    width: 80.13px;
+    height: 44px;
+    padding: unset;
+}

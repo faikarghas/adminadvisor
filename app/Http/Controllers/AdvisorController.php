@@ -24,6 +24,28 @@ class AdvisorController extends Controller
         ];
 
         return view('v_advisor',$data);
+    }
+
+    public function approveForm(){
+
+        $user = Auth::user();
+
+
+        $affected = DB::table('appointments')
+              ->where('idAdvisor', $user->idAdvisor)
+              ->update(['status' => 1]);
+
+        dd($affected);
+    }
+
+    public function cancelForm(){
+
+        $user = Auth::user();
+
+
+        $affected = DB::table('appointments')
+            ->where('idAdvisor', $user->idAdvisor)
+            ->update(['status' => 2]);
 
     }
 }

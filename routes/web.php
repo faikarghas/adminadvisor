@@ -23,7 +23,12 @@ use App\Http\Controllers\AdvisorController;
 Route::get('login',[AuthController::class,'index'])->name('login');
 Route::post('proses_login',[AuthController::class,'proses_login']);
 Route::get('logout',[AuthController::class,'logout'])->name('logout');
+
 Route::post('appointment/post',[AppointmentController::class,'postForm']);
+
+Route::post('approveAppointment/post',[AdvisorController::class,'approveForm']);
+Route::post('cancelAppointment/post',[AdvisorController::class,'cancelForm']);
+
 
 // auth
 
