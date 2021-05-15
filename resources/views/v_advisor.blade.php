@@ -155,7 +155,7 @@
                                 ?>
                                 <tr>
                                     <td>{{$item->service}}</td>
-                                    <td>{{$item->advisorName}}</td>
+                                    <td>{{$item->fisrtName}}</td>
                                     <td>{{$item->date}}</td>
                                     <td>{{$item->created_at}}</td>
                                     @if ($item->status == 0)
