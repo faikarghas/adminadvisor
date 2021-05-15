@@ -158,8 +158,11 @@
                                     <td>{{$item->advisorName}}</td>
                                     <td>{{$item->date}}</td>
                                     <td>{{$item->created_at}}</td>
-                                    <td>{{$status}}</td>
-                              </tr>
+                                    <td>
+                                      <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                      <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                             <tfoot>
