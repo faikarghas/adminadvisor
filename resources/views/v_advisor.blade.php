@@ -135,6 +135,7 @@
                               <th>Service</th>
                               <th>Mentee</th>
                               <th>Time</th>
+                              <th>CV</th>
                               <th>Created at</th>
                               <th>Status</th>
                             </tr>
@@ -157,6 +158,7 @@
                                     <td>{{$item->service}}</td>
                                     <td>{{$item->firstName}}</td>
                                     <td>{{$item->date}}</td>
+                                    <td>{{$item->cvLink}}</td>
                                     <td>{{$item->created_at}}</td>
                                     @if ($item->status == 0)
                                       <td class="d-flex justify-content-between">
@@ -174,6 +176,7 @@
                                 <th>Service</th>
                                 <th>Mentee</th>
                                 <th>Time</th>
+                                <th>CV</th>
                                 <th>Created at</th>
                                 <th>Status</th>
                             </tr>
