@@ -133,7 +133,7 @@
                             <thead>
                             <tr>
                               <th>Service</th>
-                              <th>Advisor</th>
+                              <th>Mentee</th>
                               <th>Time</th>
                               <th>Created at</th>
                               <th>Status</th>
@@ -155,7 +155,7 @@
                                 ?>
                                 <tr>
                                     <td>{{$item->service}}</td>
-                                    <td>{{$item->fisrtName}}</td>
+                                    <td>{{$item->firstName}}</td>
                                     <td>{{$item->date}}</td>
                                     <td>{{$item->created_at}}</td>
                                     @if ($item->status == 0)
@@ -172,7 +172,7 @@
                             <tfoot>
                             <tr>
                                 <th>Service</th>
-                                <th>Advisor</th>
+                                <th>Mentee</th>
                                 <th>Time</th>
                                 <th>Created at</th>
                                 <th>Status</th>
