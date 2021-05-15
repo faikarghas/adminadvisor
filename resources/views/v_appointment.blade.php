@@ -37,6 +37,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('template/')}}/dist/css/adminlte.min.css">
 
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -121,7 +123,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-lg-12 text-right">
-                                    <a href="/create-appointment" class="text-white">Create Appointment</a>
+                                    <a href="/create-appointment" class="btn-create">Create Appointment</a>
                                 </div>
                             </div>
                         </div>
@@ -153,7 +155,7 @@
                                 ?>
                                 <tr>
                                     <td>{{$item->service}}</td>
-                                    <td>{{$item->advisor}}</td>
+                                    <td>{{$item->advisorName}}</td>
                                     <td>{{$item->date}}</td>
                                     <td>{{$item->created_at}}</td>
                                     <td>{{$status}}</td>

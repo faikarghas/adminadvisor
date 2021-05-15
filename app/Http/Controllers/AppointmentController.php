@@ -12,9 +12,10 @@ class AppointmentController extends Controller
     public function __construct() { $this->middleware('preventBackHistory'); $this->middleware('auth'); } 
 
     public function index(){
-        $content = DB::table('appointments')->get();
 
-
+        $content = DB::table('appointments')
+                    ->join('advisor', 'appointments.idAdvisor', '=', 'advisor.idAdvisor')
+                    ->get();
         $data = [
             'data' => $content
         ];
@@ -23,7 +24,14 @@ class AppointmentController extends Controller
     }
 
     public function create(){
-        return view('v_createAppointment');
+
+        $listAdvisor = DB::table('advisor')->get();
+
+        $data = [
+            'listAdvisor' => $listAdvisor
+        ];
+
+        return view('v_createAppointment',$data);
     }
 
     public function postForm(Request $request){
@@ -41,7 +49,7 @@ class AppointmentController extends Controller
 
         $data = [
             'service' => $request->input('service'),
-            'advisor' => $request->input('advisor'),
+            'idAdvisor' => intval($request->input('advisor')),
             'date' => $request->input('date'),
             'firstName' => $request->input('firstName'),
             'lastName' => $request->input('lastName'),
@@ -50,6 +58,8 @@ class AppointmentController extends Controller
             'status' => 0,
             'phoneNumber' => $request->input('phoneNumber'),
         ];
+
+        // dd($data);
 
         AppointmentModel::create($data);
 

@@ -144,10 +144,6 @@
   -webkit-transform: rotate(135deg);
 }
 
-.daterangepicker select{
-  color: black !important;
-}
-
 .daterangepicker .calendar-table th, .daterangepicker .calendar-table td {
   white-space: nowrap;
   text-align: center;
@@ -161,7 +157,6 @@
   border: 1px solid transparent;
   white-space: nowrap;
   cursor: pointer;
-  color: black;
 }
 
 .daterangepicker .calendar-table {

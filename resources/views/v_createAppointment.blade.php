@@ -8,7 +8,7 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{asset('template/')}}plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="{{asset('template/')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{asset('template/')}}/plugins/fontawesome-free/css/all.min.css">
     <!-- IonIcons -->
@@ -36,6 +36,9 @@
     <link rel="stylesheet" href="{{asset('template/')}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('template/')}}/dist/css/adminlte.min.css">
+
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -110,15 +113,6 @@
 
     <!-- Main content -->
     <section class="content">
-        @if (session('pesan'))
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h5><i class="icon fas fa-check"></i> Success!</h5>
-            {{session('pesan')}}
-        </div>
-        @else
-            
-        @endif
         <div class="container-fluid">
             <div class="row">
             <!-- left column -->
@@ -139,15 +133,11 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="exampleSelectBorder">Select Advisor</label>
+                                <label for="advisor">Select Advisor</label>
                                 <select name="advisor" class="custom-select form-control-border" id="advisor">
-                                  <option value="faikar">Faikar Ghassan</option>
-                                  <option value="faikar">Juleha</option>
-                                  <option value="faikar">Janet</option>
-                                  <option value="faikar">Jeje</option>
-                                  <option value="faikar">Jery</option>
-                                  <option value="faikar">Milo</option>
-                                  <option value="faikar">Caramel</option>
+                                  @foreach ($listAdvisor as $item)
+                                    <option value="{{$item->idAdvisor}}">{{$item->advisorName}}</option>
+                                  @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
@@ -213,6 +203,13 @@
 <!-- ./wrapper -->
 
 
+<!-- jQuery -->
+<script src="{{asset('template')}}/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="{{asset('template')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE -->
+<script src="{{asset('template')}}/dist/js/adminlte.js"></script>
+
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
 <script src="{{asset('template')}}/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
@@ -226,13 +223,6 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('template')}}/dist/js/pages/dashboard2.js"></script>
 
-
-<!-- jQuery -->
-<script src="{{asset('template')}}/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="{{asset('template')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE -->
-<script src="{{asset('template')}}/dist/js/adminlte.js"></script>
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="{{asset('template')}}/plugins/chart.js/Chart.min.js"></script>
@@ -396,37 +386,6 @@
   // DropzoneJS Demo Code End
 </script>
 
-
-<!-- DataTables  & Plugins -->
-<script src="{{asset('template')}}/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="{{asset('template')}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="{{asset('template')}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="{{asset('template')}}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="{{asset('template')}}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="{{asset('template')}}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="{{asset('template')}}/plugins/jszip/jszip.min.js"></script>
-<script src="{{asset('template')}}/plugins/pdfmake/pdfmake.min.js"></script>
-<script src="{{asset('template')}}/plugins/pdfmake/vfs_fonts.js"></script>
-<script src="{{asset('template')}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="{{asset('template')}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="{{asset('template')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<script>
-    $(function () {
-      $("#example1").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
-    });
-  </script>
 
 
 </body>

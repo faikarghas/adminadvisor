@@ -1,0 +1,15 @@
+.card-header{
+    padding: 1rem 1.25rem !important;
+}
+.btn-create{
+    padding: 5px 15px;
+    background: white;
+    border-radius: 6px;
+    color: black !important;
+}
+.daterangepicker .calendar-table th, .daterangepicker .calendar-table td {
+    color: black !important;
+}
+.dark-mode select {
+    color: black;
+}
