@@ -136,14 +136,13 @@
                               <th>Mentee</th>
                               <th>Time</th>
                               <th>CV</th>
-                              <th>Created at</th>
                               <th>Status</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($data as $item)
-                                <?php
-                                    $checkStatus = $item->status;
+                            @foreach($values as $key => $value)
+                              <?php
+                                    $checkStatus = $value['Status'];
                                     $status;
 
                                     if ($checkStatus == 0) {
@@ -153,22 +152,25 @@
                                     } else {
                                         $status = 'Cancelled';
                                     }
-                                ?>
-                                <tr>
-                                    <td>{{$item->service}}</td>
-                                    <td>{{$item->firstName}}</td>
-                                    <td>{{$item->date}}</td>
-                                    <td>{{$item->cvLink}}</td>
-                                    <td>{{$item->created_at}}</td>
-                                    @if ($item->status == 0)
+
+                                    $key = $key + 1;
+                              ?>
+                              @if ($value['ID Advisor'] == $idAdvisor)
+                                <tr data-row="{{$key}}">
+                                    <td>{{$value['Service']}}</td>
+                                    <td>{{$value['Advisor']}}</td>
+                                    <td>{{$value['Time']}}</td>
+                                    <td>{{$value['CV']}}</td>
+                                    @if ($value['Status'] == 0)
                                       <td class="d-flex justify-content-between">
-                                        <a id="approveAction" href="#" class="btn btn-success" style="width: 40px;"><i class="fas fa-check"></i></i></a>
-                                        <a id="cancelAction" href="#" class="btn btn-danger" style="width: 40px;"><i class="fas fa-times"></i></a>
+                                        <a data-row="{{$key}}" href="#" class="btn btn-success approveAction" style="width: 40px;"><i class="fas fa-check"></i></i></a>
+                                        <a data-row="{{$key}}" href="#" class="btn btn-danger cancelAction" style="width: 40px;"><i class="fas fa-times"></i></a>
                                       </td>
                                     @else
                                       <td>{{$status}}</td>
                                     @endif
                                 </tr>
+                              @endif
                             @endforeach
                             </tbody>
                             <tfoot>
@@ -177,7 +179,6 @@
                                 <th>Mentee</th>
                                 <th>Time</th>
                                 <th>CV</th>
-                                <th>Created at</th>
                                 <th>Status</th>
                             </tr>
                             </tfoot>

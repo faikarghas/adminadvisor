@@ -122,7 +122,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">List Appointment</h1>
+            <h1 class="m-0">List Advisor</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -139,7 +139,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-lg-12 text-right">
-                                    <a href="/create-appointment" class="btn-create">Create Appointment</a>
+                                    {{-- <a href="/create-appointment" class="btn-create">Create Appointment</a> --}}
                                 </div>
                             </div>
                         </div>
@@ -148,43 +148,28 @@
                           <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                              <th>Service</th>
-                              <th>Advisor</th>
-                              <th>Time</th>
-                              <th>Created at</th>
-                              <th>Status</th>
+                              <th>First Name</th>
+                              <th>Last Name</th>
+                              <th>Email</th>
+                              <th>Phone Number</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($data as $item)
-                                <?php
-                                      $checkStatus = $item->status;
-                                      $status;
-
-                                      if ($checkStatus == 0) {
-                                          $status = 'Pending';
-                                      } else if ($checkStatus == 1) {
-                                          $status = 'Approved';
-                                      } else {
-                                          $status = 'Cancelled';
-                                      }
-                                ?>
-                                <tr>
-                                    <td>{{$item->service}}</td>
-                                    <td>{{$item->advisorName}}</td>
-                                    <td>{{$item->date}}</td>
-                                    <td>{{$item->created_at}}</td>
-                                    <td>{{$status}}</td>
-                                </tr>
-                            @endforeach
+                                @foreach($listAdvisor as $key => $value)
+                                    <tr data-row="{{$key}}">
+                                        <td>{{$value['First Name']}}</td>
+                                        <td>{{$value['Last Name']}}</td>
+                                        <td>{{$value['Email Address']}}</td>
+                                        <td>{{$value['Phone/WhatsApp Number']}}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th>Service</th>
-                                <th>Advisor</th>
-                                <th>Time</th>
-                                <th>Created at</th>
-                                <th>Status</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
                             </tr>
                             </tfoot>
                           </table>

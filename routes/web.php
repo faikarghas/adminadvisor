@@ -24,6 +24,9 @@ Route::get('login',[AuthController::class,'index'])->name('login');
 Route::post('proses_login',[AuthController::class,'proses_login']);
 Route::get('logout',[AuthController::class,'logout'])->name('logout');
 
+Route::get('test',[AdminController::class,'googlesheet']);
+
+
 Route::post('appointment/post',[AppointmentController::class,'postForm']);
 
 Route::post('approveAppointment/post',[AdvisorController::class,'approveForm']);
@@ -37,6 +40,8 @@ Route::group(['middleware'=>['auth']],function(){
         Route::get('/',[AdminController::class,'index']);
         Route::get('appointment',[AppointmentController::class,'index'])->name('appointment');
         Route::get('create-appointment',[AppointmentController::class,'create'])->name('create-appointment');
+        Route::get('advisorList',[AppointmentController::class,'listAdvisor'])->name('advisorList');
+        Route::get('menteeList',[AppointmentController::class,'listMentee'])->name('menteeList');
     });
     Route::group(['middleware'=>['check_auth:advisor']],function(){
         Route::get('advisor',[AdvisorController::class,'index'])->name('advisor');

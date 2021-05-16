@@ -1845,7 +1845,17 @@ var _require = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-$('#approveAction').on('click', function name(params) {
+function updateTd(params, status) {
+  if (status == 'oke') {
+    $(params).parent().html('Approve');
+  } else {
+    $(params).parent().html('Cancel');
+  }
+}
+
+$('.approveAction').on('click', function name(params) {
+  var thisEl = this;
+  var dataRow = $(thisEl).data('row');
   Swal.fire({
     title: 'Are you sure?',
     text: "You won't be able to revert this!",
@@ -1857,17 +1867,20 @@ $('#approveAction').on('click', function name(params) {
   }).then(function (result) {
     if (result.isConfirmed) {
       axios.post('/approveAppointment/post', {
-        status: 1
+        row: "F".concat(dataRow)
       }).then(function (response) {
         console.log(response);
         Swal.fire('', '', 'success');
+        updateTd(thisEl, 'oke');
       })["catch"](function (error) {
         console.log(error);
       });
     }
   });
 });
-$('#cancelAction').on('click', function name(params) {
+$('.cancelAction').on('click', function name(params) {
+  var thisEl = this;
+  var dataRow = $(thisEl).data('row');
   Swal.fire({
     title: 'Are you sure?',
     text: "You won't be able to revert this!",
@@ -1879,10 +1892,11 @@ $('#cancelAction').on('click', function name(params) {
   }).then(function (result) {
     if (result.isConfirmed) {
       axios.post('/cancelAppointment/post', {
-        status: 2
+        row: "F".concat(dataRow)
       }).then(function (response) {
         console.log(response);
         Swal.fire('', '', 'success');
+        updateTd(thisEl, 'nok');
       })["catch"](function (error) {
         console.log(error);
       });

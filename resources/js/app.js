@@ -3,7 +3,19 @@ const { default: axios } = require('axios');
 require('./bootstrap');
 
 
-$('#approveAction').on('click',function name(params) {
+function updateTd(params,status) {
+
+    if (status == 'oke') {
+        $(params).parent().html('Approve')
+    } else {
+        $(params).parent().html('Cancel')
+    }
+
+}
+
+$('.approveAction').on('click',function name(params) {
+    let thisEl = this
+    let dataRow = $(thisEl).data('row')
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -14,9 +26,8 @@ $('#approveAction').on('click',function name(params) {
         confirmButtonText: 'Yes'
     }).then((result) => {
         if (result.isConfirmed) {
-
             axios.post('/approveAppointment/post', {
-                status: 1,
+                row: `F${dataRow}`,
             })
             .then(function (response) {
                 console.log(response);
@@ -25,6 +36,7 @@ $('#approveAction').on('click',function name(params) {
                     '',
                     'success'
                 )
+                updateTd(thisEl,'oke')
             })
             .catch(function (error) {
                 console.log(error);
@@ -33,7 +45,9 @@ $('#approveAction').on('click',function name(params) {
     })
 })
 
-$('#cancelAction').on('click',function name(params) {
+$('.cancelAction').on('click',function name(params) {
+    let thisEl = this
+    let dataRow = $(thisEl).data('row')
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -46,7 +60,7 @@ $('#cancelAction').on('click',function name(params) {
         if (result.isConfirmed) {
 
             axios.post('/cancelAppointment/post', {
-                status: 2,
+                row: `F${dataRow}`,
             })
             .then(function (response) {
                 console.log(response);
@@ -55,6 +69,7 @@ $('#cancelAction').on('click',function name(params) {
                     '',
                     'success'
                 )
+                updateTd(thisEl,'nok')
             })
             .catch(function (error) {
                 console.log(error);

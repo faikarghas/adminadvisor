@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Revolution\Google\Sheets\Facades\Sheets;
 
 class AdvisorController extends Controller
 {
@@ -19,33 +20,43 @@ class AdvisorController extends Controller
         ->where('appointments.idAdvisor',$user->idAdvisor)
         ->get();
 
+
+        $rows = Sheets::spreadsheet('1kggTnIQa_FAGdIWRTX0Z3AEBWiQ8Ofg6SfSPim1aKf8')->sheet('Sheet1')->get();
+
+        // $rows2 = Sheets::spreadsheet('1pap4PbL2GcHgHt53cbzkW9q1eIV4eS96_hruu3D4lPs')->sheet('Form responses 1')->get();
+        // dd($rows2);
+
+        $header = $rows->pull(0);
+        $values = Sheets::collection($header, $rows);
+        $values->toArray();
+
         $data = [
-            'data' => $content
+            'data' => $content,
+            'values'=> $values,
+            'idAdvisor'=> $user->idAdvisor
         ];
+
 
         return view('v_advisor',$data);
     }
 
-    public function approveForm(){
+    public function approveForm(Request $request){
 
         $user = Auth::user();
+        $range = $request->get('row');
+        $upSheets = Sheets::spreadsheet('1kggTnIQa_FAGdIWRTX0Z3AEBWiQ8Ofg6SfSPim1aKf8')->sheet('Sheet1')->range($range)->update([['1']]);
 
+        // $upSheets = Sheets::spreadsheet('1pap4PbL2GcHgHt53cbzkW9q1eIV4eS96_hruu3D4lPs')->sheet('Form responses 1')->range('B2')->update([['1110111']]);
 
-        $affected = DB::table('appointments')
-              ->where('idAdvisor', $user->idAdvisor)
-              ->update(['status' => 1]);
-
-        dd($affected);
+        return response() ->json(['res' => 'oke']);
     }
 
-    public function cancelForm(){
+    public function cancelForm(Request $request){
 
         $user = Auth::user();
+        $range = $request->get('row');
+        $upSheets = Sheets::spreadsheet('1kggTnIQa_FAGdIWRTX0Z3AEBWiQ8Ofg6SfSPim1aKf8')->sheet('Sheet1')->range($range)->update([['2']]);
 
-
-        $affected = DB::table('appointments')
-            ->where('idAdvisor', $user->idAdvisor)
-            ->update(['status' => 2]);
-
+        return response() ->json(['res' => 'oke']);
     }
 }

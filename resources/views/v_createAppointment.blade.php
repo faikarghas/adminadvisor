@@ -88,6 +88,22 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="/advisorList" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Advisor
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/menteeList" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Mentee
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -124,23 +140,13 @@
                         <!-- /.card-header -->
                         <!-- form start -->
                         <form action="/appointment/post" method="post" accept-charset="utf-8">
-                        {{ csrf_field() }}
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="service">Select Service</label>
-                                <select name="service" class="custom-select form-control-border" id="service">
-                                  <option>Y21 August Bootcamp</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="advisor">Select Advisor</label>
-                                <select name="advisor" class="custom-select form-control-border" id="advisor">
-                                  @foreach ($listAdvisor as $item)
-                                    <option value="{{$item->idAdvisor}}">{{$item->advisorName}}</option>
-                                  @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
+                          {{ csrf_field() }}
+                          <div class="card-body">
+                              <div class="form-group">
+                                <label for="service">Bootcamp</label>
+                                <input name="service" type="text" class="form-control" id="service" placeholder="Enter Bootcamp">
+                              </div>
+                              <div class="form-group">
                                 <label>Date and time range:</label>
                                 <div class="input-group">
                                   <div class="input-group-prepend">
@@ -148,33 +154,28 @@
                                   </div>
                                   <input name="date" type="text" class="form-control float-right" id="reservationtime">
                                 </div>
+                              </div>
+                              <div class="form-group">
+                                  <label for="advisor">Select Advisor</label>
+                                  <select name="advisor" class="custom-select form-control-border" id="advisor">
+                                    @foreach ($listAdvisor as $item)
+                                      <option value="{{$item['ID Advisor']}}">{{$item['First Name']}} {{$item['Last Name']}}</option>
+                                    @endforeach
+                                  </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="mentee">Select Mentee</label>
+                                <select name="mentee" class="custom-select form-control-border" id="mentee">
+                                  @foreach ($listMentee as $item)
+                                    <option value="{{$item['First Name']}}">{{$item['First Name']}} {{$item['Last Name']}}</option>
+                                  @endforeach
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input name="firstName" type="text" class="form-control" id="firstName" placeholder="Enter first name">
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Last Name</label>
-                                <input name="lastName" type="text" class="form-control" id="lastName" placeholder="Enter last name">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input name="email" type="email" class="form-control" id="email" placeholder="Enter email">
-                            </div>
-                            <div class="form-group">
-                                <label for="phoneNumber">Phone Number</label>
-                                <input name="phoneNumber" type="number" class="form-control" id="phoneNumber" placeholder="Enter phone number">
-                            </div>
-                            <div class="form-group">
-                                <label for="cvLink">CV link</label>
-                                <input name="cvLink" type="text" class="form-control" id="cvLink" placeholder="CV">
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+                          </div>
+                          <!-- /.card-body -->
+                          <div class="card-footer">
+                              <button type="submit" class="btn btn-primary">Submit</button>
+                          </div>
                         </form>
                     </div>
                 </div>
