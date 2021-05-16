@@ -18,3 +18,7 @@
     height: 44px;
     padding: unset;
 }
+
+#example1_wrapper{
+    overflow: auto;
+}

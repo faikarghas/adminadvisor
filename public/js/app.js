@@ -1903,6 +1903,24 @@ $('.cancelAction').on('click', function name(params) {
     }
   });
 });
+$('.register').on('click', function name(params) {
+  var thisEl = this;
+  var dataUser = $(thisEl).parent().data('user');
+  var dataEmail = $(thisEl).parent().data('email');
+  var dataName = $(thisEl).parent().data('name');
+  var dataId = $(thisEl).parent().data('id');
+  axios.post('/register_advisor/post', {
+    username: dataUser,
+    email: dataEmail,
+    name: dataName,
+    id: dataId
+  }).then(function (response) {
+    console.log(response);
+    window.location.reload(true);
+  })["catch"](function (error) {
+    console.log(error);
+  });
+});
 
 /***/ }),
 

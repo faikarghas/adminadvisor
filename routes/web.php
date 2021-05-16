@@ -23,6 +23,9 @@ use App\Http\Controllers\AdvisorController;
 Route::get('login',[AuthController::class,'index'])->name('login');
 Route::post('proses_login',[AuthController::class,'proses_login']);
 Route::get('logout',[AuthController::class,'logout'])->name('logout');
+Route::post('register_advisor/post',[AuthController::class,'register']);
+
+
 
 Route::get('test',[AdminController::class,'googlesheet']);
 

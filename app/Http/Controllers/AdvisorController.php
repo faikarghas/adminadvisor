@@ -20,11 +20,7 @@ class AdvisorController extends Controller
         ->where('appointments.idAdvisor',$user->idAdvisor)
         ->get();
 
-
         $rows = Sheets::spreadsheet('1kggTnIQa_FAGdIWRTX0Z3AEBWiQ8Ofg6SfSPim1aKf8')->sheet('Sheet1')->get();
-
-        // $rows2 = Sheets::spreadsheet('1pap4PbL2GcHgHt53cbzkW9q1eIV4eS96_hruu3D4lPs')->sheet('Form responses 1')->get();
-        // dd($rows2);
 
         $header = $rows->pull(0);
         $values = Sheets::collection($header, $rows);

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\AppointmentModel;
 use Google\Client;
 use Revolution\Google\Sheets\Facades\Sheets;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
@@ -82,8 +83,20 @@ class AppointmentController extends Controller
         $values = Sheets::collection($header, $rows);
         $values->toArray();
 
+        $content = DB::table('appointments')->get();
+
+        $user = DB::table('users')->where('level','advisor')->get();
+
+        $emailList=[];
+
+        foreach ($user as $key => $value) {
+            array_push($emailList,$value->email);
+        }
+
         $data = [
-            'listAdvisor'=> $values
+            'listAdvisor'=> $values,
+            'user'=> $user,
+            'emailList'=> $emailList
         ];
 
         return view('v_listAdvisor',$data);

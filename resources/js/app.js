@@ -77,3 +77,27 @@ $('.cancelAction').on('click',function name(params) {
         }
     })
 })
+
+$('.register').on('click',function name(params) {
+    let thisEl = this
+    let dataUser = $(thisEl).parent().data('user')
+    let dataEmail = $(thisEl).parent().data('email')
+    let dataName = $(thisEl).parent().data('name')
+    let dataId = $(thisEl).parent().data('id')
+
+    axios.post('/register_advisor/post', {
+        username: dataUser,
+        email : dataEmail,
+        name : dataName,
+        id: dataId
+    })
+    .then(function (response) {
+        console.log(response);
+        window.location.reload(true);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+
+})
+

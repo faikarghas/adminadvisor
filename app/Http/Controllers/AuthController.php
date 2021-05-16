@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class AuthController extends Controller
@@ -36,6 +37,29 @@ class AuthController extends Controller
 
         return redirect('login');
 
+    }
+
+
+    public function register(Request $request){
+        $username = $request->get('username');
+        $email = $request->get('email');
+        $name = $request->get('name');
+        $level = 'advisor';
+        $password = bcrypt("adv$username@123!");
+        $idAdvisor = $request->get('id');
+
+        $data = [
+            'name' => $name,
+            'username' => $username,
+            'email' => $email,
+            'level' => $level,
+            'password' => $password,
+            'idAdvisor' => "adv000000$idAdvisor"
+        ];
+
+        User::create($data);
+
+        return response() ->json(['res' => $data]);
     }
 
     public function logout(Request $request){
