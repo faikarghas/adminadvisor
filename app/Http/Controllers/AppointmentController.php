@@ -15,19 +15,11 @@ class AppointmentController extends Controller
 
     public function index(Request $request){
 
+        $content = DB::table('appointments')->get();
 
-        $rows = Sheets::spreadsheet('1kggTnIQa_FAGdIWRTX0Z3AEBWiQ8Ofg6SfSPim1aKf8')->sheet('Sheet1')->get();
-
-        $header = $rows->pull(0);
-        $values = Sheets::collection($header, $rows);
-        $values->toArray();
-
-        $content = DB::table('appointments')
-                    ->join('advisor', 'appointments.idAdvisor', '=', 'advisor.idAdvisor')
-                    ->get();
         $data = [
             'data' => $content,
-            'values'=> $values
+            // 'values'=> $values
         ];
 
         return view('v_appointment',$data);
