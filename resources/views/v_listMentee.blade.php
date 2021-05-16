@@ -152,6 +152,7 @@
                                 <th>Last Name</th>
                                 <th>Email</th>
                                 <th>Phone Number</th>
+                                <th>CV Link</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -161,6 +162,7 @@
                                         <td>{{$value['Last Name']}}</td>
                                         <td>{{$value['Email Address']}}</td>
                                         <td>{{$value['Phone/WhatsApp Number']}}</td>
+                                        <td>{{$value['Drop Resume']}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -170,6 +172,7 @@
                                 <th>Last Name</th>
                                 <th>Email</th>
                                 <th>Phone Number</th>
+                                <th>CV Link</th>
                             </tr>
                             </tfoot>
                           </table>

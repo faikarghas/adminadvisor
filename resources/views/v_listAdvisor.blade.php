@@ -152,6 +152,9 @@
                               <th>Last Name</th>
                               <th>Email</th>
                               <th>Phone Number</th>
+                              <th>Industry</th>
+                              <th>How many mentees?</th>
+                              <th>Drop Resume</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -161,6 +164,9 @@
                                         <td>{{$value['Last Name']}}</td>
                                         <td>{{$value['Email Address']}}</td>
                                         <td>{{$value['Phone/WhatsApp Number']}}</td>
+                                        <td>{{$value['Industry']}}</td>
+                                        <td>{{$value['How many mentees?']}}</td>
+                                        <td>{{$value['Drop Resume']}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -170,6 +176,9 @@
                                 <th>Last Name</th>
                                 <th>Email</th>
                                 <th>Phone Number</th>
+                                <th>Industry</th>
+                                <th>How many mentees?</th>
+                                <th>Drop Resume</th>
                             </tr>
                             </tfoot>
                           </table>
