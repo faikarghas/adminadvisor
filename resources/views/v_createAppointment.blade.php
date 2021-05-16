@@ -159,7 +159,7 @@
                                   <label for="advisor">Select Advisor</label>
                                   <select name="advisor" class="custom-select form-control-border" id="advisor">
                                     @foreach ($listAdvisor as $item)
-                                      <option value="{{$item['ID Advisor']}}">{{$item['First Name']}} {{$item['Last Name']}}</option>
+                                      <option value="{{$item['First Name']}} {{$item['Last Name']}}">{{$item['First Name']}} {{$item['Last Name']}}</option>
                                     @endforeach
                                   </select>
                               </div>
@@ -167,7 +167,7 @@
                                 <label for="mentee">Select Mentee</label>
                                 <select name="mentee" class="custom-select form-control-border" id="mentee">
                                   @foreach ($listMentee as $item)
-                                    <option value="{{$item['First Name']}}">{{$item['First Name']}} {{$item['Last Name']}}</option>
+                                    <option value="{{$item['First Name']}} {{$item['Last Name']}},{{$item['Drop Resume']}}">{{$item['First Name']}} {{$item['Last Name']}}</option>
                                   @endforeach
                                 </select>
                             </div>
@@ -193,13 +193,6 @@
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-  {{-- <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.1.0
-    </div>
-  </footer> --}}
 </div>
 <!-- ./wrapper -->
 

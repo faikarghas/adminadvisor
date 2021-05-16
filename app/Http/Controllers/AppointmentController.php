@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class AppointmentController extends Controller
 {
 
-    public function __construct() { $this->middleware('preventBackHistory'); $this->middleware('auth'); } 
+    public function __construct() { $this->middleware('preventBackHistory'); $this->middleware('auth'); }
 
     public function index(Request $request){
 
@@ -50,29 +50,26 @@ class AppointmentController extends Controller
 
     public function postForm(Request $request){
 
-        $request->validate([
-            'service' => 'required',
-            'advisor' => 'required',
-            'mentee' => 'required',
-            'date' => 'required',
-            'cvLink' => 'required',
-            'email'=> 'required',
-            'phoneNumber' => 'required',
-        ]);
+        // $request->validate([
+        //     'service' => 'required',
+        //     'advisor' => 'required',
+        //     'mentee' => 'required',
+        //     'date' => 'required',
+        // ]);
+        $cv = explode(',',$request->input('mentee'));
 
         $data = [
             'service' => $request->input('service'),
             'advisor_name' => $request->input('advisor'),
-            'mentee_name' => $request->input('advisor'),
+            'mentee_name' => $request->input('mentee'),
             'date' => $request->input('date'),
-            'cvLink' => $request->input('cvLink'),
-            'email' => $request->input('email'),
             'status' => 0,
-            'phoneNumber' => $request->input('phoneNumber'),
+            'cvLink' => $cv[1],
         ];
 
-        AppointmentModel::create($data);
+        // dd($data);
 
+        AppointmentModel::create($data);
         return redirect()->route('appointment')->with('pesan','data berhasil ditambahkan');
     }
 

@@ -148,8 +148,10 @@
                           <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                              <th>Service</th>
+                              <th>Bootcamp</th>
                               <th>Advisor</th>
+                              <th>Mentee</th>
+                              <th>CV Link</th>
                               <th>Time</th>
                               <th>Created at</th>
                               <th>Status</th>
@@ -168,10 +170,14 @@
                                       } else {
                                           $status = 'Cancelled';
                                       }
+
+                                      $mentee = explode(',',$item->mentee_name)[0];
                                 ?>
                                 <tr>
                                     <td>{{$item->service}}</td>
-                                    <td>{{$item->advisorName}}</td>
+                                    <td>{{$item->advisor_name}}</td>
+                                    <td>{{$mentee}}</td>
+                                    <td>{{$item->cvLink}}</td>
                                     <td>{{$item->date}}</td>
                                     <td>{{$item->created_at}}</td>
                                     <td>{{$status}}</td>
@@ -180,8 +186,10 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th>Service</th>
+                                <th>Bootcamp</th>
                                 <th>Advisor</th>
+                                <th>Mentee</th>
+                                <th>CV Link</th>
                                 <th>Time</th>
                                 <th>Created at</th>
                                 <th>Status</th>
