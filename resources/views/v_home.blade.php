@@ -92,6 +92,22 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="/advisorList" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Advisor
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/menteeList" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Mentee
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -115,7 +131,7 @@
 
     <!-- Main content -->
     <section class="content">
-       
+
     </section>
     <!-- /.content -->
   </div>
