@@ -10,7 +10,7 @@ class AppointmentModel extends Model
     use HasFactory;
     protected $guarded = [];
     protected $table = "appointments";
-    protected $fillable = ['id','service', 'advisor_name','date','mentee_name','status','cvLink'];
+    protected $fillable = ['id','idAdvisor','service', 'advisor_name','date','mentee_name','status','cvLink'];
 }
 
 

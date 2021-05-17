@@ -140,9 +140,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($values as $key => $value)
+                            @foreach($data as $key => $value)
                               <?php
-                                    $checkStatus = $value['Status'];
+                                    $checkStatus = $value->status;
                                     $status;
 
                                     if ($checkStatus == 0) {
@@ -154,17 +154,27 @@
                                     }
 
                                     $key = $key + 1;
+                                    $mentee = explode(',',$value->mentee_name)[0];
+
+                                    $to_search = $idAdvisor;
+                                    $temp='';
+                                    $statusRe;
+                                    foreach ($idAdvisorList as $index => $string) {
+                                        if (strpos($string, $to_search) !== false) {
+                                            $temp = $string;
+                                          }
+                                    }
                               ?>
-                              @if ($value['ID Advisor'] == $idAdvisor)
-                                <tr data-row="{{$key}}">
-                                    <td>{{$value['Service']}}</td>
-                                    <td>{{$value['Advisor']}}</td>
-                                    <td>{{$value['Time']}}</td>
-                                    <td>{{$value['CV']}}</td>
-                                    @if ($value['Status'] == 0)
+                              @if ($value->idAdvisor == $temp)
+                                <tr >
+                                    <td>{{$value->service}}</td>
+                                    <td>{{$mentee}}</td>
+                                    <td>{{$value->date}}</td>
+                                    <td>{{$value->cvLink}}</td>
+                                    @if ($value->status == 0)
                                       <td class="d-flex justify-content-between">
-                                        <a data-row="{{$key}}" href="#" class="btn btn-success approveAction" style="width: 40px;"><i class="fas fa-check"></i></i></a>
-                                        <a data-row="{{$key}}" href="#" class="btn btn-danger cancelAction" style="width: 40px;"><i class="fas fa-times"></i></a>
+                                        <a data-id="{{$value->id}}" href="#" class="btn btn-success approveAction" style="width: 40px;"><i class="fas fa-check"></i></i></a>
+                                        <a data-id="{{$value->id}}" href="#" class="btn btn-danger cancelAction" style="width: 40px;"><i class="fas fa-times"></i></a>
                                       </td>
                                     @else
                                       <td>{{$status}}</td>

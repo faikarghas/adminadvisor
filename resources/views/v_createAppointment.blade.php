@@ -159,7 +159,7 @@
                                   <label for="advisor">Select Advisor</label>
                                   <select name="advisor" class="custom-select form-control-border" id="advisor">
                                     @foreach ($listAdvisor as $item)
-                                      <option value="{{$item['First Name']}} {{$item['Last Name']}}">{{$item['First Name']}} {{$item['Last Name']}}</option>
+                                      <option value="{{$item->name}},{{$item->idAdvisor}}">{{$item->name}}</option>
                                     @endforeach
                                   </select>
                               </div>

@@ -171,9 +171,8 @@
                                         <td>{{$value['How many mentees?']}}</td>
                                         <td><a href="{{$value['Drop Resume']}}" target="_blank">{{$value['Drop Resume']}}</a></td>
                                         <?php
-
                                             $to_search = $value['Email Address'];
-                                            $temp;
+                                            $temp = '';
                                             $statusRe;
                                             foreach ($emailList as $index => $string) {
                                                 if (strpos($string, $to_search) !== false) {
@@ -181,11 +180,13 @@
                                                     $statusRe = 'registered';
                                                   }
                                             }
+
+                                            echo $temp;
                                         ?>
                                         @if ($value['Email Address'] == $temp)
-                                          <td data-id={{$key}} data-name={{$value['Last Name']}} data-user="{{$value['First Name']}}{{$value['Last Name']}}" data-email={{$value['Email Address']}}>{{$statusRe}}</td>
+                                          <td data-id={{$key}} data-name="{{$value['First Name']}} {{$value['Last Name']}}" data-user="{{$value['First Name']}}{{$value['Last Name']}}" data-email={{$value['Email Address']}}>{{$statusRe}}</td>
                                         @else
-                                          <td data-id={{$key}} data-name={{$value['Last Name']}} data-user="{{$value['First Name']}}{{$value['Last Name']}}" data-email={{$value['Email Address']}}><button class="btn btn-primary register">Create</button></td>
+                                          <td data-id={{$key}} data-name="{{$value['First Name']}} {{$value['Last Name']}}" data-user="{{$value['First Name']}}{{$value['Last Name']}}" data-email={{$value['Email Address']}}><button class="btn btn-primary register">Create</button></td>
                                         @endif
                                     </tr>
                                 @endforeach

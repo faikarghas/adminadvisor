@@ -27,22 +27,18 @@ class AppointmentController extends Controller
     }
 
     public function create(){
-
-        $rows = Sheets::spreadsheet('1pap4PbL2GcHgHt53cbzkW9q1eIV4eS96_hruu3D4lPs')->sheet('Form responses 1')->get();
+        $rows = Sheets::spreadsheet('1SZgn2fx3d_AIBfUodg7PNZVAhcMcSMl4iYJFWz75lL0')->sheet('Form responses 1')->get();
 
         $header = $rows->pull(0);
-        $values = Sheets::collection($header, $rows);
-        $values->toArray();
+        $listMentee = Sheets::collection($header, $rows);
+        $listMentee->toArray();
 
-        $rows2 = Sheets::spreadsheet('1SZgn2fx3d_AIBfUodg7PNZVAhcMcSMl4iYJFWz75lL0')->sheet('Form responses 1')->get();
+        $listAdvisor = DB::table('users')->where('level','advisor')->get();
 
-        $header2 = $rows2->pull(0);
-        $values2 = Sheets::collection($header2, $rows2);
-        $values2->toArray();
 
         $data = [
-            'listAdvisor' => $values,
-            'listMentee' => $values2
+            'listAdvisor' => $listAdvisor,
+            'listMentee' => $listMentee
         ];
 
         return view('v_createAppointment',$data);
@@ -50,15 +46,17 @@ class AppointmentController extends Controller
 
     public function postForm(Request $request){
 
-        // $request->validate([
-        //     'service' => 'required',
-        //     'advisor' => 'required',
-        //     'mentee' => 'required',
-        //     'date' => 'required',
-        // ]);
+        $request->validate([
+            'service' => 'required',
+            'advisor' => 'required',
+            'mentee' => 'required',
+            'date' => 'required',
+        ]);
         $cv = explode(',',$request->input('mentee'));
+        $idAdvisor = explode(',',$request->input('advisor'));
 
         $data = [
+            'idAdvisor' => $idAdvisor[1],
             'service' => $request->input('service'),
             'advisor_name' => $request->input('advisor'),
             'mentee_name' => $request->input('mentee'),

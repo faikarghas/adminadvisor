@@ -1855,7 +1855,7 @@ function updateTd(params, status) {
 
 $('.approveAction').on('click', function name(params) {
   var thisEl = this;
-  var dataRow = $(thisEl).data('row');
+  var dataID = $(thisEl).data('id');
   Swal.fire({
     title: 'Are you sure?',
     text: "You won't be able to revert this!",
@@ -1867,7 +1867,7 @@ $('.approveAction').on('click', function name(params) {
   }).then(function (result) {
     if (result.isConfirmed) {
       axios.post('/approveAppointment/post', {
-        row: "F".concat(dataRow)
+        id: "".concat(dataID)
       }).then(function (response) {
         console.log(response);
         Swal.fire('', '', 'success');
@@ -1880,7 +1880,7 @@ $('.approveAction').on('click', function name(params) {
 });
 $('.cancelAction').on('click', function name(params) {
   var thisEl = this;
-  var dataRow = $(thisEl).data('row');
+  var dataID = $(thisEl).data('id');
   Swal.fire({
     title: 'Are you sure?',
     text: "You won't be able to revert this!",
@@ -1892,7 +1892,7 @@ $('.cancelAction').on('click', function name(params) {
   }).then(function (result) {
     if (result.isConfirmed) {
       axios.post('/cancelAppointment/post', {
-        row: "F".concat(dataRow)
+        id: "".concat(dataID)
       }).then(function (response) {
         console.log(response);
         Swal.fire('', '', 'success');

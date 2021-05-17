@@ -172,12 +172,14 @@
                                       }
 
                                       $mentee = explode(',',$item->mentee_name)[0];
+                                      $advisor_name = explode(',',$item->advisor_name)[0];
+
                                 ?>
                                 <tr>
                                     <td>{{$item->service}}</td>
-                                    <td>{{$item->advisor_name}}</td>
+                                    <td>{{$advisor_name}}</td>
                                     <td>{{$mentee}}</td>
-                                    <td>{{$item->cvLink}}</td>
+                                    <td><a href="{{$item->cvLink}}" target="_blank" rel="noopener">{{$item->cvLink}}</a></td>
                                     <td>{{$item->date}}</td>
                                     <td>{{$item->created_at}}</td>
                                     <td>{{$status}}</td>

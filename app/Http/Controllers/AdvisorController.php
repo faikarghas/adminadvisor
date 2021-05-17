@@ -15,21 +15,27 @@ class AdvisorController extends Controller
 
         $user = Auth::user();
 
-        $content = DB::table('appointments')
-        ->join('advisor', 'appointments.idAdvisor', '=', 'advisor.idAdvisor')
-        ->where('appointments.idAdvisor',$user->idAdvisor)
-        ->get();
+        // data mysql
+        $content = DB::table('appointments')->get();
 
+        $idAdvisorList=[];
+
+        foreach ($content as $key => $value) {
+            array_push($idAdvisorList,$value->idAdvisor);
+        }
+
+        // data google sheet
         $rows = Sheets::spreadsheet('1kggTnIQa_FAGdIWRTX0Z3AEBWiQ8Ofg6SfSPim1aKf8')->sheet('Sheet1')->get();
-
         $header = $rows->pull(0);
         $values = Sheets::collection($header, $rows);
         $values->toArray();
 
+
         $data = [
             'data' => $content,
             'values'=> $values,
-            'idAdvisor'=> $user->idAdvisor
+            'idAdvisor'=> $user->idAdvisor,
+            'idAdvisorList'=> $idAdvisorList
         ];
 
 
@@ -39,10 +45,11 @@ class AdvisorController extends Controller
     public function approveForm(Request $request){
 
         $user = Auth::user();
-        $range = $request->get('row');
-        $upSheets = Sheets::spreadsheet('1kggTnIQa_FAGdIWRTX0Z3AEBWiQ8Ofg6SfSPim1aKf8')->sheet('Sheet1')->range($range)->update([['1']]);
+        $idApp = $request->get('id');
 
-        // $upSheets = Sheets::spreadsheet('1pap4PbL2GcHgHt53cbzkW9q1eIV4eS96_hruu3D4lPs')->sheet('Form responses 1')->range('B2')->update([['1110111']]);
+        $affected = DB::table('appointments')
+              ->where('id', $idApp)
+              ->update(['status' => 1]);
 
         return response() ->json(['res' => 'oke']);
     }
@@ -50,8 +57,11 @@ class AdvisorController extends Controller
     public function cancelForm(Request $request){
 
         $user = Auth::user();
-        $range = $request->get('row');
-        $upSheets = Sheets::spreadsheet('1kggTnIQa_FAGdIWRTX0Z3AEBWiQ8Ofg6SfSPim1aKf8')->sheet('Sheet1')->range($range)->update([['2']]);
+        $idApp = $request->get('id');
+
+        $affected = DB::table('appointments')
+              ->where('id', $idApp)
+              ->update(['status' => 2]);
 
         return response() ->json(['res' => 'oke']);
     }

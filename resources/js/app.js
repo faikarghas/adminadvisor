@@ -15,7 +15,7 @@ function updateTd(params,status) {
 
 $('.approveAction').on('click',function name(params) {
     let thisEl = this
-    let dataRow = $(thisEl).data('row')
+    let dataID = $(thisEl).data('id')
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -27,7 +27,7 @@ $('.approveAction').on('click',function name(params) {
     }).then((result) => {
         if (result.isConfirmed) {
             axios.post('/approveAppointment/post', {
-                row: `F${dataRow}`,
+                id: `${dataID}`,
             })
             .then(function (response) {
                 console.log(response);
@@ -47,7 +47,7 @@ $('.approveAction').on('click',function name(params) {
 
 $('.cancelAction').on('click',function name(params) {
     let thisEl = this
-    let dataRow = $(thisEl).data('row')
+    let dataID = $(thisEl).data('id')
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -60,7 +60,7 @@ $('.cancelAction').on('click',function name(params) {
         if (result.isConfirmed) {
 
             axios.post('/cancelAppointment/post', {
-                row: `F${dataRow}`,
+                id: `${dataID}`,
             })
             .then(function (response) {
                 console.log(response);
