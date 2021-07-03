@@ -103,7 +103,6 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Bootcamp History</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -126,98 +125,68 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <nav>
-                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                  <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Bootcamp History</a>
-                                  <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Bootcamp Experience</a>
-                                </div>
-                            </nav>
-                            <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active mt-5" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                    <table id="table2" class="table table-bordered table-striped" style="overflow: auto">
-                                        <thead>
-                                        <tr>
-                                            <th>Amount Due</th>
-                                            <th># of Fellows</th>
-                                            <th># of Feedback</th>
-                                            <th>Participation %</th>
-                                            <th>Active Fellows</th>
-                                            <th>Placement Rate</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($bootcampData as $key => $item)
-                                                @if ($key == 0)
+                            <table id="table2" class="table table-bordered table-striped" style="overflow: auto">
+                                <thead>
+                                    <tr>
+                                        <th colspan="6"></th>
+                                        <th colspan="6">Bootcamp Experience</th>
+                                    </tr>
+                                    <tr>
+                                        <th><div style="width: 100px">Amount Due</div></th>
+                                        <th># of Fellows</th>
+                                        <th># of Feedback</th>
+                                        <th>Participation %</th>
+                                        <th>Active Fellows</th>
+                                        <th>Placement Rate</th>
+                                        <th>Advisor Delivery</th>
+                                        <th>Content Usefulness</th>
+                                        <th><div style="width: 100px">Clarity on Next Steps</div></th>
+                                        <th><div style="width: 100px">Connection with Advisor</div></th>
+                                        <th>Feedback Quality</th>
+                                        <th>Average Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($bootcampData as $key => $item)
+                                        @if ($key == 0)
 
-                                                @elseif( $key == 1)
+                                        @elseif( $key == 1)
 
-                                                @elseif(ucwords($name) == $item['Advisor'])
-                                                <tr>
-                                                    <td>1.000.000</td>
-                                                    <td>{{$item['# of fellows']}}</td>
-                                                    <td>{{$item['# of feedback']}}</td>
-                                                    <td>{{$item['participation %']}}</td>
-                                                    <td>{{$item['participation %']}}</td>
-                                                    <td>0%</td>
-                                                </tr>
-                                                @endif
-                                            @endforeach
-                                        </tbody>
-                                        <tfoot>
+                                        @elseif(ucwords($name) == $item['Advisor'])
                                         <tr>
-                                            <th>Amount Due</th>
-                                            <th># of Fellows</th>
-                                            <th># of Feedback</th>
-                                            <th>Participation %</th>
-                                            <th>Active Fellows</th>
-                                            <th>Placement Rate</th>
+                                            <td>1.000.000</td>
+                                            <td>{{$item['# of fellows']}}</td>
+                                            <td>{{$item['# of feedback']}}</td>
+                                            <td>{{$item['participation %']}}</td>
+                                            <td>{{$item['participation %']}}</td>
+                                            <td>0%</td>
+                                            <td>{{$item['Advisor Delivery']}}</td>
+                                            <td>{{$item['Content Usefulness']}}</td>
+                                            <td>{{$item['Clarity on Next Steps']}}</td>
+                                            <td>{{$item['Connection with Advisor']}}</td>
+                                            <td>{{$item['Feedback Quality']}}</td>
+                                            <td>{{$item['Weighted Avg.']}}</td>
                                         </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                                <div class="tab-pane fade mt-5" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                    <table id="table3" class="table table-bordered table-striped" style="overflow: auto">
-                                        <thead>
-                                        <tr>
-                                            <th>Advisor Delivery</th>
-                                            <th>Content Usefulness</th>
-                                            <th>Clarity on Next Steps</th>
-                                            <th>Connection with Advisor</th>
-                                            <th>Feedback Quality</th>
-                                            <th>Average Score</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($bootcampExp as $key => $item)
-                                                @if ($key == 0)
-
-                                                @elseif( $key == 1)
-
-                                                @elseif(ucwords($name) == $item['Advisor'])
-                                                <tr>
-                                                    <td>{{$item['Advisor Delivery']}}</td>
-                                                    <td>{{$item['Content Usefulness']}}</td>
-                                                    <td>{{$item['Clarity on Next Steps']}}</td>
-                                                    <td>{{$item['Connection with Advisor']}}</td>
-                                                    <td>{{$item['Feedback Quality']}}</td>
-                                                    <td>{{$item['Feedback Quality']}}</td>
-                                                </tr>
-                                                @endif
-                                            @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <th>Advisor Delivery</th>
-                                            <th>Content Usefulness</th>
-                                            <th>Clarity on Next Steps</th>
-                                            <th>Connection with Advisor</th>
-                                            <th>Feedback Quality</th>
-                                            <th>Average Score</th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>Amount Due</th>
+                                    <th># of Fellows</th>
+                                    <th># of Feedback</th>
+                                    <th>Participation %</th>
+                                    <th>Active Fellows</th>
+                                    <th>Placement Rate</th>
+                                    <th>Advisor Delivery</th>
+                                    <th>Content Usefulness</th>
+                                    <th>Clarity on Next Steps</th>
+                                    <th>Connection with Advisor</th>
+                                    <th>Feedback Quality</th>
+                                    <th>Average Score</th>
+                                </tr>
+                                </tfoot>
+                            </table>
                         </div>
                         <!-- /.card-body -->
                     </div>

@@ -27,6 +27,10 @@
     overflow: auto;
 }
 
+#table2_wrapper{
+    overflow: auto;
+}
+
 .table.dataTable td {
     font-size: 12px;
 }
