@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 
 </head>
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
 
 
@@ -85,26 +85,26 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="/appointment" class="nav-link">
+            <a href="/fellows" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Appointment
+                Fellows
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/advisorList" class="nav-link">
+            <a href="/fellows-progress" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Fellows Progress
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/fellowsAdvisor" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Advisor
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/menteeList" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Mentee
               </p>
             </a>
           </li>

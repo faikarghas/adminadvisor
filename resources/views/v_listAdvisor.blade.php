@@ -88,7 +88,15 @@
             <a href="/appointment" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Appointment
+                Fellows
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/menteeList" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Fellows Progress
               </p>
             </a>
           </li>
@@ -97,14 +105,6 @@
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Advisor
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/menteeList" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Mentee
               </p>
             </a>
           </li>

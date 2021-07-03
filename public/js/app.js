@@ -1921,6 +1921,14 @@ $('.register').on('click', function name(params) {
     console.log(error);
   });
 });
+axios.get('/getDataFellowProgress/3').then(function (response) {
+  // handle success
+  var data = response.data;
+})["catch"](function (error) {
+  // handle error
+  console.log(error);
+}).then(function () {// always executed
+});
 
 /***/ }),
 
