@@ -128,22 +128,25 @@
                             <table id="table2" class="table table-bordered table-striped" style="overflow: auto">
                                 <thead>
                                     <tr>
-                                        <th colspan="6"></th>
+                                        <th colspan="4"></th>
                                         <th colspan="6">Bootcamp Experience</th>
+                                        <th colspan="2"></th>
                                     </tr>
                                     <tr>
                                         <th><div style="width: 100px">Amount Due</div></th>
                                         <th># of Fellows</th>
                                         <th># of Feedback</th>
                                         <th>Participation %</th>
-                                        <th>Active Fellows</th>
-                                        <th>Placement Rate</th>
+
                                         <th>Advisor Delivery</th>
                                         <th>Content Usefulness</th>
                                         <th><div style="width: 100px">Clarity on Next Steps</div></th>
                                         <th><div style="width: 100px">Connection with Advisor</div></th>
                                         <th>Feedback Quality</th>
                                         <th>Average Score</th>
+
+                                        <th>Active Fellows</th>
+                                        <th>Placement Rate</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -157,15 +160,18 @@
                                             <td>1.000.000</td>
                                             <td>{{$item['# of fellows']}}</td>
                                             <td>{{$item['# of feedback']}}</td>
+
                                             <td>{{$item['participation %']}}</td>
-                                            <td>{{$item['participation %']}}</td>
-                                            <td>0%</td>
                                             <td>{{$item['Advisor Delivery']}}</td>
                                             <td>{{$item['Content Usefulness']}}</td>
+
                                             <td>{{$item['Clarity on Next Steps']}}</td>
                                             <td>{{$item['Connection with Advisor']}}</td>
                                             <td>{{$item['Feedback Quality']}}</td>
+
                                             <td>{{$item['Weighted Avg.']}}</td>
+                                            <td>0%</td>
+                                            <td>0%</td>
                                         </tr>
                                         @endif
                                     @endforeach
@@ -175,15 +181,18 @@
                                     <th>Amount Due</th>
                                     <th># of Fellows</th>
                                     <th># of Feedback</th>
+
                                     <th>Participation %</th>
-                                    <th>Active Fellows</th>
-                                    <th>Placement Rate</th>
                                     <th>Advisor Delivery</th>
                                     <th>Content Usefulness</th>
+
                                     <th>Clarity on Next Steps</th>
                                     <th>Connection with Advisor</th>
                                     <th>Feedback Quality</th>
+
                                     <th>Average Score</th>
+                                    <th>Active Fellows</th>
+                                    <th>Placement Rate</th>
                                 </tr>
                                 </tfoot>
                             </table>
