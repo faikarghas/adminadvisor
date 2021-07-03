@@ -29,7 +29,7 @@ class AuthController extends Controller
             if ($user->level == 'admin') {
                 return redirect()->intended('/');
             } elseif ($user->level == 'advisor') {
-                return redirect()->intended('advisor');
+                return redirect()->intended('fellows-assigned');
             }
 
             return redirect()->intended('/');
@@ -54,7 +54,7 @@ class AuthController extends Controller
             'email' => $email,
             'level' => $level,
             'password' => $password,
-            'idAdvisor' => "adv000000$idAdvisor"
+            'idAdvisor' => "$idAdvisor"
         ];
 
         User::create($data);

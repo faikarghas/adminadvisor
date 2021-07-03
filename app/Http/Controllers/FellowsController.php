@@ -97,7 +97,7 @@ class FellowsController extends Controller
             'batch' => $request->input('batch'),
             'idAdvisor' => $request->input('advisor'),
             'strength' => $request->input('strength'),
-            'remarks' => $request->input('remarks'),
+            'adminRemarks' => $request->input('remarks'),
             'fellowEmail' => $request->input('fellowEmail')
         ];
 
@@ -264,10 +264,14 @@ class FellowsController extends Controller
         $values2 = Sheets::collection($header2, $rows2);
         $values2->toArray();
 
+        $activeFellow = DB::table('appointment')->where('idAdvisor',$user->idAdvisor)->where('accept','=',2)->orWhere('accept','=',1)->get();
+
+
         $data = [
             'bootcampData' => $values,
             'bootcampExp' => $values2,
-            'name' => $jn
+            'name' => $jn,
+            'activeFellow'=> $activeFellow
         ];
 
         return view('v_bootcampHistory',$data);

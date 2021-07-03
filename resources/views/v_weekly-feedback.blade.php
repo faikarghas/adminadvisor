@@ -65,30 +65,30 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="/fellows" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Fellows
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/fellows-progress" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Fellows Progress
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/fellowsAdvisor" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Advisor
-              </p>
-            </a>
-          </li>
+               <li class="nav-item">
+                <a href="/fellows-assigned" class="nav-link">
+                    <i class="nav-icon fas fa-edit"></i>
+                    <p>
+                    Fellows Assigned
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/fellows-progress-advisor" class="nav-link">
+                    <i class="nav-icon fas fa-edit"></i>
+                    <p>
+                    Fellows Progress
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/weekly-feedback" class="nav-link">
+                    <i class="nav-icon fas fa-edit"></i>
+                    <p>
+                    Weekly Feedback
+                    </p>
+                </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -172,9 +172,9 @@
                                             <td>{{$item['Weighted Avg.']}}</td>
                                             <td>
                                               @foreach ($activeFellow as $item)
-                                              <ul>
-                                                <li>{{$item->fellowEmail}}</li>
-                                              </ul>
+                                                  <ul>
+                                                    <li>{{$item->fellowEmail}}</li>
+                                                  </ul>
                                               @endforeach
                                             </td>
                                             <td>0%</td>

@@ -38,6 +38,9 @@ Route::post('fellowAdvisor/post/{id}',[FellowsController::class,'postFellowsAdvi
 // ADVISOR
 Route::post('approveFellows/post',[AdvisorController::class,'approveForm']);
 Route::post('cancelFellows/post',[AdvisorController::class,'cancelForm']);
+Route::post('fellowsAssigned/post/{id}',[AdvisorController::class,'postFellowsAssigned']);
+Route::post('fellowsFellowsProgressAdvisor/post/{email}',[AdvisorController::class,'postFellowsProgressAdvisor']);
+
 
 
 // auth
@@ -52,12 +55,16 @@ Route::group(['middleware'=>['auth']],function(){
         Route::get('fellowsAdvisor',[FellowsController::class,'fellowsAdvisor'])->name('fellowsAdvisor');
         Route::get('edit-fellowsAdvisor/{id}',[FellowsController::class,'editFellowsAdvisor']);
         Route::get('bootcamp-history/{name}',[FellowsController::class,'bootcampHistory']);
-
         Route::get('getDataFellowProgress/{idAdvisor}',[FellowsController::class,'getDataFellowProgress']);
         Route::get('advisorList',[FellowsController::class,'listAdvisor'])->name('advisorList');
         Route::get('menteeList',[FellowsController::class,'listMentee'])->name('menteeList');
     });
     Route::group(['middleware'=>['check_auth:advisor']],function(){
-        Route::get('advisor',[AdvisorController::class,'index'])->name('advisor');
+        Route::get('fellows-assigned',[AdvisorController::class,'index'])->name('fellows-assigned');
+        Route::get('edit-fellowsAssigned/{email}',[AdvisorController::class,'edit']);
+        Route::get('fellows-progress-advisor',[AdvisorController::class,'fellowsProgressAdvisor'])->name('fellowsProgressAdvisor');
+        Route::get('edit-fellowsProgressAdvisor/{email}',[AdvisorController::class,'editFellowsProgressAdvisor']);
+        Route::get('weekly-feedback',[AdvisorController::class,'weeklyFeedback'])->name('weeklyFeedback');
+
     });
 });

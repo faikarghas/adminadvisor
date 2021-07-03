@@ -150,108 +150,46 @@
                             <tr>
                               <th></th>
                               <th>Full Name</th>
-                              <th>Uni Status</th>
-                              <th>Full Time / Internship</th>
-                              <th>Job Search Horizon</th>
-                              <th># of Past Internships</th>
-                              <th>Target Roles</th>
-                              <th>Salary Expectation</th>
-                              <th>Gender</th>
-                              <th>E-mail</th>
-                              <th>Contact</th>
-                              {{-- <th>Reason for Joining AIMZ</th> --}}
-                              <th>CV Link</th>
-                              <th>Interest (1st)</th>
-                              <th>Interest (2nd)</th>
-                              <th>AIMZ Remarks</th>
-                              <th>Advisor Remarks</th>
-                              <th>Accept Admission?</th>
-                              <th>Reason for Rejection</th>
-                              <th>Comments (If Any)</th>
+                              <th>CV Finalized</th>
+                              <th># of Interviews Done/Scheduled</th>
+                              <th>Status</th>
+                              <th>Remarks</th>
+                              <th>Employer</th>
+                              <th>Employed Date</th>
                             </tr>
                             </thead>
                             <tbody>
-                              @foreach ($listFellow as $item)
-                                @foreach ($dataAppointment as $item2)
-                                  @if ($item['Email address'] == $item2->fellowEmail)
-                                      <tr>
-                                        <td height="30"><a href="/edit-fellowsAssigned/{{$item['Email address']}}">edit</a></td>
-                                        <td height="30">{{$item['First name']}} {{$item['Last Name']}}</td>
-                                        <td height="30">{{$item['Where are you in your job hunting process?']}}</td>
-                                        <td height="30">{{$item['Where are you in your job hunting process?']}}</td>
-                                        <td height="30">{{$item['How soon would you be available to start working if you do get a job offer?']}}</td>
-                                        <td height="30">{{$item['How many internships or work experience do you have?']}}</td>
-                                        <td height="30">{{$item['What are your primary target roles in the industries that you have picked (e.g., product manager, digital marketing)?']}}</td>
-                                        <td height="30">{{$item['What is your salary expectation in IDR?']}}</td>
-                                        <td height="30">{{$item['Gender']}}</td>
-                                        <td height="30">{{$item['Email address']}}</td>
-                                        <td height="30">{{$item['Phone/Whatsapp number (we will contact you here to get in touch)']}}</td>
-                                        {{-- <td height="30">{{$item['Please briefly state your primary reason(s) for joining AIMZ bootcamp to help us understand your aspirations']}}</td> --}}
-                                        <td height="30">{{$item['Please drop your resume below as part of your application']}}</td>
-                                        <td height="30"><div style="width: 150px; overflow:auto;">{{$item['Which primary environment are you highly interested in?']}}</div></td>
-                                        <td height="30"><div style="width: 150px; overflow:auto;">{{$item['Which secondary environment(s) are you highly interested in? (If possible, please select more than 1)']}}</div></td>
+                                @foreach ($dataAppointment as $item)
+                                    <tr>
+                                        <td height="30"><a href="/edit-fellowsProgressAdvisor/{{$item->fellowEmail}}">edit</a></td>
+                                        <td>{{$item->fellowEmail}}</td>
+                                        <td>{{$item->cvFinalized}}</td>
+                                        <td>{{$item->scheduled}}</td>
                                         <td>
-                                          @if ($item['Email address'] == $item2->fellowEmail)
-                                              {{$item2->remarks}}
+                                          @if ($item->status == 1)
+                                            Admitted
+                                          @elseif($item->status == 2)
+                                            Employed
+                                          @elseif($item->status == 0)
+                                            Dropped Out
                                           @endif
                                         </td>
-                                        <td>
-                                          @if ($item['Email address'] == $item2->fellowEmail)
-                                              {{$item2->advisorRemarks}}
-                                          @endif
-                                        </td>
-                                        <td>
-                                          @if ($item['Email address'] == $item2->fellowEmail)
-                                              @if ($item2->accept == 0)
-                                                  No
-                                              @elseif($item2->accept == 1)
-                                                  Yes
-                                              @elseif($item2->accept == 2)
-                                                  Yes (2nd Wave)
-                                              @elseif($item2->accept == 3)
-                                                  -
-                                              @endif
-                                          @endif
-                                        </td>
-                                        <td>
-                                          @if ($item['Email address'] == $item2->fellowEmail)
-                                              {{$item2->reason}}
-                                          @endif
-                                        </td>
-                                        <td>
-                                          @if ($item['Email address'] == $item2->fellowEmail)
-                                              {{$item2->comment}}
-                                          @endif
-                                        </td>
-                                      </tr>
-                                  @endif
+                                        <td>{{$item->remarks}}</td>
+                                        <td>{{$item->employer}}</td>
+                                        <td>{{$item->employedDate}}</td>
+                                    </tr>
                                 @endforeach
-
-
-                              @endforeach
                             </tbody>
                             <tfoot>
                             <tr>
-                              <th></th>
-                              <th>Full Name</th>
-                              <th>Uni Status</th>
-                              <th>Full Time / Internship</th>
-                              <th>Job Search Horizon</th>
-                              <th># of Past Internships</th>
-                              <th>Target Roles</th>
-                              <th>Salary Expectation</th>
-                              <th>Gender</th>
-                              <th>E-mail</th>
-                              <th>Contact</th>
-                              {{-- <th>Reason for Joining AIMZ</th> --}}
-                              <th>CV Link</th>
-                              <th>Interest (1st)</th>
-                              <th>Interest (2nd)</th>
-                              <th>AIMZ Remarks</th>
-                              <th>Advisor Remarks</th>
-                              <th>Accept Admission?</th>
-                              <th>Reason for Rejection</th>
-                              <th>Comments (If Any)</th>
+                                <th></th>
+                                <th>Full Name</th>
+                                <th>CV Finalized</th>
+                                <th># of Interviews Done/Scheduled</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                                <th>Employer</th>
+                                <th>Employed Date</th>
                             </tr>
                             </tfoot>
                           </table>

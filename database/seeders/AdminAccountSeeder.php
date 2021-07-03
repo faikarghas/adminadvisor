@@ -16,18 +16,19 @@ class AdminAccountSeeder extends Seeder
     public function run()
     {
         $user = [
-            [
-                'username' => 'admin',
-                'name' => 'admin',
-                'email' => 'admin@aimzsea.com',
-                'level' => 'admin',
-                'password' => bcrypt('adminaimzsea123!')
-            ],
+            // [
+            //     'username' => 'admin',
+            //     'name' => 'admin',
+            //     'email' => 'admin@aimzsea.com',
+            //     'level' => 'admin',
+            //     'password' => bcrypt('adminaimzsea123!')
+            // ],
             [
                 'username' => 'advisor',
-                'name' => 'advisor',
+                'name' => 'David Orlando',
                 'email' => 'advisor@aimzsea.com',
                 'level' => 'advisor',
+                'idAdvisor' => 3,
                 'password' => bcrypt('advisoraimzsea123!')
             ]
         ];
