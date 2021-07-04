@@ -250,6 +250,8 @@ class FellowsController extends Controller
     }
 
     public function bootcampHistory($name){
+        $user = Auth::user();
+
         $nameCheck = $name;
         $exp = explode('-', $nameCheck);
         $jn = strtolower(join(" ",$exp));
