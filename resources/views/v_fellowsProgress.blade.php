@@ -131,6 +131,7 @@
                             <tr>
                                 <th></th>
                                 <th>Full Name</th>
+                                <th>Email Address</th>
                                 <th>CV Finalized</th>
                                 <th># of Interviews Done/Scheduled</th>
                                 <th>Status</th>
@@ -161,6 +162,7 @@
                                         @endif
                                       @endforeach
                                     </td>
+                                    <td>{{$item->fellowEmail}}</td>
                                     <td>
                                       @if ($item->cvFinalized == 1)
                                           Yes
@@ -194,6 +196,7 @@
                             <tr>
                                 <th></th>
                                 <th>Full Name</th>
+                                <th>Email Address</th>
                                 <th>CV Finalized</th>
                                 <th># of Interviews Done/Scheduled</th>
                                 <th>Status</th>
