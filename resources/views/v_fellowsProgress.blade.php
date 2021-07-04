@@ -153,12 +153,18 @@
                                 <tr class="table1_data">
                                     <td><a href="/edit-fellowsProgress/{{$item->fellowEmail}}">edit</a></td>
                                     <td>{{$item->fellowEmail}}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>
+                                      @if ($item->cvFinalized == 1)
+                                          Yes
+                                      @else
+                                          No
+                                      @endif
+                                    </td>
+                                    <td>{{$item->scheduled}}</td>
+                                    <td>{{$item->status}}</td>
+                                    <td>{{$item->remarks}}</td>
+                                    <td>{{$item->employer}}</td>
+                                    <td>{{$item->employedDate}}</td>
                                     <td>{{$item->advisorName}}</td>
                                     <td>
                                       @if ($item->invoice == 0)

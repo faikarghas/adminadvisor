@@ -198,13 +198,70 @@
                                         @endif
                                       @endforeach
                                     </td>
-                                    <td height="30">finaladvisor</td>
-                                    <td height="30">aimz remarks</td>
-                                    <td height="30">advi remarks</td>
-                                    <td height="30">Accepted?</td>
-                                    <td height="30">reason</td>
-                                    <td height="30">comment</td>
-                                    <td height="30">contract</td>
+                                    <td height="30">
+                                      @foreach ($appointmentSpdata as $item)
+                                        @if ($item->fellowEmail == $value['Email address'])
+                                          {{$item->idAdvisor}}
+                                        @else
+                                        @endif
+                                      @endforeach
+                                    </td>
+                                    <td height="30">
+                                      @foreach ($appointmentSpdata as $item)
+                                        @if ($item->fellowEmail == $value['Email address'])
+                                          {{$item->adminRemarks}}
+                                          @else
+                                        @endif
+                                      @endforeach
+                                    </td>
+                                    <td height="30">
+                                      @foreach ($appointmentSpdata as $item)
+                                        @if ($item->fellowEmail == $value['Email address'])
+                                          {{$item->advisorRemarks}}
+                                          @else
+                                        @endif
+                                      @endforeach
+                                    </td>
+                                    <td height="30">
+                                      @foreach ($appointmentSpdata as $item)
+                                        @if ($item->fellowEmail == $value['Email address'])
+                                        @if ($item->accept == 1)
+                                          Yes
+                                        @else
+                                          No
+                                        @endif
+                                        @else
+                                        @endif
+                                      @endforeach
+                                    </td>
+                                    <td height="30">
+                                      @foreach ($appointmentSpdata as $item)
+                                        @if ($item->fellowEmail == $value['Email address'])
+                                          {{$item->reason}}
+                                        @else
+                                        @endif
+                                      @endforeach
+                                    </td>
+                                    <td height="30">
+                                      @foreach ($appointmentSpdata as $item)
+                                        @if ($item->fellowEmail == $value['Email address'])
+                                          {{$item->comment}}
+                                        @else
+                                        @endif
+                                      @endforeach
+                                    </td>
+                                    <td height="30">
+                                      @foreach ($appointmentSpdata as $item)
+                                        @if ($item->fellowEmail == $value['Email address'])
+                                          @if ($item->contract)
+                                              Yes
+                                          @else
+                                              No
+                                          @endif
+                                        @else
+                                        @endif
+                                      @endforeach
+                                    </td>
                                   </tr>
                               @endforeach
                             </tbody>

@@ -174,6 +174,13 @@
                                   <input name="remarks" type="text" class="form-control" id="remarks" placeholder="Enter remarks">
                                 @endif
                               </div>
+                              <div class="form-group">
+                                <label for="contract">Contract Signed</label>
+                                <select name="contract" class="custom-select form-control-border" id="contract">
+                                    <option @if($selectedStrength == 0) selected @endif value="0">No</option>
+                                    <option @if($selectedStrength == 1) selected @endif value="1">Yes</option>
+                                </select>
+                              </div>
                               <div class="form-group" style="visibility:hidden;height:0;margin:0;">
                                 <input name="fellowEmail" value="{{$email}}" type="text" class="form-control" id="fellowEmail" placeholder="Enter remarks">
                               </div>

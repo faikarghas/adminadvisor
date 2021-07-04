@@ -90,6 +90,7 @@ class FellowsController extends Controller
             'batch' => 'required',
             'advisor' => 'required',
             'strength' => 'required',
+            'contract' => 'required',
             'remarks' => 'required',
         ]);
 
@@ -98,6 +99,7 @@ class FellowsController extends Controller
             'idAdvisor' => $request->input('advisor'),
             'strength' => $request->input('strength'),
             'adminRemarks' => $request->input('remarks'),
+            'contract' => $request->input('contract'),
             'fellowEmail' => $request->input('fellowEmail')
         ];
 

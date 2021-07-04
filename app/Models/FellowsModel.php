@@ -10,7 +10,7 @@ class FellowsModel extends Model
     use HasFactory;
     protected $guarded = [];
     protected $table = "appointment";
-    protected $fillable = ['id','idAdvisor','remarks', 'fellowEmail','strength','batch'];
+    protected $fillable = ['id','idAdvisor','remarks', 'fellowEmail','strength','batch','contract'];
 }
 
 
