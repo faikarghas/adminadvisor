@@ -144,7 +144,7 @@
                                     <td><a href="/edit-fellowsAdvisor/{{$item->idAdvisor}}">edit</a></td>
                                     <td>{{$item->advisorName}}</td>
                                     <td>{{$item->classSize}}</td>
-                                    <td>{{$item->industry}}</td>
+                                    <td>{{ucwords($item->industry)}}</td>
                                     <td>{{$item->level}}</td>
                                     <td>{{$item->feeSplit}}</td>
                                     <td>
@@ -155,7 +155,7 @@
                                       ?>
                                       <ul>
                                         <li><a href="/bootcamp-history/{{$jn}}">AIMZ Y21 July Bootcamp</a></li>
-                                        <li><a href="">AIMZ Y22 July Bootcamp</a></li>
+                                        <li><a href="">AIMZ Y22 August Bootcamp</a></li>
                                       </ul>
                                     </td>
                                 </tr>
