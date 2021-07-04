@@ -181,6 +181,9 @@
                                     <option @if($selectedStrength == 1) selected @endif value="1">Yes</option>
                                 </select>
                               </div>
+                              {{-- <div class="form-group" style="visibility:hidden;height:0;margin:0;">
+                                <input name="fellowEmail" value="{{$email}}" type="text" class="form-control" id="fellowEmail" placeholder="Enter remarks">
+                              </div> --}}
                               <div class="form-group" style="visibility:hidden;height:0;margin:0;">
                                 <input name="fellowEmail" value="{{$email}}" type="text" class="form-control" id="fellowEmail" placeholder="Enter remarks">
                               </div>

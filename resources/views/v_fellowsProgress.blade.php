@@ -152,7 +152,15 @@
                                 @foreach ($appointmentSpdata as $item)
                                 <tr class="table1_data">
                                     <td><a href="/edit-fellowsProgress/{{$item->fellowEmail}}">edit</a></td>
-                                    <td>{{$item->fellowEmail}}</td>
+                                    <td>
+                                      @foreach ($data as $item2)
+                                        @if ($item2['Email address'] == $item->fellowEmail)
+                                          {{$item2['First name']}} {{$item2['Last Name']}}
+                                        @else
+
+                                        @endif
+                                      @endforeach
+                                    </td>
                                     <td>
                                       @if ($item->cvFinalized == 1)
                                           Yes

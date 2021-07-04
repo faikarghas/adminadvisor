@@ -204,7 +204,7 @@
                                       @foreach ($appointmentSpdata as $item)
                                         @if ($item->fellowEmail == $value['Email address'])
                                           @if ($item->accept == 0)
-                                              
+
                                           @else
                                               {{$item->advisorName}}
                                           @endif
