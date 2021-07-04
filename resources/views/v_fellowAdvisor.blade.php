@@ -103,7 +103,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Advisor Name</h1>
+            <h1 class="m-0">Advisor</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -130,7 +130,7 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>Nama Advisor</th>
+                                <th>Advisor Name</th>
                                 <th>Class Size</th>
                                 <th>Industry</th>
                                 <th>Level</th>
@@ -165,7 +165,7 @@
                             <tfoot>
                             <tr>
                                 <th></th>
-                                <th>Nama Advisor</th>
+                                <th>Advisor Name</th>
                                 <th>Class Size</th>
                                 <th>Industry</th>
                                 <th>Level</th>
