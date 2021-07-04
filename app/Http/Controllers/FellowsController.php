@@ -27,9 +27,10 @@ class FellowsController extends Controller
             ->join('appointment', 'advisor.idAdvisor', '=', 'appointment.idAdvisor')
             ->get();
 
-        $appointmentSpdata = DB::table('appointment')->get();
+        $appointmentSpdata = DB::table('advisor')
+            ->join('appointment', 'advisor.idAdvisor', '=', 'appointment.idAdvisor')
+            ->get();
 
-        // dd($listAdvisor);
 
         $data = [
             'data' => $values,

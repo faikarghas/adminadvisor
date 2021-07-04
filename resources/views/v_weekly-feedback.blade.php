@@ -125,83 +125,83 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="table2" class="table table-bordered table-striped" style="overflow: auto">
-                                <thead>
-                                    <tr>
-                                        <th colspan="4"></th>
-                                        <th colspan="6">Bootcamp Experience</th>
-                                        <th colspan="2"></th>
-                                    </tr>
-                                    <tr>
-                                        <th><div style="width: 100px">Amount Due</div></th>
-                                        <th># of Fellows</th>
-                                        <th># of Feedback</th>
-                                        <th>Participation %</th>
+                            <nav>
+                              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">AIMZ Y21 July Bootcamp</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">AIMZ Y21 August Bootcamp</a>
+                              </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                              <div class="tab-pane fade show active mt-5" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <table id="table2" class="table table-bordered table-striped" style="overflow: auto">
+                                  <thead>
+                                      <tr>
+                                          <th colspan="3"></th>
+                                          <th colspan="6">Bootcamp Experience</th>
+                                          <th colspan="2"></th>
+                                      </tr>
+                                      <tr>
+                                          <th># of Fellows</th>
+                                          <th># of Feedback</th>
+                                          <th>Participation %</th>
+                                          <th>Advisor Delivery</th>
+                                          <th>Content Usefulness</th>
+                                          <th><div style="width: 100px">Clarity on Next Steps</div></th>
+                                          <th><div style="width: 100px">Connection with Advisor</div></th>
+                                          <th>Feedback Quality</th>
+                                          <th>Average Score</th>
+                                          <th>Active Fellows</th>
+                                          <th>Placement Rate</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      @foreach ($bootcampData as $key => $item)
+                                          @if ($key == 0)
 
-                                        <th>Advisor Delivery</th>
-                                        <th>Content Usefulness</th>
-                                        <th><div style="width: 100px">Clarity on Next Steps</div></th>
-                                        <th><div style="width: 100px">Connection with Advisor</div></th>
-                                        <th>Feedback Quality</th>
-                                        <th>Average Score</th>
+                                          @elseif( $key == 1)
 
-                                        <th>Active Fellows</th>
-                                        <th>Placement Rate</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($bootcampData as $key => $item)
-                                        @if ($key == 0)
-
-                                        @elseif( $key == 1)
-
-                                        @elseif(ucwords($name) == $item['Advisor'])
-                                        <tr>
-                                            <td>1.000.000</td>
-                                            <td>{{$item['# of fellows']}}</td>
-                                            <td>{{$item['# of feedback']}}</td>
-
-                                            <td>{{$item['participation %']}}</td>
-                                            <td>{{$item['Advisor Delivery']}}</td>
-                                            <td>{{$item['Content Usefulness']}}</td>
-
-                                            <td>{{$item['Clarity on Next Steps']}}</td>
-                                            <td>{{$item['Connection with Advisor']}}</td>
-                                            <td>{{$item['Feedback Quality']}}</td>
-
-                                            <td>{{$item['Weighted Avg.']}}</td>
-                                            <td>
-                                              @foreach ($activeFellow as $item)
-                                                  <ul>
-                                                    <li>{{$item->fellowEmail}}</li>
-                                                  </ul>
-                                              @endforeach
-                                            </td>
-                                            <td>0%</td>
-                                        </tr>
-                                        @endif
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>Amount Due</th>
-                                    <th># of Fellows</th>
-                                    <th># of Feedback</th>
-
-                                    <th>Participation %</th>
-                                    <th>Advisor Delivery</th>
-                                    <th>Content Usefulness</th>
-
-                                    <th>Clarity on Next Steps</th>
-                                    <th>Connection with Advisor</th>
-                                    <th>Feedback Quality</th>
-
-                                    <th>Average Score</th>
-                                    <th>Active Fellows</th>
-                                    <th>Placement Rate</th>
-                                </tr>
-                                </tfoot>
-                            </table>
+                                          @elseif(ucwords($name) == $item['Advisor'])
+                                          <tr>
+                                              <td>{{$item['# of fellows']}}</td>
+                                              <td>{{$item['# of feedback']}}</td>
+                                              <td>{{$item['participation %']}}</td>
+                                              <td>{{$item['Advisor Delivery']}}</td>
+                                              <td>{{$item['Content Usefulness']}}</td>
+                                              <td>{{$item['Clarity on Next Steps']}}</td>
+                                              <td>{{$item['Connection with Advisor']}}</td>
+                                              <td>{{$item['Feedback Quality']}}</td>
+                                              <td>{{$item['Weighted Avg.']}}</td>
+                                              <td>
+                                                @foreach ($activeFellow as $item)
+                                                    <ul>
+                                                      <li>{{$item->fellowEmail}}</li>
+                                                    </ul>
+                                                @endforeach
+                                              </td>
+                                              <td>0%</td>
+                                          </tr>
+                                          @endif
+                                      @endforeach
+                                  </tbody>
+                                  <tfoot>
+                                  <tr>
+                                      <th># of Fellows</th>
+                                      <th># of Feedback</th>
+                                      <th>Participation %</th>
+                                      <th>Advisor Delivery</th>
+                                      <th>Content Usefulness</th>
+                                      <th>Clarity on Next Steps</th>
+                                      <th>Connection with Advisor</th>
+                                      <th>Feedback Quality</th>
+                                      <th>Average Score</th>
+                                      <th>Active Fellows</th>
+                                      <th>Placement Rate</th>
+                                  </tr>
+                                  </tfoot>
+                                </table>
+                              </div>
+                              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>

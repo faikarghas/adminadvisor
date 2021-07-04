@@ -130,6 +130,7 @@
                             <thead>
                             <tr>
                               <th></th>
+                              <th>#</th>
                               <th>Full Name</th>
                               <th>Uni Status</th>
                               <th>Full Time / Internship</th>
@@ -160,6 +161,7 @@
                               @foreach($data as $key => $value)
                                   <tr data-key={{$key}}>
                                     <td height="30"><a href="/edit-fellows/{{$value['Email address']}}">edit</a></td>
+                                    <td height="30">{{$key}}</td>
                                     <td height="30">{{$value['First name']}} {{$value['Last Name']}}</td>
                                     <td height="30">{{$value['Where are you in your job hunting process?']}}</td>
                                     <td height="30">{{$value['Where are you in your job hunting process?']}}</td>
@@ -201,7 +203,11 @@
                                     <td height="30">
                                       @foreach ($appointmentSpdata as $item)
                                         @if ($item->fellowEmail == $value['Email address'])
-                                          {{$item->idAdvisor}}
+                                          @if ($item->accept == 0)
+                                              
+                                          @else
+                                              {{$item->advisorName}}
+                                          @endif
                                         @else
                                         @endif
                                       @endforeach
@@ -268,6 +274,7 @@
                             <tfoot>
                             <tr>
                               <th></th>
+                              <th>#</th>
                               <th>Full Name</th>
                               <th>Uni Status</th>
                               <th>Full Time / Internship</th>
