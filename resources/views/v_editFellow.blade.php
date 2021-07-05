@@ -181,11 +181,15 @@
                                     <option @if($selectedStrength == 1) selected @endif value="1">Yes</option>
                                 </select>
                               </div>
-                              {{-- <div class="form-group" style="visibility:hidden;height:0;margin:0;">
-                                <input name="fellowEmail" value="{{$email}}" type="text" class="form-control" id="fellowEmail" placeholder="Enter remarks">
-                              </div> --}}
                               <div class="form-group" style="visibility:hidden;height:0;margin:0;">
                                 <input name="fellowEmail" value="{{$email}}" type="text" class="form-control" id="fellowEmail" placeholder="Enter remarks">
+                              </div>
+                              <div class="form-group" style="visibility:hidden;height:0;margin:0;">
+                                @foreach ($dataFellows as $item)
+                                    @if ($item['Email address'] == $email)
+                                      <input name="fellowName" value="{{$item['First name']}} {{$item['Last Name']}}" type="text" class="form-control" id="fellowName" placeholder="Enter remarks">
+                                    @endif
+                                @endforeach
                               </div>
                               <div class="form-group" style="visibility:hidden;height:0;margin:0;">
                                 <input name="status" value="{{$status}}" type="text" class="form-control" id="status" placeholder="Enter remarks">

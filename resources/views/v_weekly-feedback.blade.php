@@ -173,9 +173,9 @@
                                               <td>{{$item['Weighted Avg.']}}</td>
                                               <td>
                                                 @foreach ($activeFellow as $item)
-                                                    <ul>
-                                                      <li>{{$item->fellowEmail}}</li>
-                                                    </ul>
+                                                  <ul>
+                                                    <li>{{$item->fellowName}}</li>
+                                                  </ul>
                                                 @endforeach
                                               </td>
                                               <td>0%</td>

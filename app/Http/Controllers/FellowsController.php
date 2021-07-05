@@ -45,8 +45,8 @@ class FellowsController extends Controller
         $rows = Sheets::spreadsheet('1qyG4Vvjq1cRB8xilpa7ymsbvOTbGEKehMtVffEXIK-M')->sheet('Form responses 1')->get();
 
         $header = $rows->pull(0);
-        $listMentee = Sheets::collection($header, $rows);
-        $listMentee->toArray();
+        $values = Sheets::collection($header, $rows);
+        $values->toArray();
 
         $listAdvisor = DB::table('advisor')->get();
         $appointmentSpdata = DB::table('appointment')->where('fellowEmail',$email)->get();
@@ -72,8 +72,9 @@ class FellowsController extends Controller
             $selectedStrength = $appointmentSpdata->strength;
         }
 
-
+        // dd($values);
         $data = [
+            'dataFellows' => $values,
             'listAdvisor' => $listAdvisor,
             'email' => $email,
             'appointmentSpdata'=> $appointmentSpdata,
@@ -87,13 +88,13 @@ class FellowsController extends Controller
 
     public function postForm(Request $request){
 
-        $request->validate([
-            'batch' => 'required',
-            'advisor' => 'required',
-            'strength' => 'required',
-            'contract' => 'required',
-            'remarks' => 'required',
-        ]);
+        // $request->validate([
+        //     'batch' => 'required',
+        //     'advisor' => 'required',
+        //     'strength' => 'required',
+        //     'contract' => 'required',
+        //     'remarks' => 'required',
+        // ]);
 
         $data = [
             'batch' => $request->input('batch'),
@@ -101,7 +102,8 @@ class FellowsController extends Controller
             'strength' => $request->input('strength'),
             'adminRemarks' => $request->input('remarks'),
             'contract' => $request->input('contract'),
-            'fellowEmail' => $request->input('fellowEmail')
+            'fellowEmail' => $request->input('fellowEmail'),
+            'fellowName' => $request->input('fellowName')
         ];
 
         if($request->input('status') == 'edit'){
