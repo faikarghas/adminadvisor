@@ -169,7 +169,7 @@
                                 @if ($status == 'edit')
                                   <input value="{{$appointment[0]->aimz_remarks}}" name="remarks" type="text" class="form-control" id="remarks" placeholder="Enter remarks">
                                 @else
-                                  <input name="remarks" type="text" class="form-control" id="remarks" placeholder="Enter remarks">
+                                  <input name="remarks" type="text" class="form-control" id="remarks" >
                                 @endif
                               </div>
                               <div class="form-group">
@@ -177,7 +177,7 @@
                                 @if ($status == 'edit')
                                   <input value="{{$appointment[0]->internal_comments}}" name="comment" type="text" class="form-control" id="comment" placeholder="Enter remarks">
                                 @else
-                                  <input name="comment" type="text" class="form-control" id="comment" placeholder="Enter remarks">
+                                  <input name="comment" type="text" class="form-control" id="comment" >
                                 @endif
                               </div>
                               <div class="form-group">

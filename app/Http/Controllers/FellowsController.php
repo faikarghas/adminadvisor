@@ -50,15 +50,21 @@ class FellowsController extends Controller
             ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
             ->get();
 
-        $appointmentSpdata = DB::table('advisor')
+        $appointmentData = DB::table('advisor')
             ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
             ->join('fellows', 'appointment.app_id', '=', 'fellows.app_id')
             ->get();
 
+        $test = DB::table('advisor')
+        ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
+        ->where('appointment.id_advisor',5)->sum('accepted');
+
+        dd($test);
+
         $data = [
             'listFellows' => $listFellows,
             'listAdvisor'=> $listAdvisor,
-            'appointmentSpdata'=> $appointmentSpdata
+            'appointmentData'=> $appointmentData
         ];
         return view('v_fellows_summary',$data);
     }

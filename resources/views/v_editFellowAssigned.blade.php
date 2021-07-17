@@ -98,7 +98,7 @@
             <li class="nav-item">
                 <a href="/data-advisor" class="nav-link">
                     <i class="nav-icon fas fa-edit"></i>
-                    <p> Data/p>
+                    <p> Data</p>
                 </a>
             </li>
         </ul>
