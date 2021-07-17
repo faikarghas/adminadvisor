@@ -96,7 +96,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/fellowsAdvisor" class="nav-link">
+                <a href="/fellows-advisor" class="nav-link">
                   <i class="nav-icon fas fa-edit"></i>
                   <p>
                     Advisor
@@ -134,7 +134,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                        <h3 class="card-title"></h3>
+                          <a href="/fellows-advisor" class="card-title d-flex align-items-center"><img class="mr-2" src="{{asset('/images/left-arrow.svg')}}" width="20px" alt="">Back</a>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -142,34 +142,113 @@
                           {{ csrf_field() }}
                           <div class="card-body">
                               <div class="form-group">
-                                <label for="class">Class Size</label>
-                                <select name="class" class="custom-select form-control-border" id="class">
-                                    <option value="1 - 2">1 - 2</option>
-                                    <option value="3 - 6">3 - 6</option>
-                                    <option value="> 6">> 6</option>
+                                  <label for="advisor_first_name">First Name</label>
+                                  <input placeholder="{{$listAdvisor[0]->first_name}}" value="{{$listAdvisor[0]->first_name}}" name="advisor_first_name" type="text" class="form-control" id="advisor_first_name">
+                              </div>
+                              <div class="form-group">
+                                  <label for="advisor_last_name">Last Name</label>
+                                  <input placeholder="{{$listAdvisor[0]->last_name}}" value="{{$listAdvisor[0]->last_name}}" name="advisor_last_name" type="text" class="form-control" id="advisor_last_name">
+                              </div>
+                              <div class="form-group">
+                                  <label for="advisor_full_name">Full Name</label>
+                                  <input placeholder="{{$listAdvisor[0]->full_name}}" value="{{$listAdvisor[0]->full_name}}" name="advisor_full_name" type="text" class="form-control" id="advisor_full_name">
+                              </div>
+                              {{-- <div class="form-group">
+                                <label for="advisor_email">Username</label>
+                                <input placeholder="{{$listAdvisor[0]->username}}" name="fellow_name" type="number" class="form-control" id="fellow_name"  disabled>
+                              </div>
+                              <div class="form-group">
+                                <label for="advisor_email">Password</label>
+                                <input placeholder="{{$listAdvisor[0]->password}}" name="fellow_name" type="number" class="form-control" id="fellow_name"  disabled>
+                              </div>
+                              <div class="form-group">
+                                <label for="advisor_email">Email Address</label>
+                                <input placeholder="{{$listAdvisor[0]->email_address}}" name="fellow_name" type="number" class="form-control" id="fellow_name"  disabled>
+                              </div> --}}
+                              <div class="form-group">
+                                <label for="pod">Current Pod #</label>
+                                <select name="pod" class="custom-select form-control-border" id="pod">
+                                    <option @if($listAdvisor[0]->current_pod == "Y21 June_1") selected @endif value="Y21 June_1">Y21 June_1</option>
+                                    <option @if($listAdvisor[0]->current_pod == "Y21 June_2") selected @endif value="Y21 June_2">Y21 June_2</option>
+                                    <option @if($listAdvisor[0]->current_pod == "Y21 June_3") selected @endif value="Y21 June_3">Y21 June_3</option>
+                                    <option @if($listAdvisor[0]->current_pod == "Y21 June_4") selected @endif value="Y21 June_4">Y21 June_4</option>
+                                    <option @if($listAdvisor[0]->current_pod == "Y21 June_5") selected @endif value="Y21 June_5">Y21 June_5</option>
+                                    <option @if($listAdvisor[0]->current_pod == "Y21 June_6") selected @endif value="Y21 June_6">Y21 June_6</option>
+                                    <option @if($listAdvisor[0]->current_pod == "Y21 August_1") selected @endif value="Y21 August_1">Y21 August_1</option>
                                 </select>
                               </div>
                               <div class="form-group">
-                                <label for="industry">Industry</label>
-                                <select name="industry" class="custom-select form-control-border" id="industry">
-                                    <option value="consulting">Consulting</option>
-                                    <option value="startup">Startup</option>
+                                <label for="class_size">Max. Class Size (Fellows)</label>
+                                <input placeholder="{{$listAdvisor[0]->class_size}}" value="{{$listAdvisor[0]->class_size}}" name="class_size" type="number" class="form-control" id="class_size">
+                              </div>
+                              <div class="form-group">
+                                <label for="primary_stream">Primary Industry</label>
+                                <select name="primary_stream" class="custom-select form-control-border" id="primary_stream">
+                                    <option @if($listAdvisor[0]->primary_stream == "Accounting / Financial Advisory (e.g., PwC, EY, Deloitte)") selected @endif value="Accounting / Financial Advisory (e.g., PwC, EY, Deloitte)">Accounting / Financial Advisory (e.g., PwC, EY, Deloitte)</option>
+                                    <option @if($listAdvisor[0]->primary_stream == "Corporate (e.g., Sampoerna, Astra)") selected @endif value="Corporate (e.g., Sampoerna, Astra)">Corporate (e.g., Sampoerna, Astra)</option>
+                                    <option @if($listAdvisor[0]->primary_stream == "Banking & Finance (e.g., HSBC, Citibank, BCA, Mandiri, Deutsche Bank)") selected @endif value="Banking & Finance (e.g., HSBC, Citibank, BCA, Mandiri, Deutsche Bank)">Banking & Finance (e.g., HSBC, Citibank, BCA, Mandiri, Deutsche Bank)</option>
+                                    <option @if($listAdvisor[0]->primary_stream == "FMCG (e.g., Unilever, P&G, Loreal, Wings)") selected @endif value="FMCG (e.g., Unilever, P&G, Loreal, Wings)">FMCG (e.g., Unilever, P&G, Loreal, Wings)</option>
+                                    <option @if($listAdvisor[0]->primary_stream == "Law (e.g., Baker Mckenzie, Denton, Allen Overy)") selected @endif value="Law (e.g., Baker Mckenzie, Denton, Allen Overy)">Law (e.g., Baker Mckenzie, Denton, Allen Overy)</option>
+                                    <option @if($listAdvisor[0]->primary_stream == "Management Consulting (e.g., Mckinsey, BCG, Kearney, Accenture)") selected @endif value="Management Consulting (e.g., Mckinsey, BCG, Kearney, Accenture)">Law (e.g., Baker Mckenzie, Denton, Allen Overy)</option>
+                                    <option @if($listAdvisor[0]->primary_stream == "Start-ups (e.g., Gojek, Tokopedia, Shopee, Jenius)") selected @endif value="Start-ups (e.g., Gojek, Tokopedia, Shopee, Jenius)">Start-ups (e.g., Gojek, Tokopedia, Shopee, Jenius)</option>
                                 </select>
                               </div>
                               <div class="form-group">
-                                <label for="level">Level</label>
-                                <select name="level" class="custom-select form-control-border" id="level">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                <label for="secondary_stream">Secondary Industry</label>
+                                <select name="secondary_stream" class="custom-select form-control-border" id="secondary_stream">
+                                  <option @if($listAdvisor[0]->secondary_stream == "Accounting / Financial Advisory (e.g., PwC, EY, Deloitte)") selected @endif value="Accounting / Financial Advisory (e.g., PwC, EY, Deloitte)">Accounting / Financial Advisory (e.g., PwC, EY, Deloitte)</option>
+                                  <option @if($listAdvisor[0]->secondary_stream == "Corporate (e.g., Sampoerna, Astra)") selected @endif value="Corporate (e.g., Sampoerna, Astra)">Corporate (e.g., Sampoerna, Astra)</option>
+                                  <option @if($listAdvisor[0]->secondary_stream == "Banking & Finance (e.g., HSBC, Citibank, BCA, Mandiri, Deutsche Bank)") selected @endif value="Banking & Finance (e.g., HSBC, Citibank, BCA, Mandiri, Deutsche Bank)">Banking & Finance (e.g., HSBC, Citibank, BCA, Mandiri, Deutsche Bank)</option>
+                                  <option @if($listAdvisor[0]->secondary_stream == "FMCG (e.g., Unilever, P&G, Loreal, Wings)") selected @endif value="FMCG (e.g., Unilever, P&G, Loreal, Wings)">FMCG (e.g., Unilever, P&G, Loreal, Wings)</option>
+                                  <option @if($listAdvisor[0]->secondary_stream == "Law (e.g., Baker Mckenzie, Denton, Allen Overy)") selected @endif value="Law (e.g., Baker Mckenzie, Denton, Allen Overy)">Law (e.g., Baker Mckenzie, Denton, Allen Overy)</option>
+                                  <option @if($listAdvisor[0]->secondary_stream == "Management Consulting (e.g., Mckinsey, BCG, Kearney, Accenture)") selected @endif value="Management Consulting (e.g., Mckinsey, BCG, Kearney, Accenture)">Law (e.g., Baker Mckenzie, Denton, Allen Overy)</option>
+                                  <option @if($listAdvisor[0]->secondary_stream == "Start-ups (e.g., Gojek, Tokopedia, Shopee, Jenius)") selected @endif value="Start-ups (e.g., Gojek, Tokopedia, Shopee, Jenius)">Start-ups (e.g., Gojek, Tokopedia, Shopee, Jenius)</option>
                                 </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="last_position">Last Position</label>
+                                <input placeholder="{{$listAdvisor[0]->last_position}}" value="{{$listAdvisor[0]->last_position}}" name="last_position" type="text" class="form-control" id="last_position">
+                              </div>
+                              <div class="form-group">
+                                <label for="last_company">Last Company</label>
+                                <input placeholder="{{$listAdvisor[0]->last_company}}" value="{{$listAdvisor[0]->last_company}}" name="last_company" type="text" class="form-control" id="last_company">
+                              </div>
+                              <div class="form-group">
+                                <label for="enrollment_key">Enrolment Key</label>
+                                <input placeholder="{{$listAdvisor[0]->enrollment_key}}" value="{{$listAdvisor[0]->enrollment_key}}" name="enrollment_key" type="text" class="form-control" id="enrollment_key">
+                              </div>
+                              <div class="form-group">
+                                <label for="calendly_link">Calendly Link</label>
+                                <input placeholder="{{$listAdvisor[0]->calendly_link}}" value="{{$listAdvisor[0]->calendly_link}}" name="calendly_link" type="text" class="form-control" id="calendly_link">
+                              </div>
+                              <div class="form-group">
+                                <label for="workshop_link">Workshop Link</label>
+                                <input placeholder="{{$listAdvisor[0]->workshop_link}}" value="{{$listAdvisor[0]->workshop_link}}" name="workshop_link" type="text" class="form-control" id="workshop_link">
+                              </div>
+                              <div class="form-group">
+                                <label for="workshop_schedule">Workshop Schedule</label>
+                                <input placeholder="{{$listAdvisor[0]->workshop_schedule}}" value="{{$listAdvisor[0]->workshop_schedule}}" name="workshop_schedule" type="text" class="form-control" id="workshop_schedule">
+                              </div>
+                              <div class="form-group">
+                                <label for="pod_connect_schedule">Pod Connect Schedule</label>
+                                <input placeholder="{{$listAdvisor[0]->pod_connect_schedule}}" value="{{$listAdvisor[0]->pod_connect_schedule}}" name="pod_connect_schedule" type="text" class="form-control" id="pod_connect_schedule">
                               </div>
                               <div class="form-group">
                                 <label for="fee">Fee Split</label>
-                                <select name="fee" class="custom-select form-control-border" id="fee">
-                                    <option value="50% - 50%">50% - 50%</option>
-                                    <option value="60% - 40%">60% - 40%</option>
-                                    <option value="70% - 30%">70% - 30%</option>
+                                <input placeholder="{{$listAdvisor[0]->fee}}" value="{{$listAdvisor[0]->fee}}" name="fee" type="text" class="form-control" id="fee">
+                              </div>
+                              <div class="form-group">
+                                <label for="advisor_type">Advisor Type</label>
+                                <select name="advisor_type" class="custom-select form-control-border" id="advisor_type">
+                                    <option @if($listAdvisor[0]->advisor_type == "1") selected @endif value="1">Individual</option>
+                                    <option @if($listAdvisor[0]->advisor_type == "2") selected @endif value="2">Tag Team</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="class">Class</label>
+                                <select name="class" class="custom-select form-control-border" id="class">
+                                    <option @if($listAdvisor[0]->class == "Advisor") selected @endif value="Advisor">Advisor</option>
+                                    <option @if($listAdvisor[0]->class == "AIMZ Partner") selected @endif value="AIMZ Partner">AIMZ Partner</option>
                                 </select>
                               </div>
                           </div>

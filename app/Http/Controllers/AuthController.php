@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 
 class AuthController extends Controller
@@ -66,5 +67,29 @@ class AuthController extends Controller
         $request->session()->flush();
         Auth::logout();
         return Redirect('login');
+    }
+
+    public function registerAdvisors(){
+        $advisors = DB::table('advisor')->get();
+
+        $data = [];
+        set_time_limit(0);
+        foreach ($advisors as $key => $value) {
+
+            User::updateOrCreate(
+            [
+                'id_advisor' => $value->id_advisor
+            ],
+            [
+                'name' => $value->full_name,
+                'username' => 'advisor_'.''.strtolower(implode(explode(' ',$value->full_name))),
+                'email' => $value->email_address,
+                'level' => 'advisor',
+                'password' => bcrypt('advisor#aimz123!@'),
+                'id_advisor' => $value->id_advisor
+            ]);
+
+        }
+
     }
 }

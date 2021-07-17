@@ -7,29 +7,10 @@
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{asset('template/')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{asset('template/')}}/plugins/fontawesome-free/css/all.min.css">
     <!-- IonIcons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- daterange picker -->
-    <link rel="stylesheet" href="{{asset('template/')}}/plugins/daterangepicker/daterangepicker.css">
-    <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="{{asset('template/')}}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- Bootstrap Color Picker -->
-    <link rel="stylesheet" href="{{asset('template/')}}/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="{{asset('template/')}}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- Select2 -->
-    <link rel="stylesheet" href="{{asset('template/')}}/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="{{asset('template/')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    <!-- Bootstrap4 Duallistbox -->
-    <link rel="stylesheet" href="{{asset('template/')}}/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
-    <!-- BS Stepper -->
-    <link rel="stylesheet" href="{{asset('template/')}}/plugins/bs-stepper/css/bs-stepper.min.css">
-    <!-- dropzonejs -->
-    <link rel="stylesheet" href="{{asset('template/')}}/plugins/dropzone/min/dropzone.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{asset('template/')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="{{asset('template/')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -40,7 +21,7 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
 
 
@@ -84,30 +65,30 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="/fellows-assigned" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Fellows Assigned
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/fellows-progress-advisor" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Fellows Progress
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/weekly-feedback" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Weekly Feedback
-              </p>
-            </a>
-          </li>
+               <li class="nav-item">
+                <a href="/fellows-assigned" class="nav-link">
+                  <i class="nav-icon fas fa-edit"></i>
+                  <p>
+                    Fellows Assigned
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/fellows-progress-advisor" class="nav-link">
+                  <i class="nav-icon fas fa-edit"></i>
+                  <p>
+                    Fellows Progress
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/data-advisor" class="nav-link">
+                  <i class="nav-icon fas fa-edit"></i>
+                  <p>
+                    Data
+                  </p>
+                </a>
+              </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -122,7 +103,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Welcome : {{ Auth::user()->name }}</h1>
+            <h1 class="m-0">Fellows Progress</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -138,61 +119,89 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-lg-12 text-right">
-                                    {{-- <a href="/create-appointment" class="btn-create">Create Appointment</a> --}}
+                                <div class="col-lg-12">
                                 </div>
                             </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                          <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                              <th></th>
-                              <th>Full Name</th>
-                              <th>CV Finalized</th>
-                              <th># of Interviews Done/Scheduled</th>
-                              <th>Status</th>
-                              <th>Remarks</th>
-                              <th>Employer</th>
-                              <th>Employed Date</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($dataAppointment as $item)
-                                    <tr>
-                                        <td height="30"><a href="/edit-fellowsProgressAdvisor/{{$item->fellowEmail}}">edit</a></td>
-                                        <td>{{$item->fellowEmail}}</td>
-                                        <td>{{$item->cvFinalized}}</td>
-                                        <td>{{$item->scheduled}}</td>
-                                        <td>
-                                          @if ($item->status == 1)
-                                            Admitted
-                                          @elseif($item->status == 2)
-                                            Employed
-                                          @elseif($item->status == 0)
-                                            Dropped Out
-                                          @endif
+                          <table id="fellowsProgress_table" class="table table-bordered table-striped" style="overflow: auto">
+                                <thead>
+                                <tr>
+                                  <th></th>
+                                  <th>#</th>
+                                  <th>Fellow Name</th>
+                                  <th>Email Address</th>
+                                  <th>CV Link</th>
+                                  <th>Field of Interest (1st priority)</th>
+                                  <th>Field of Interest (2st priority)</th>
+                                  <th>Primary Target Roles</th>
+                                  <th>Job Hunting Stage</th>
+                                  <th>CV Finalized</th>
+                                  <th>Response Board Finalized</th>
+                                  <th># of Ongoing Applications</th>
+                                  <th># of Upcoming Applications</th>
+                                  <th>Target Companies</th>
+                                  <th>Comments</th>
+                                  <th>Status</th>
+                                  <th>Employer (If Employed)</th>
+                                  <th>Employed Date</th>
+                                  <th>Invoice Amount</th>
+                                  <th>Payment Method</th>
+                                  <th>Paid Amount</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                  @foreach($appointmentData as $key => $value)
+                                      <tr data-key={{$key+1}}>
+                                        <td height="30"><a href="/edit-fellowsProgressAdvisor/{{$value->app_id}}">edit</a></td>
+                                        <td height="30">{{$key+1}}</td>
+                                        <td height="30">{{$value->first_name}} {{$value->last_name}}</td>
+                                        <td height="30">{{$value->email_address}}</td>
+                                        <td height="30"><a href="{{$value->resume}}" target="_blank" rel="noopener">{{$value->resume}}</a></td>
+                                        <td height="30">{{$value->question_5}}</td>
+                                        <td height="30">{{$value->question_6}}</td>
+                                        <td height="30">{{$value->question_7}}</td>
+                                        <td height="30">{{$value->question_2}}</td>
+                                        <td height="30">{{$value->cv_finalized}}</td>
+                                        <td height="30">
+                                            {{$value->response_board_finalized}}
                                         </td>
-                                        <td>{{$item->remarks}}</td>
-                                        <td>{{$item->employer}}</td>
-                                        <td>{{$item->employedDate}}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <th></th>
-                                <th>Full Name</th>
-                                <th>CV Finalized</th>
-                                <th># of Interviews Done/Scheduled</th>
-                                <th>Status</th>
-                                <th>Remarks</th>
-                                <th>Employer</th>
-                                <th>Employed Date</th>
-                            </tr>
-                            </tfoot>
-                          </table>
+                                        <td height="30">
+                                            {{$value->ongoing_applications}}
+                                        </td>
+                                        <td height="30">
+                                            {{$value->upcoming_applications}}
+                                        </td>
+                                        <td height="30">
+                                            {{$value->target_companies}}
+                                        </td>
+                                        <td height="30">
+                                            {{$value->comments}}
+                                        </td>
+                                        <td height="30">
+                                            {{$value->status}}
+                                        </td>
+                                        <td height="30">
+                                            {{$value->employer}}
+                                        </td>
+                                        <td height="30">
+                                            {{$value->employed_date}}
+                                        </td>
+                                        <td height="30">
+                                            {{$value->invoice_amount}}
+                                        </td>
+                                        <td height="30">
+                                            {{$value->payment_method}}
+                                        </td>
+                                        <td height="30">
+                                            {{$value->paid_amount}}
+                                        </td>
+                                      </tr>
+                                  @endforeach
+                                </tbody>
+
+                              </table>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -220,29 +229,12 @@
   </footer> --}}
 </div>
 <!-- ./wrapper -->
-
-
-<!-- jQuery -->
+  <!-- jQuery -->
 <script src="{{asset('template')}}/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="{{asset('template')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE -->
 <script src="{{asset('template')}}/dist/js/adminlte.js"></script>
-
-
-<!-- PAGE PLUGINS -->
-<!-- jQuery Mapael -->
-<script src="{{asset('template')}}/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="{{asset('template')}}/plugins/raphael/raphael.min.js"></script>
-<script src="{{asset('template')}}/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="{{asset('template')}}/plugins/jquery-mapael/maps/usa_states.min.js"></script>
-
-
-<!-- AdminLTE for demo purposes -->
-<script src="{{asset('template')}}/dist/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{asset('template')}}/dist/js/pages/dashboard2.js"></script>
-
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="{{asset('template')}}/plugins/chart.js/Chart.min.js"></script>
@@ -251,7 +243,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('template')}}/dist/js/pages/dashboard3.js"></script>
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- DataTables  & Plugins -->
 <script src="{{asset('template')}}/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="{{asset('template')}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -265,12 +257,57 @@
 <script src="{{asset('template')}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="{{asset('template')}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="{{asset('template')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<script>
-    $(function () {
-      $("#example1").DataTable()
-    });
-  </script>
+<script src="{{asset('js/app.js')}}"></script>
 
-  <script src="{{asset('js/app.js')}}"></script>
+<script>
+  $(document).ready(function() {
+    var table = $("#fellowsProgress_table").DataTable({
+      fixedHeader: true,
+      scrollX: true,
+      scrollY:        '70vh',
+      scrollCollapse: true,
+      dom: 'Bfrtip',
+      buttons: [
+          'csv', 'excel'
+      ],
+      columnDefs: [
+            { width: 200, targets: 2 },
+            { width: 100, targets: 3 },
+            { width: 100, targets: 4 },
+            { width: 200, targets: 5 },
+            { width: 200, targets: 6 },
+            { width: 200, targets: 7 },
+            { width: 200, targets: 8 },
+            { width: 200, targets: 9 },
+            { width: 200, targets: 10 },
+            { width: 200, targets: 11 },
+            { width: 200, targets: 12 },
+            { width: 200, targets: 13 },
+            { width: 200, targets: 14 },
+            { width: 200, targets: 15 },
+            { width: 200, targets: 16 },
+            { width: 200, targets: 17 },
+            { width: 200, targets: 18 },
+            { width: 200, targets: 19 },
+            { width: 200, targets: 20 },
+        ],
+    })
+
+    $('#batch').on('change',function (params) {
+      table.column(21).search(this.value).draw();
+    })
+    $('#advisor').on('change',function (params) {
+      table.column(22).search(this.value).draw();
+    })
+    $('#status').on('change',function (params) {
+      table.column(15).search(this.value).draw();
+    })
+    $('#pod').on('change',function (params) {
+      table.column(27).search(this.value).draw();
+    })
+
+  });
+</script>
+
 </body>
 </html>

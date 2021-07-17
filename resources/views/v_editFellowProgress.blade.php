@@ -96,7 +96,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/fellowsAdvisor" class="nav-link">
+                <a href="/fellows-advisor" class="nav-link">
                   <i class="nav-icon fas fa-edit"></i>
                   <p>
                     Advisor
@@ -134,26 +134,161 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                        <h3 class="card-title"></h3>
+                          <a href="/fellows-progress" class="card-title d-flex align-items-center"><img class="mr-2" src="{{asset('/images/left-arrow.svg')}}" width="20px" alt="">Back</a>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="/invoice/post" method="post" accept-charset="utf-8">
+                        <form action="/postFellowsProgress/{{$fellows[0]->app_id}}" method="post" accept-charset="utf-8">
                           {{ csrf_field() }}
                           <div class="card-body">
                               <div class="form-group">
-                                <label for="invoice">Invoice</label>
-                                <select name="invoice" class="custom-select form-control-border" id="invoice">
-                                    <option @if($selectedInvoice == "1") selected @endif value="1">Paid</option>
-                                    <option @if($selectedInvoice == " 0") selected @endif value="0">Not Paid</option>
+                                <label for="status">Status</label>
+                                <select name="status" class="custom-select form-control-border" id="status">
+                                    <option @if($selectedStatus == "Admitted") selected @endif value="Admitted">Admitted</option>
+                                    <option @if($selectedStatus == "Withdrew") selected @endif value="Withdrew">Withdrew</option>
+                                    <option @if($selectedStatus == "Employed") selected @endif value="Employed">Employed</option>
+                                    <option @if($selectedStatus == "Invoiced") selected @endif value="Invoiced0">Invoiced</option>
+                                    <option @if($selectedStatus == "Paid") selected @endif value="Paid">Paid</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label for="invoiceAmount">Invoice Amount</label>
-                                  <input value="{{$appointmentSpdata->invoiceAmount}}" name="invoiceAmount" type="number" class="form-control" id="invoiceAmount" placeholder="Invoice Amount">
+                                @if ($status == 'edit')
+                                  <input value="{{$appointment[0]->invoice_amount}}" name="invoiceAmount" type="number" class="form-control" id="invoiceAmount" placeholder="Invoice Amount">
+                                @else
+                                  <input name="invoiceAmount" type="number" class="form-control" id="invoiceAmount" placeholder="Invoice Amount">
+                                @endif
                               </div>
-                              <div class="form-group" style="visibility:hidden;height:0;margin:0;">
-                                <input name="fellowEmail" value="{{$email}}" type="text" class="form-control" id="fellowEmail" >
+                              <div class="form-group">
+                                <label for="payMethod">Payment Method</label>
+                                <select name="payMethod" class="custom-select form-control-border" id="payMethod">
+                                    <option @if($selectedPM == "One-time") selected @endif value="One-time">One-time</option>
+                                    <option @if($selectedPM == "Three-months Instalment") selected @endif value="Three-months Instalment">Three-months Instalment</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="paidAmount">Paid Amount</label>
+                                @if ($status == 'edit')
+                                  <input value="{{$appointment[0]->paid_amount}}" name="paidAmount" type="number" class="form-control" id="paidAmount" placeholder="Invoice Amount">
+                                @else
+                                  <input name="paidAmount" type="number" class="form-control" id="paidAmount" placeholder="Invoice Amount">
+                                @endif
+                              </div>
+                              <div class="form-group">
+                                <label for="fellow_name">Fellow Name</label>
+                                <input placeholder="{{$fellows[0]->first_name}} {{$fellows[0]->last_name}}" name="fellow_name" type="number" class="form-control" id="fellow_name"  disabled>
+                              </div>
+                              <div class="form-group">
+                                <label for="fellow_address">Email Address</label>
+                                <input placeholder="{{$fellows[0]->email_address}}" name="fellow_address" type="number" class="form-control" id="fellow_address"  disabled>
+                              </div>
+                              <div class="form-group">
+                                <label for="cv">CV Link</label>
+                                <input placeholder="{{$fellows[0]->resume}}" name="cv" type="number" class="form-control" id="cv"  disabled>
+                              </div>
+                              <div class="form-group">
+                                <label for="interest1">Field of Interest (1st priority)</label>
+                                <input placeholder="{{$fellows[0]->question_5}}" name="interest1" type="number" class="form-control" id="interest1"  disabled>
+                              </div>
+                              <div class="form-group">
+                                <label for="interest2">Field of Interest (2nd priority)</label>
+                                <input placeholder="{{$fellows[0]->question_6}}" name="interest2" type="number" class="form-control" id="interest2"  disabled>
+                              </div>
+                              <div class="form-group">
+                                <label for="primary">Primary Target Roles</label>
+                                <input placeholder="{{$fellows[0]->question_7}}" name="primary" type="number" class="form-control" id="primary"  disabled>
+                              </div>
+                              <div class="form-group">
+                                <label for="job">Job Hunting Stage</label>
+                                <input placeholder="{{$fellows[0]->question_2}}" name="job" type="number" class="form-control" id="job"  disabled>
+                              </div>
+                              <div class="form-group">
+                                <label>CV Finalized</label>
+                                @if ($status == 'edit')
+                                  <input placeholder="{{$appointment[0]->cv_finalized}}"  type="number" class="form-control"  disabled>
+                                @else
+                                  <input placeholder=""  type="text" class="form-control"  disabled>
+                                @endif
+                              </div>
+                              <div class="form-group">
+                                <label># of Ongoing Applications</label>
+                                @if ($status == 'edit')
+                                  <input placeholder="{{$appointment[0]->ongoing_applications}}"  type="number" class="form-control"  disabled>
+                                @else
+                                  <input placeholder=""  type="text" class="form-control"  disabled>
+                                @endif
+                              </div>
+                              <div class="form-group">
+                                <label># of Upcoming Applications</label>
+                                @if ($status == 'edit')
+                                  <input placeholder="{{$appointment[0]->upcoming_applications}}"  type="number" class="form-control"  disabled>
+                                @else
+                                  <input placeholder=""  type="text" class="form-control"  disabled>
+                                @endif
+                              </div>
+                              <div class="form-group">
+                                <label>Target Companies</label>
+                                @if ($status == 'edit')
+                                  <input placeholder="{{$appointment[0]->target_companies}}"  type="number" class="form-control"  disabled>
+                                @else
+                                  <input placeholder=""  type="text" class="form-control"  disabled>
+                                @endif
+                              </div>
+                              <div class="form-group">
+                                <label>Comments</label>
+                                @if ($status == 'edit')
+                                  <input placeholder="{{$appointment[0]->comments}}"  type="number" class="form-control"  disabled>
+                                @else
+                                  <input placeholder=""  type="text" class="form-control"  disabled>
+                                @endif
+                              </div>
+                              <div class="form-group">
+                                <label>Status</label>
+                                @if ($status == 'edit')
+                                  <input placeholder="{{$appointment[0]->status}}"  type="number" class="form-control"  disabled>
+                                @else
+                                  <input placeholder=""  type="text" class="form-control"  disabled>
+                                @endif
+                              </div>
+                              <div class="form-group">
+                                <label>Employer (If Employed)</label>
+                                @if ($status == 'edit')
+                                  <input placeholder="{{$appointment[0]->employer}}"  type="number" class="form-control"  disabled>
+                                @else
+                                  <input placeholder=""  type="text" class="form-control"  disabled>
+                                @endif
+                              </div>
+                              <div class="form-group">
+                                <label>Employed Date</label>
+                                @if ($status == 'edit')
+                                  <input placeholder="{{$appointment[0]->employed_date}}"  type="number" class="form-control"  disabled>
+                                @else
+                                  <input placeholder=""  type="text" class="form-control"  disabled>
+                                @endif
+                              </div>
+                              <div class="form-group">
+                                <label>Invoice Amount</label>
+                                @if ($status == 'edit')
+                                  <input placeholder="{{$appointment[0]->invoice_amount}}"  type="number" class="form-control"  disabled>
+                                @else
+                                  <input placeholder=""  type="text" class="form-control"  disabled>
+                                @endif
+                              </div>
+                              <div class="form-group">
+                                <label>Payment Method</label>
+                                @if ($status == 'edit')
+                                  <input placeholder="{{$appointment[0]->payment_method}}"  type="number" class="form-control"  disabled>
+                                @else 
+                                  <input placeholder=""  type="text" class="form-control"  disabled>
+                                @endif
+                              </div>
+                              <div class="form-group">
+                                <label>Paid Amount</label>
+                                @if ($status == 'edit')
+                                  <input placeholder="{{$appointment[0]->paid_amount}}"  type="number" class="form-control"  disabled>
+                                @else
+                                  <input placeholder=""  type="text" class="form-control"  disabled>
+                                @endif
                               </div>
                           </div>
                           <!-- /.card-body -->

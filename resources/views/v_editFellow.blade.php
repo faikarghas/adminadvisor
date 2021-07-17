@@ -96,7 +96,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/fellowsAdvisor" class="nav-link">
+                <a href="/fellows-advisor" class="nav-link">
                   <i class="nav-icon fas fa-edit"></i>
                   <p>
                     Advisor
@@ -134,65 +134,160 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                        <h3 class="card-title"></h3>
+                          <a href="/fellows" class="card-title d-flex align-items-center"><img class="mr-2" src="{{asset('/images/left-arrow.svg')}}" width="20px" alt="">Back</a>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="/appointment/post" method="post" accept-charset="utf-8">
+                        <form action="/appointment/post/{{$fellows[0]->app_id}}" method="post" accept-charset="utf-8">
                           {{ csrf_field() }}
                           <div class="card-body">
+                            <div class="form-group">
+                              <label for="batch">Bootcamp Batch</label>
+                              <select name="batch" class="custom-select form-control-border" id="batch">
+                                  <option @if($selectedBatch == "Y21 August") selected @endif value="Y21 August">Y21 August</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="strength">Strength</label>
+                              <select name="strength" class="custom-select form-control-border" id="strength">
+                                  <option @if($selectedStrength == "Mediocre") selected @endif value="Mediocre">Mediocre</option>
+                                  <option @if($selectedStrength == "Relatively Strong") selected @endif value="Relatively Strong">Relatively Strong</option>
+                                  <option @if($selectedStrength == "Strong") selected @endif value="Strong">Strong</option>
+                                  <option @if($selectedStrength == "Super Strong") selected @endif value="Super Strong">Super Strong</option>
+                              </select>
+                            </div>
                               <div class="form-group">
-                                <label for="batch">Batch</label>
-                                @if ($status == 'edit')
-                                  <input value="{{$appointmentSpdata->batch}}" name="batch" type="text" class="form-control" id="batch" placeholder="Enter Bootcamp">
-                                @else
-                                  <input name="batch" type="text" class="form-control" id="batch" placeholder="Enter Bootcamp">
-                                @endif
-                              </div>
-                              <div class="form-group">
-                                  <label for="advisor">Assigned to</label>
+                                  <label for="advisor">Advisor</label>
                                   <select name="advisor" class="custom-select form-control-border" id="advisor">
                                     @foreach ($listAdvisor as $item)
-                                      <option @if($selectedAdvisor == $item->idAdvisor) selected @endif value="{{$item->idAdvisor}}">{{$item->advisorName}}</option>
+                                      <option @if($selectedAdvisor == $item->id_advisor) selected @endif value="{{$item->id_advisor}}">{{$item->full_name}}</option>
                                     @endforeach
                                   </select>
                               </div>
                               <div class="form-group">
-                                <label for="strength">Strength</label>
-                                <select name="strength" class="custom-select form-control-border" id="strength">
-                                    <option @if($selectedStrength == "Mediocre") selected @endif value="Mediocre">Mediocre</option>
-                                    <option @if($selectedStrength == "Relatively Strong") selected @endif value="Relatively Strong">Relatively Strong</option>
-                                    <option @if($selectedStrength == "Strong") selected @endif value="Strong">Strong</option>
-                                    <option @if($selectedStrength == "Super Strong") selected @endif value="Super Strong">Super Strong</option>
-                                </select>
-                              </div>
-                              <div class="form-group">
                                 <label for="remarks">AIMZ Remarks</label>
                                 @if ($status == 'edit')
-                                  <input value="{{$appointmentSpdata->remarks}}" name="remarks" type="text" class="form-control" id="remarks" placeholder="Enter remarks">
+                                  <input value="{{$appointment[0]->aimz_remarks}}" name="remarks" type="text" class="form-control" id="remarks" placeholder="Enter remarks">
                                 @else
                                   <input name="remarks" type="text" class="form-control" id="remarks" placeholder="Enter remarks">
                                 @endif
                               </div>
                               <div class="form-group">
+                                <label for="comment">Internal Comments</label>
+                                @if ($status == 'edit')
+                                  <input value="{{$appointment[0]->internal_comments}}" name="comment" type="text" class="form-control" id="comment" placeholder="Enter remarks">
+                                @else
+                                  <input name="comment" type="text" class="form-control" id="comment" placeholder="Enter remarks">
+                                @endif
+                              </div>
+                              <div class="form-group">
                                 <label for="contract">Contract Signed</label>
                                 <select name="contract" class="custom-select form-control-border" id="contract">
-                                    <option @if($selectedStrength == 0) selected @endif value="0">No</option>
-                                    <option @if($selectedStrength == 1) selected @endif value="1">Yes</option>
+                                    <option @if($selectedContract == 0) selected @endif value="0">No</option>
+                                    <option @if($selectedContract == 1) selected @endif value="1">Yes</option>
                                 </select>
                               </div>
-                              <div class="form-group" style="visibility:hidden;height:0;margin:0;">
-                                <input name="fellowEmail" value="{{$email}}" type="text" class="form-control" id="fellowEmail" placeholder="Enter remarks">
+                              <div class="form-group">
+                                <label for="status">Fellow Status</label>
+                                <select name="status" class="custom-select form-control-border" id="status">
+                                    <option @if($selectedStatus == 0) selected @endif value="0">Open</option>
+                                    <option @if($selectedStatus == 1) selected @endif value="1">Accepted</option>
+                                    <option @if($selectedStatus == 2) selected @endif value="2">Waitlisted</option>
+                                    <option @if($selectedStatus == 3) selected @endif value="3">Withdrew</option>
+                                </select>
                               </div>
-                              <div class="form-group" style="visibility:hidden;height:0;margin:0;">
-                                @foreach ($dataFellows as $item)
-                                    @if ($item['Email address'] == $email)
-                                      <input name="fellowName" value="{{$item['First name']}} {{$item['Last Name']}}" type="text" class="form-control" id="fellowName" placeholder="Enter remarks">
-                                    @endif
-                                @endforeach
+
+                              <div class="form-group ">
+                                <label>Application ID</label>
+                                <input name="app_id" type="text" class="form-control" value="{{$fellows[0]->app_id}}" disabled>
                               </div>
-                              <div class="form-group" style="visibility:hidden;height:0;margin:0;">
-                                <input name="status" value="{{$status}}" type="text" class="form-control" id="status" placeholder="Enter remarks">
+                              <div class="form-group ">
+                                <label>Application Time Stamp</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->date}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>First name</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->first_name}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->last_name}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Email address</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->email_address}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Phone number</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->phone}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Gender</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->gender}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>University</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->university}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>GPA</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->gpa}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>How did you know about AIMZ?</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->question_1}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Job hunting stage</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->question_2}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>No. of past internships</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->question_3}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Experience in MNC/top company?</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->question_4}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Field of Interest (1st priority)</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->question_5}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Field of Interest (2nd priority)</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->question_6}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Primary target roles</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->question_7}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Salary expectation</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->question_8}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Timeline to start working</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->question_9}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Reason to join AIMZ</label>
+                                <textarea type="text" class="form-control" value="{{$fellows[0]->reason_to_join}}" disabled></textarea>
+                              </div>
+                              <div class="form-group ">
+                                <label>CV link</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->resume}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Referee's name</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->referee_name}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Referee's whatsapp number</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->referee_wa}}" disabled>
+                              </div>
+                              <div class="form-group ">
+                                <label>Referee's email</label>
+                                <input type="text" class="form-control" value="{{$fellows[0]->referee_email}}" disabled>
                               </div>
                           </div>
                           <!-- /.card-body -->

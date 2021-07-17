@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+
 
 
 class AdminAccountSeeder extends Seeder
@@ -16,41 +18,26 @@ class AdminAccountSeeder extends Seeder
     public function run()
     {
         $user = [
-            // [
-            //     'username' => 'admin',
-            //     'name' => 'admin',
-            //     'email' => 'admin@aimzsea.com',
-            //     'level' => 'admin',
-            //     'password' => bcrypt('adminaimzsea123!')
-            // ],
-            // [
-            //     'username' => 'advisor',
-            //     'name' => 'David Orlando',
-            //     'email' => 'advisor@aimzsea.com',
-            //     'level' => 'advisor',
-            //     'idAdvisor' => 3,
-            //     'password' => bcrypt('advisoraimzsea123!')
-            // ],
             [
-                'username' => 'kirstieadvisor',
-                'name' => 'Kirstie Irmana',
-                'email' => 'advisorkirstie@aimzsea.com',
-                'level' => 'advisor',
-                'idAdvisor' => 4,
-                'password' => bcrypt('advisoraimzsea123!')
+                'username' => 'admin',
+                'name' => 'admin',
+                'email' => 'admin@aimzsea.com',
+                'level' => 'admin',
+                'password' => bcrypt('adminaimzsea123!')
             ],
             [
-                'username' => 'stellaadvisor',
-                'name' => 'Stella Hie',
-                'email' => 'advisorstella@aimzsea.com',
+                'username' => 'advisor',
+                'name' => 'David Orlando',
+                'email' => 'advisor@aimzsea.com',
                 'level' => 'advisor',
-                'idAdvisor' => 4,
+                'idAdvisor' => 3,
                 'password' => bcrypt('advisoraimzsea123!')
-            ]
+            ],
         ];
 
-        foreach ($user as $key => $value) {
-            User::create($value);
-        }
+        // foreach ($user as $key => $value) {
+        //     User::create($value);
+        // }
+
     }
 }

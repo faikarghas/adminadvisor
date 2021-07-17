@@ -96,11 +96,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/weekly-feedback" class="nav-link">
+                <a href="/data-advisor" class="nav-link">
                     <i class="nav-icon fas fa-edit"></i>
-                    <p>
-                    Weekly Feedback
-                    </p>
+                    <p> Data/p>
                 </a>
             </li>
         </ul>
@@ -134,32 +132,156 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                        <h3 class="card-title"></h3>
+                        <a href="/fellows-assigned" class="card-title d-flex align-items-center"><img class="mr-2" src="{{asset('/images/left-arrow.svg')}}" width="20px" alt="">Back</a>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="/fellowsAssigned/post/{{$email}}" method="post" accept-charset="utf-8">
+                        <form action="/fellowsAssigned/post/{{$fellows[0]->app_id}}" method="post" accept-charset="utf-8">
                           {{ csrf_field() }}
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="accept">Accept Admission?</label>
+                                  <label for="advisorRemarks">Advisor Remarks</label>
+                                  @if ($status == 'edit')
+                                    <textarea value="{{$appointment[0]->advisor_remarks}}" name="advisorRemarks"  class="form-control" id="advisorRemarks" placeholder="Enter Advisor Remarks"></textarea>
+                                  @else
+                                    <textarea name="advisorRemarks"  class="form-control" id="advisorRemarks"></textarea>
+                                  @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="accept">Accept?</label>
                                     <select name="accept" class="custom-select form-control-border" id="accept">
-                                        <option @if($selectedAssign == 1) selected @endif value="1">Yes</option>
-                                        <option @if($selectedAssign == 2) selected @endif value="2">Yes (2nd Wave)</option>
-                                        <option @if($selectedAssign == 0) selected @endif value="0">No</option>
+                                        <option selected ></option>
+                                        <option @if($selectedAccept == '1') selected @endif value="1">Accept</option>
+                                        <option @if($selectedAccept == '2') selected @endif value="2">Waitlist</option>
+                                        <option @if($selectedAccept == '3') selected @endif value="3">Reject</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="reason">Reason for Rejection</label>
-                                    <input value="{{$appointmentSpdata->reason}}" name="reason" type="text" class="form-control" id="reason" placeholder="Enter Reason">
+                                  <label for="reason_for_rejection">Reason for rejection</label>
+                                  @if ($status == 'edit')
+                                    <textarea value="{{$appointment[0]->reason_for_rejection}}" name="reason_for_rejection" type="text" class="form-control" id="reason_for_rejection"></textarea>
+                                  @else
+                                    <textarea name="reason_for_rejection" type="text" class="form-control" id="reason_for_rejection"></textarea>
+                                  @endif
+                                </div>
+
+                                <div class="form-group ">
+                                  <label>Application Time Stamp</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->date}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>First name</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->first_name}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Last Name</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->last_name}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Email address</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->email_address}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Phone number</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->phone}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Gender</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->gender}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>University</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->university}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>GPA</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->gpa}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>How did you know about AIMZ?</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->question_1}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Job hunting stage</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->question_2}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>No. of past internships</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->question_3}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Experience in MNC/top company?</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->question_4}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Field of Interest (1st priority)</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->question_5}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Field of Interest (2nd priority)</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->question_6}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Primary target roles</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->question_7}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Salary expectation</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->question_8}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Timeline to start working</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->question_9}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Reason to join AIMZ</label>
+                                  <textarea type="text" class="form-control" value="{{$fellows[0]->reason_to_join}}" disabled></textarea>
+                                </div>
+                                <div class="form-group ">
+                                  <label>CV link</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->resume}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Referee's name</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->referee_name}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Referee's whatsapp number</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->referee_wa}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Referee's email</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->referee_email}}" disabled>
+                                </div>
+                                <div class="form-group ">
+                                  <label>Bootcamp Batch</label>
+                                  <input type="text" class="form-control" value="{{$fellows[0]->bootcamp_batch}}" disabled>
+                                </div>
+
+
+                                <div class="form-group">
+                                  <label for="aimz_remarks">AIMZ Remarks</label>
+                                  @if ($status == 'edit')
+                                    <input value="{{$appointment[0]->aimz_remarks}}" name="aimz_remarks" type="text" class="form-control" id="aimz_remarks" disabled>
+                                  @else
+                                    <input name="aimz_remarks" type="text" class="form-control" id="aimz_remarks"  disabled>
+                                  @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="advisorRemarks">Advisor Remarks</label>
-                                    <input value="{{$appointmentSpdata->advisorRemarks}}" name="advisorRemarks" type="text" class="form-control" id="advisorRemarks" placeholder="Enter Advisor Remarks">
+                                  <label for="advisor_remarks">Advisor Remarks</label>
+                                  @if ($status == 'edit')
+                                    <input value="{{$appointment[0]->advisor_remarks}}" name="advisor_remarks" type="text" class="form-control" id="advisor_remarks" disabled>
+                                  @else
+                                    <input name="advisor_remarks" type="text" class="form-control" id="advisor_remarks"  disabled>
+                                  @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="comment">Comments (If Any)</label>
-                                    <input value="{{$appointmentSpdata->advisorRemarks}}" name="comment" type="text" class="form-control" id="comment" placeholder="Enter Comments">
+                                  <label for="fellow_status">Fellow Status</label>
+                                  @if ($status == 'edit')
+                                    <input value="{{$appointment[0]->fellow_status}}" name="fellow_status" type="text" class="form-control" id="fellow_status" disabled>
+                                  @else
+                                    <input name="fellow_status" type="text" class="form-control" id="fellow_status"  disabled>
+                                  @endif
                                 </div>
                             </div>
                             <!-- /.card-body -->

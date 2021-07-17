@@ -101,7 +101,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/fellowsAdvisor" class="nav-link">
+            <a href="/fellows-advisor" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Advisor

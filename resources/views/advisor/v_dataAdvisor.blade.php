@@ -136,179 +136,117 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="/fellowsFellowsProgressAdvisor/post/{{$appointment[0]->app_id}}" method="post" accept-charset="utf-8">
-                          {{ csrf_field() }}
+                        <form action="/postDataAdvisor/post/{{Auth::user()->id_advisor}}" method="post" accept-charset="utf-8">
+                            {{ csrf_field() }}
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="cv_finalized">CV Finalized?</label>
-                                    <select name="cv_finalized" class="custom-select form-control-border" id="cv_finalized">
-                                        <option selected></option>
-                                        <option @if($appointment[0]->cv_finalized == "0") selected @endif value="0">No</option>
-                                        <option @if($appointment[0]->cv_finalized == "1") selected @endif value="1">Yes</option>
-                                    </select>
+                                    <label for="advisor_first_name">First Name</label>
+                                    <input placeholder="{{$listAdvisor[0]->first_name}}" value="{{$listAdvisor[0]->first_name}}" name="advisor_first_name" type="text" class="form-control" id="advisor_first_name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="response_board_finalized">Response Board Finalized</label>
-                                    <select name="response_board_finalized" class="custom-select form-control-border" id="response_board_finalized">
-                                        <option selected></option>
-                                        <option @if($appointment[0]->response_board_finalized == "0") selected @endif value="0">No</option>
-                                        <option @if($appointment[0]->response_board_finalized == "1") selected @endif value="1">Yes</option>
-                                    </select>
+                                    <label for="advisor_last_name">Last Name</label>
+                                    <input placeholder="{{$listAdvisor[0]->last_name}}" value="{{$listAdvisor[0]->last_name}}" name="advisor_last_name" type="text" class="form-control" id="advisor_last_name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="ongoing_applications"># of Ongoing Applications</label>
-                                    <select name="ongoing_applications" class="custom-select form-control-border" id="ongoing_applications">
-                                        <option selected></option>
-                                        <option @if($appointment[0]->ongoing_applications == "0") selected @endif value="0">0</option>
-                                        <option @if($appointment[0]->ongoing_applications == "1-3") selected @endif value="1-3">1-3</option>
-                                        <option @if($appointment[0]->ongoing_applications == "4-8") selected @endif value="4-8">4-8</option>
-                                        <option @if($appointment[0]->ongoing_applications == "9-15") selected @endif value="9-15">9-15</option>
-                                        <option @if($appointment[0]->ongoing_applications == ">15") selected @endif value=">15">>15</option>
-                                    </select>
+                                    <label for="advisor_full_name">Full Name</label>
+                                    <input placeholder="{{$listAdvisor[0]->full_name}}" value="{{$listAdvisor[0]->full_name}}" name="advisor_full_name" type="text" class="form-control" id="advisor_full_name">
                                 </div>
                                 <div class="form-group">
-                                  <label for="upcoming_applications"># of Upcoming Interviews</label>
-                                  <select name="upcoming_applications" class="custom-select form-control-border" id="upcoming_applications">
-                                      <option selected></option>
-                                      <option @if($appointment[0]->upcoming_applications == "0") selected @endif value="0">0</option>
-                                      <option @if($appointment[0]->upcoming_applications == "1-2") selected @endif value="1-2">1-2</option>
-                                      <option @if($appointment[0]->upcoming_applications == "3-5") selected @endif value="3-5">3-5</option>
-                                      <option @if($appointment[0]->upcoming_applications == "6-8") selected @endif value="6-8">6-8</option>
-                                      <option @if($appointment[0]->upcoming_applications == ">8") selected @endif value=">8">>8</option>
+                                    <label for="email_address">Email Address</label>
+                                    <input placeholder="{{$listAdvisor[0]->email_address}}" value="{{$listAdvisor[0]->email_address}}" name="email_address" type="text" class="form-control" id="email_address">
+                                </div>
+                                <div class="form-group">
+                                  <label for="pod">Current Pod #</label>
+                                  <select name="pod" class="custom-select form-control-border" id="pod">
+                                      <option @if($listAdvisor[0]->current_pod == "Y21 June_1") selected @endif value="Y21 June_1">Y21 June_1</option>
+                                      <option @if($listAdvisor[0]->current_pod == "Y21 June_2") selected @endif value="Y21 June_2">Y21 June_2</option>
+                                      <option @if($listAdvisor[0]->current_pod == "Y21 June_3") selected @endif value="Y21 June_3">Y21 June_3</option>
+                                      <option @if($listAdvisor[0]->current_pod == "Y21 June_4") selected @endif value="Y21 June_4">Y21 June_4</option>
+                                      <option @if($listAdvisor[0]->current_pod == "Y21 June_5") selected @endif value="Y21 June_5">Y21 June_5</option>
+                                      <option @if($listAdvisor[0]->current_pod == "Y21 June_6") selected @endif value="Y21 June_6">Y21 June_6</option>
+                                      <option @if($listAdvisor[0]->current_pod == "Y21 August_1") selected @endif value="Y21 August_1">Y21 August_1</option>
                                   </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="target_companies">Target Companies</label>
-                                    @if ($status == 'edit')
-                                     <input value="{{$appointment[0]->target_companies}}" name="target_companies" type="text" class="form-control" id="target_companies">
-                                    @else
-                                      <input name="target_companies" type="text" class="form-control" id="target_companies">
-                                    @endif
+                                  <label for="class_size">Max. Class Size (Fellows)</label>
+                                  <input placeholder="{{$listAdvisor[0]->class_size}}" value="{{$listAdvisor[0]->class_size}}" name="class_size" type="number" class="form-control" id="class_size">
                                 </div>
                                 <div class="form-group">
-                                    <label for="comments">Comments</label>
-                                    @if ($status == 'edit')
-                                     <input value="{{$appointment[0]->comments}}" name="comments" type="text" class="form-control" id="comments">
-                                    @else
-                                      <input name="comments" type="text" class="form-control" id="comments">
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                  <label for="status">Status</label>
-                                  <select name="status" class="custom-select form-control-border" id="status">
-                                      <option @if($appointment[0]->status == "Admitted") selected @endif  value="Admitted">Admitted</option>
-                                      <option @if($appointment[0]->status == "Withdrew") selected @endif  value="Withdrew">Withdrew</option>
-                                      <option @if($appointment[0]->status == "Employed") selected @endif  value="Employed">Employed</option>
+                                  <label for="primary_stream">Primary Industry</label>
+                                  <select name="primary_stream" class="custom-select form-control-border" id="primary_stream">
+                                      <option @if($listAdvisor[0]->primary_stream == "Accounting / Financial Advisory (e.g., PwC, EY, Deloitte)") selected @endif value="Accounting / Financial Advisory (e.g., PwC, EY, Deloitte)">Accounting / Financial Advisory (e.g., PwC, EY, Deloitte)</option>
+                                      <option @if($listAdvisor[0]->primary_stream == "Corporate (e.g., Sampoerna, Astra)") selected @endif value="Corporate (e.g., Sampoerna, Astra)">Corporate (e.g., Sampoerna, Astra)</option>
+                                      <option @if($listAdvisor[0]->primary_stream == "Banking & Finance (e.g., HSBC, Citibank, BCA, Mandiri, Deutsche Bank)") selected @endif value="Banking & Finance (e.g., HSBC, Citibank, BCA, Mandiri, Deutsche Bank)">Banking & Finance (e.g., HSBC, Citibank, BCA, Mandiri, Deutsche Bank)</option>
+                                      <option @if($listAdvisor[0]->primary_stream == "FMCG (e.g., Unilever, P&G, Loreal, Wings)") selected @endif value="FMCG (e.g., Unilever, P&G, Loreal, Wings)">FMCG (e.g., Unilever, P&G, Loreal, Wings)</option>
+                                      <option @if($listAdvisor[0]->primary_stream == "Law (e.g., Baker Mckenzie, Denton, Allen Overy)") selected @endif value="Law (e.g., Baker Mckenzie, Denton, Allen Overy)">Law (e.g., Baker Mckenzie, Denton, Allen Overy)</option>
+                                      <option @if($listAdvisor[0]->primary_stream == "Management Consulting (e.g., Mckinsey, BCG, Kearney, Accenture)") selected @endif value="Management Consulting (e.g., Mckinsey, BCG, Kearney, Accenture)">Law (e.g., Baker Mckenzie, Denton, Allen Overy)</option>
+                                      <option @if($listAdvisor[0]->primary_stream == "Start-ups (e.g., Gojek, Tokopedia, Shopee, Jenius)") selected @endif value="Start-ups (e.g., Gojek, Tokopedia, Shopee, Jenius)">Start-ups (e.g., Gojek, Tokopedia, Shopee, Jenius)</option>
                                   </select>
                                 </div>
                                 <div class="form-group">
-                                  <label for="employer">Employer (If Employed)</label>
-                                  @if ($status == 'edit')
-                                      <input value="{{$appointment[0]->employer}}" name="employer" type="text" class="form-control" id="employer">
-                                  @else
-                                      <input  name="employer" type="text" class="form-control" id="employer" >
-                                  @endif
+                                  <label for="secondary_stream">Secondary Industry</label>
+                                  <select name="secondary_stream" class="custom-select form-control-border" id="secondary_stream">
+                                    <option @if($listAdvisor[0]->secondary_stream == "Accounting / Financial Advisory (e.g., PwC, EY, Deloitte)") selected @endif value="Accounting / Financial Advisory (e.g., PwC, EY, Deloitte)">Accounting / Financial Advisory (e.g., PwC, EY, Deloitte)</option>
+                                    <option @if($listAdvisor[0]->secondary_stream == "Corporate (e.g., Sampoerna, Astra)") selected @endif value="Corporate (e.g., Sampoerna, Astra)">Corporate (e.g., Sampoerna, Astra)</option>
+                                    <option @if($listAdvisor[0]->secondary_stream == "Banking & Finance (e.g., HSBC, Citibank, BCA, Mandiri, Deutsche Bank)") selected @endif value="Banking & Finance (e.g., HSBC, Citibank, BCA, Mandiri, Deutsche Bank)">Banking & Finance (e.g., HSBC, Citibank, BCA, Mandiri, Deutsche Bank)</option>
+                                    <option @if($listAdvisor[0]->secondary_stream == "FMCG (e.g., Unilever, P&G, Loreal, Wings)") selected @endif value="FMCG (e.g., Unilever, P&G, Loreal, Wings)">FMCG (e.g., Unilever, P&G, Loreal, Wings)</option>
+                                    <option @if($listAdvisor[0]->secondary_stream == "Law (e.g., Baker Mckenzie, Denton, Allen Overy)") selected @endif value="Law (e.g., Baker Mckenzie, Denton, Allen Overy)">Law (e.g., Baker Mckenzie, Denton, Allen Overy)</option>
+                                    <option @if($listAdvisor[0]->secondary_stream == "Management Consulting (e.g., Mckinsey, BCG, Kearney, Accenture)") selected @endif value="Management Consulting (e.g., Mckinsey, BCG, Kearney, Accenture)">Law (e.g., Baker Mckenzie, Denton, Allen Overy)</option>
+                                    <option @if($listAdvisor[0]->secondary_stream == "Start-ups (e.g., Gojek, Tokopedia, Shopee, Jenius)") selected @endif value="Start-ups (e.g., Gojek, Tokopedia, Shopee, Jenius)">Start-ups (e.g., Gojek, Tokopedia, Shopee, Jenius)</option>
+                                  </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Employed Date</label>
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="far fa-clock"></i></span>
-                                      </div>
-                                      @if ($status == 'edit')
-                                          <input value="{{$appointment[0]->employed_date}}" name="employed_date" type="text" class="form-control float-right" id="reservationtime">
-                                      @else
-                                          <input  name="employed_date" type="text" class="form-contro float-rightl" id="reservationtime">
-                                      @endif
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                  <label>Fellow Name</label>
-                                  @if ($status == 'edit')
-                                    <input placeholder="{{$appointment[0]->first_name}} {{$appointment[0]->last_name}}"  type="number" class="form-control"  disabled>
-                                  @else
-                                    <input placeholder=""  type="text" class="form-control"  disabled>
-                                  @endif
+                                  <label for="last_position">Last Position</label>
+                                  <input placeholder="{{$listAdvisor[0]->last_position}}" value="{{$listAdvisor[0]->last_position}}" name="last_position" type="text" class="form-control" id="last_position">
                                 </div>
                                 <div class="form-group">
-                                  <label>Email Address</label>
-                                  @if ($status == 'edit')
-                                    <input placeholder="{{$appointment[0]->email_address}}"  type="number" class="form-control"  disabled>
-                                  @else
-                                    <input placeholder=""  type="text" class="form-control"  disabled>
-                                  @endif
+                                  <label for="last_company">Last Company</label>
+                                  <input placeholder="{{$listAdvisor[0]->last_company}}" value="{{$listAdvisor[0]->last_company}}" name="last_company" type="text" class="form-control" id="last_company">
                                 </div>
                                 <div class="form-group">
-                                  <label>CV Link</label>
-                                  @if ($status == 'edit')
-                                    <input placeholder="{{$appointment[0]->resume}}"  type="number" class="form-control"  disabled>
-                                  @else
-                                    <input placeholder=""  type="text" class="form-control"  disabled>
-                                  @endif
+                                  <label for="enrollment_key">Enrolment Key</label>
+                                  <input placeholder="{{$listAdvisor[0]->enrollment_key}}" value="{{$listAdvisor[0]->enrollment_key}}" name="enrollment_key" type="text" class="form-control" id="enrollment_key">
                                 </div>
                                 <div class="form-group">
-                                  <label>Field of Interest (1st priority)</label>
-                                  @if ($status == 'edit')
-                                    <input placeholder="{{$appointment[0]->question_5}}"  type="number" class="form-control"  disabled>
-                                  @else
-                                    <input placeholder=""  type="text" class="form-control"  disabled>
-                                  @endif
+                                  <label for="calendly_link">Calendly Link</label>
+                                  <input placeholder="{{$listAdvisor[0]->calendly_link}}" value="{{$listAdvisor[0]->calendly_link}}" name="calendly_link" type="text" class="form-control" id="calendly_link">
                                 </div>
                                 <div class="form-group">
-                                  <label>Field of Interest (2st priority)</label>
-                                  @if ($status == 'edit')
-                                    <input placeholder="{{$appointment[0]->question_6}}"  type="number" class="form-control"  disabled>
-                                  @else
-                                    <input placeholder=""  type="text" class="form-control"  disabled>
-                                  @endif
+                                  <label for="workshop_link">Workshop Link</label>
+                                  <input placeholder="{{$listAdvisor[0]->workshop_link}}" value="{{$listAdvisor[0]->workshop_link}}" name="workshop_link" type="text" class="form-control" id="workshop_link">
                                 </div>
                                 <div class="form-group">
-                                  <label>Primary Target Roles</label>
-                                  @if ($status == 'edit')
-                                    <input placeholder="{{$appointment[0]->question_7}}"  type="number" class="form-control"  disabled>
-                                  @else
-                                    <input placeholder=""  type="text" class="form-control"  disabled>
-                                  @endif
+                                  <label for="workshop_schedule">Workshop Schedule</label>
+                                  <input placeholder="{{$listAdvisor[0]->workshop_schedule}}" value="{{$listAdvisor[0]->workshop_schedule}}" name="workshop_schedule" type="text" class="form-control" id="workshop_schedule">
                                 </div>
                                 <div class="form-group">
-                                  <label>Job Hunting Stage</label>
-                                  @if ($status == 'edit')
-                                    <input placeholder="{{$appointment[0]->question_2}}"  type="number" class="form-control"  disabled>
-                                  @else
-                                    <input placeholder=""  type="text" class="form-control"  disabled>
-                                  @endif
+                                  <label for="pod_connect_schedule">Pod Connect Schedule</label>
+                                  <input placeholder="{{$listAdvisor[0]->pod_connect_schedule}}" value="{{$listAdvisor[0]->pod_connect_schedule}}" name="pod_connect_schedule" type="text" class="form-control" id="pod_connect_schedule">
                                 </div>
                                 <div class="form-group">
-                                  <label>Invoice Amount</label>
-                                  @if ($status == 'edit')
-                                    <input placeholder="{{$appointment[0]->invoice_amount}}"  type="number" class="form-control"  disabled>
-                                  @else
-                                    <input placeholder=""  type="text" class="form-control"  disabled>
-                                  @endif
+                                  <label for="fee">Fee Split</label>
+                                  <input placeholder="{{$listAdvisor[0]->fee}}" value="{{$listAdvisor[0]->fee}}" name="fee" type="text" class="form-control" id="fee">
                                 </div>
                                 <div class="form-group">
-                                  <label>Payment Method</label>
-                                  @if ($status == 'edit')
-                                    <input placeholder="{{$appointment[0]->payment_method}}"  type="number" class="form-control"  disabled>
-                                  @else 
-                                    <input placeholder=""  type="text" class="form-control"  disabled>
-                                  @endif
+                                  <label for="advisor_type">Advisor Type</label>
+                                  <select name="advisor_type" class="custom-select form-control-border" id="advisor_type">
+                                      <option @if($listAdvisor[0]->advisor_type == "1") selected @endif value="1">Individual</option>
+                                      <option @if($listAdvisor[0]->advisor_type == "2") selected @endif value="2">Tag Team</option>
+                                  </select>
                                 </div>
                                 <div class="form-group">
-                                  <label>Paid Amount</label>
-                                  @if ($status == 'edit')
-                                    <input placeholder="{{$appointment[0]->paid_amount}}"  type="number" class="form-control"  disabled>
-                                  @else
-                                    <input placeholder=""  type="text" class="form-control"  disabled>
-                                  @endif
+                                  <label for="class">Class</label>
+                                  <select name="class" class="custom-select form-control-border" id="class">
+                                      <option @if($listAdvisor[0]->class == "Advisor") selected @endif value="Advisor">Advisor</option>
+                                      <option @if($listAdvisor[0]->class == "AIMZ Partner") selected @endif value="AIMZ Partner">AIMZ Partner</option>
+                                  </select>
                                 </div>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
-                        </form>
+                          </form>
                     </div>
                 </div>
             </div>

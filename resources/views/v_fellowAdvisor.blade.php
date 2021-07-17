@@ -82,7 +82,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/fellowsAdvisor" class="nav-link">
+            <a href="/fellows-advisor" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Advisor
@@ -119,45 +119,73 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-lg-12 text-right">
-                                    {{-- <a href="/create-appointment" class="btn-create">Create Appointment</a> --}}
+                                <div class="col-lg-12">
+                                  {{-- <form action="/registerAdvisors" method="post" accept-charset="utf-8">
+                                      {{ csrf_field() }}
+                                      <div class="card-body">
+                                      </div>
+                                      <!-- /.card-body -->
+                                      <div class="card-footer">
+                                          <button type="submit" class="btn btn-primary">UPDATE</button>
+                                      </div>
+                                  </form>  --}}
                                 </div>
                             </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                          <table id="table2" class="table table-bordered table-striped" style="overflow: auto">
+                          <table id="advisorTable" class="table table-bordered table-striped" style="overflow: auto">
                             <thead>
                             <tr>
                                 <th></th>
                                 <th>Advisor Name</th>
+                                <th>Email Address</th>
+                                <th>Username</th>
+                                <th>Password</th>
+                                <th>Current Pod</th>
                                 <th>Class Size</th>
-                                <th>Industry</th>
-                                <th>Level</th>
+                                <th>Primary Industry</th>
+                                <th>Secondary Industry</th>
+                                <th>Last Position</th>
+                                <th>Last Company</th>
+                                <th>Enrolment Key</th>
+                                <th>Calendly Link</th>
+                                <th>Workshop Link</th>
+                                <th>Workshop Schedule</th>
+                                <th>Pod Connect Schedule</th>
                                 <th>Fee Split</th>
-                                <th>Bootcamp History</th>
+                                <th>Advisor Type</th>
+                                <th>Class</th>
                             </tr>
                             </thead>
                             <tbody>
                                 @foreach ($listAdvisor as $item)
                                 <tr class="table1_data">
-                                    <td><a href="/edit-fellowsAdvisor/{{$item->idAdvisor}}">edit</a></td>
-                                    <td>{{$item->advisorName}}</td>
-                                    <td>{{$item->classSize}}</td>
-                                    <td>{{ucwords($item->industry)}}</td>
-                                    <td>{{$item->level}}</td>
-                                    <td>{{$item->feeSplit}}</td>
+                                    <td><a href="/edit-fellowsAdvisor/{{$item->id_advisor}}">edit</a></td>
+                                    <td>{{$item->full_name}}</td>
+                                    <td>{{$item->email_address}}</td>
                                     <td>
-                                      <?php
-                                        $name = $item->advisorName;
-                                        $exp = explode(' ', $name);
-                                        $jn = strtolower(join("-",$exp));
-                                      ?>
-                                      <ul>
-                                        <li><a href="/bootcamp-history/{{$jn}}">AIMZ Y21 July Bootcamp</a></li>
-                                        <li><a href="">AIMZ Y22 August Bootcamp</a></li>
-                                      </ul>
+                                      @foreach ($users as $value)
+                                        @if ($item->id_advisor == $value->id_advisor)
+                                          {{$value->username}}
+                                        @endif
+                                      @endforeach
                                     </td>
+                                    <td>advisor#aimz123!@</td>
+                                    <td>{{$item->current_pod}}</td>
+                                    <td>{{$item->class_size}}</td>
+                                    <td>{{$item->primary_stream}}</td>
+                                    <td>{{$item->secondary_stream}}</td>
+                                    <td>{{$item->last_position}}</td>
+                                    <td>{{$item->last_company}}</td>
+                                    <td>{{$item->enrollment_key}}</td>
+                                    <td><a href="{{$item->calendly_link}}">{{$item->calendly_link}}</a></td>
+                                    <td>{{$item->workshop_link}}</td>
+                                    <td>{{$item->workshop_schedule}}</td>
+                                    <td>{{$item->pod_connect_schedule}}</td>
+                                    <td>{{$item->fee}}</td>
+                                    <td>{{$item->advisor_type}}</td>
+                                    <td>{{$item->class}}</td>
                                 </tr>
                                 @endforeach
 
@@ -233,7 +261,16 @@
 
 <script>
   $(document).ready(function() {
-        $('#table2').DataTable();
+        $('#advisorTable').DataTable({
+          fixedHeader: true,
+          scrollX: true,
+          scrollY:        '70vh',
+          scrollCollapse: true,
+          dom: 'Bfrtip',
+          buttons: [
+              'csv', 'excel'
+          ],
+        });
   });
 </script>
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Revolution\Google\Sheets\Facades\Sheets;
+use App\Models\AppointmentModel;
 
 class AdvisorController extends Controller
 {
@@ -16,69 +17,96 @@ class AdvisorController extends Controller
 
         $user = Auth::user();
 
-        // data mysql
-        $content = DB::table('appointment')->where('idAdvisor',$user->idAdvisor)->get();
+        $signedFellow = DB::table('appointment')->where('id_advisor',$user->id_advisor)->get();
+        $listFellows = DB::table('fellows')->get();
+        $appointmentSpdata = DB::table('advisor')
+        ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
+        ->join('fellows', 'appointment.app_id', '=', 'fellows.app_id')
+        ->get();
 
         $idAdvisorList=[];
 
-        foreach ($content as $key => $value) {
-            array_push($idAdvisorList,$value->idAdvisor);
+        foreach ($signedFellow as $key => $value) {
+            array_push($idAdvisorList,$value->id_advisor);
         }
 
-        // data google sheet
-        $rows = Sheets::spreadsheet('1qyG4Vvjq1cRB8xilpa7ymsbvOTbGEKehMtVffEXIK-M')->sheet('Form Responses 1')->get();
-        $header = $rows->pull(0);
-        $values = Sheets::collection($header, $rows);
-        $values->toArray();
-
-        // dd($content);
 
         $data = [
-            'dataAppointment' => $content,
-            'listFellow'=> $values,
-            'idAdvisor'=> $user->idAdvisor,
-            'idAdvisorList'=> $idAdvisorList
+            'dataSignedFellow' => $signedFellow,
+            'listFellows' => $listFellows,
+            'id_advisor' => $user->id_advisor,
+            'id_advisorList' => $idAdvisorList,
+            'appointmentSpdata' => $appointmentSpdata
         ];
 
 
-        return view('v_advisor',$data);
+        return view('v_fellowAssigned',$data);
     }
 
-    public function edit($email){
-        $rows = Sheets::spreadsheet('1qyG4Vvjq1cRB8xilpa7ymsbvOTbGEKehMtVffEXIK-M')->sheet('Form responses 1')->get();
-
-        $header = $rows->pull(0);
-        $listMentee = Sheets::collection($header, $rows);
-        $listMentee->toArray();
-
+    public function edit($app_id){
         $listAdvisor = DB::table('advisor')->get();
-        $appointmentSpdata = DB::table('appointment')->where('fellowEmail',$email)->get();
+        $appointment = DB::table('appointment')->where('app_id',$app_id)->get();
+        $fellows = DB::table('fellows')->where('app_id',$app_id)->get();
 
-        $check = DB::table('appointment')->where('fellowEmail',$email)->get();
+        $status;
+        $selectedAccept;
 
-        $appointmentSpdata = $appointmentSpdata[0];
-        $selectedAssign = $appointmentSpdata->accept;
+        if (count($appointment) == 0) {
+            $status = 'create';
+        } else {
+            $status = 'edit';
+        }
+
+        if ($status == 'create') {
+            $selectedAccept = '';
+        } else {
+            $selectedAccept = $appointment[0]->accepted;
+        }
+
+
         $data = [
             'listAdvisor' => $listAdvisor,
-            'email' => $email,
-            'appointmentSpdata'=> $appointmentSpdata,
-            'selectedAssign' => $selectedAssign,
+            'appointment'=> $appointment,
+            'selectedAccept' => $selectedAccept,
+            'status' => $status,
+            'fellows' => $fellows
         ];
 
         return view('v_editFellowAssigned',$data);
     }
 
-    public function postFellowsAssigned(Request $request,$email){
+    public function postFellowsAssigned(Request $request,$app_id){
         $data = [
-            'accept' => $request->input('accept'),
-            'reason' => $request->input('reason'),
-            'advisorRemarks' => $request->input('advisorRemarks'),
-            'comment' => $request->input('comment'),
+            'advisor_remarks' => $request->input('advisorRemarks'),
+            'accepted' => $request->input('accept'),
+            'reason_for_rejection' => $request->input('reason_for_rejection'),
         ];
 
-        DB::table('appointment')->where('fellowEmail',$email)->update($data);
+        AppointmentModel::updateOrCreate(
+            [
+              'app_id' => $app_id
+            ], $data
+        );
 
         return redirect()->route('fellows-assigned')->with('pesan','data berhasil ditambahkan');
+    }
+
+    public function signedFellows(){
+
+        $user = Auth::user();
+
+        $appointmentData = DB::table('advisor')
+        ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
+        ->join('fellows', 'appointment.app_id', '=', 'fellows.app_id')
+        ->where(['appointment.id_advisor'=>$user->id_advisor,'accepted'=>'1','contract_signed'=>1])
+        ->get();
+
+        $data = [
+            'appointmentData' => $appointmentData
+        ];
+
+
+        return view('v_signedFellow',$data);
     }
     // END FELLOW ASSIGNED
 
@@ -86,110 +114,113 @@ class AdvisorController extends Controller
     public function fellowsProgressAdvisor(){
         $user = Auth::user();
 
-        $content = DB::table('appointment')->where('idAdvisor',$user->idAdvisor)->where('accept','=',2)->orWhere('accept','=',1)->get();
+        $listFellows = DB::table('fellows')->get();
+        $listAdvisor = DB::table('advisor')->get();
+        $appointmentData = DB::table('advisor')
+        ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
+        ->join('fellows', 'appointment.app_id', '=', 'fellows.app_id')
+        ->where(['appointment.id_advisor'=>$user->id_advisor,'accepted'=>'1'])
+        ->get();
 
         $data = [
-            'dataAppointment' => $content,
-            'idAdvisor'=> $user->idAdvisor,
+            'listFellows' => $listFellows,
+            'appointmentData' => $appointmentData,
+            'listAdvisor' => $listAdvisor
         ];
-
 
         return view('v_fellowProgressAdvisor',$data);
     }
 
-    public function editFellowsProgressAdvisor(Request $request,$email){
-        $listAdvisor = DB::table('advisor')->get();
-        $appointmentSpdata = DB::table('appointment')->where('fellowEmail',$email)->get();
+    public function editFellowsProgressAdvisor(Request $request,$app_id){
+        $user = Auth::user();
 
-        $check = DB::table('appointment')->where('fellowEmail',$email)->get();
+        $appointment = DB::table('advisor')
+        ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
+        ->join('fellows', 'appointment.app_id', '=', 'fellows.app_id')
+        ->where(['appointment.id_advisor'=>$user->id_advisor,'appointment.app_id'=>$app_id])
+        ->get();
 
-        $appointmentSpdata = $appointmentSpdata[0];
+        $status;
+        $selectedAccept;
+
+        if (count($appointment) == 0) {
+            $status = 'create';
+        } else {
+            $status = 'edit';
+        }
+
+        if ($status == 'create') {
+            $selectedAccept = '';
+        } else {
+            $selectedAccept = $appointment[0]->accepted;
+        }
+
 
         $data = [
-            'listAdvisor' => $listAdvisor,
-            'email' => $email,
-            'appointmentSpdata'=> $appointmentSpdata,
-            'selectedCv' => $appointmentSpdata->cvFinalized,
-            'selectedScheduled' => $appointmentSpdata->scheduled,
-            'selectedScheduled' => $appointmentSpdata->scheduled,
-            'selectedStatus' => $appointmentSpdata->status,
-
+            'appointment' => $appointment,
+            'status' => $status
         ];
 
         return view('v_editFellowProgressAdvisor',$data);
     }
 
-    public function postFellowsProgressAdvisor(Request $request,$email){
+    public function postFellowsProgressAdvisor(Request $request,$app_id){
         $data = [
-            'cvFinalized' => $request->input('cv'),
-            'scheduled' => $request->input('scheduled'),
+            'cv_finalized' => $request->input('cv_finalized'),
+            'response_board_finalized' => $request->input('response_board_finalized'),
+            'ongoing_applications' => $request->input('ongoing_applications'),
+            'upcoming_applications' => $request->input('upcoming_applications'),
+            'target_companies' => $request->input('target_companies'),
+            'comments' => $request->input('comments'),
             'status' => $request->input('status'),
-            'remarks' => $request->input('remarks'),
             'employer' => $request->input('employer'),
-            'employedDate' => $request->input('date'),
+            'employed_date' => $request->input('employed_date')
         ];
 
-        DB::table('appointment')->where('fellowEmail',$email)->update($data);
+        DB::table('appointment')->where('app_id',$app_id)->update($data);
 
         return redirect()->route('fellowsProgressAdvisor')->with('pesan','data berhasil ditambahkan');
     }
     //END FELLOW PROFRESS
 
-    //WEEKLY FEEDBACK
-    public function weeklyFeedback(Request $request){
+    //DATA ADVISOR
+    public function data(){
         $user = Auth::user();
-        $nameCheck = $user->name;
-        $exp = explode(' ', $nameCheck);
-        $jn = strtolower(join(" ",$exp));
 
-        $rows = Sheets::spreadsheet('1QzB3gnUy0wQqO320ZwD8k4hiysPBaxI2Pb7VAmdeU14')->sheet('Summary')->get();
-
-        $header = $rows->pull(2);
-        $values = Sheets::collection($header, $rows);
-        $values->toArray();
-
-
-        $rows2 = Sheets::spreadsheet('1QzB3gnUy0wQqO320ZwD8k4hiysPBaxI2Pb7VAmdeU14')->sheet(ucwords($exp[0]))->get();
-
-        $header2 = $rows2->pull(2);
-        $values2 = Sheets::collection($header2, $rows2);
-        $values2->toArray();
-
-        $activeFellow = DB::table('appointment')->where('idAdvisor',$user->idAdvisor)->where('accept','=',2)->orWhere('accept','=',1)->get();
+        $listAdvisor = DB::table('advisor')->where('id_advisor',$user->id_advisor)->get();
 
         $data = [
-            'bootcampData' => $values,
-            'bootcampExp' => $values2,
-            'name' => $jn,
-            'activeFellow'=> $activeFellow
+            'listAdvisor' =>  $listAdvisor
         ];
 
-        return view('v_weekly-feedback',$data);
-    }
-    //END WEEKLY FEEDBACK
-
-
-    public function approveForm(Request $request){
-
-        $user = Auth::user();
-        $idApp = $request->get('id');
-
-        $affected = DB::table('appointments')
-              ->where('id', $idApp)
-              ->update(['accept' => 1]);
-
-        return response() ->json(['res' => 'oke']);
+        return view('advisor/v_dataAdvisor',$data);
     }
 
-    public function cancelForm(Request $request){
+    public function postDataAdvisor(Request $request,$id){
+        $data = [
+            'first_name' => $request->input('advisor_first_name'),
+            'last_name' => $request->input('advisor_last_name'),
+            'full_name' => $request->input('advisor_full_name'),
+            'email_address' => $request->input('email_address'),
+            'current_pod' => $request->input('pod'),
+            'class_size' => $request->input('class_size'),
+            'primary_stream' => $request->input('primary_stream'),
+            'secondary_stream' => $request->input('secondary_stream'),
+            'last_position' => $request->input('last_position'),
+            'last_company' => $request->input('last_company'),
+            'enrollment_key' => $request->input('enrollment_key'),
+            'calendly_link' => $request->input('calendly_link'),
+            'workshop_link' => $request->input('workshop_link'),
+            'workshop_schedule' => $request->input('workshop_schedule'),
+            'pod_connect_schedule' => $request->input('pod_connect_schedule'),
+            'advisor_type' => $request->input('advisor_type'),
+            'class' => $request->input('class')
+        ];
 
-        $user = Auth::user();
-        $idApp = $request->get('id');
+        DB::table('advisor')->where('id_advisor',$id)->update($data);
 
-        $affected = DB::table('appointments')
-              ->where('id', $idApp)
-              ->update(['status' => 2]);
-
-        return response() ->json(['res' => 'oke']);
+        return redirect()->route('data')->with('pesan','data berhasil ditambahkan');
     }
+    //END DATA ADVISOR
+
 }

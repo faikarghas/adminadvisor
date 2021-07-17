@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>AdminLTE 3 | Dashboard 2</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -82,7 +83,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/fellowsAdvisor" class="nav-link">
+            <a href="/fellows-advisor" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Advisor
@@ -119,8 +120,84 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-lg-12 text-right">
-                                    {{-- <a href="/create-appointment" class="btn-create">Create Appointment</a> --}}
+                                <div class="col-lg-12">
+                                    {{-- <form action="/updateDataAdvisor" method="post" accept-charset="utf-8">
+                                      {{ csrf_field() }}
+                                      <div class="card-body">
+                                      </div>
+                                      <!-- /.card-body -->
+                                      <div class="card-footer">
+                                          <button type="submit" class="btn btn-primary">UPDATE</button>
+                                      </div>
+                                    </form> --}}
+                                    <h2 class="mb-4">Filter</h2>
+                                    <form action="">
+                                      <div class="container">
+                                        <div class="row">
+                                          <div class="col-12 col-lg-6">
+                                            <div class="form-group">
+                                              <label for="interest">Field of Interest (1st)</label>
+                                              <select id="interest" name="interest" class="custom-select form-control-border" aria-label="Default select example">
+                                                <option selected></option>
+                                                <option value="Accounting / Financial Advisory (e.g., PwC, EY, Deloitte)">Accounting / Financial Advisory (e.g., PwC, EY, Deloitte)</option>
+                                                <option value="Banking & Finance (e.g., HSBC, Citibank, BCA, Mandiri, Deutsche Bank)">Banking & Finance (e.g., HSBC, Citibank, BCA, Mandiri, Deutsche Bank)</option>
+                                                <option value="Corporate (e.g., Sampoerna, Astra)">Corporate (e.g., Sampoerna, Astra)</option>
+                                                <option value="FMCG (e.g., Unilever, P&G, Loreal, Wings)">FMCG (e.g., Unilever, P&G, Loreal, Wings)</option>
+                                                <option value="Law (e.g., Baker Mckenzie, Denton, Allen Overy)">Law (e.g., Baker Mckenzie, Denton, Allen Overy)</option>
+                                                <option value="Management Consulting (e.g., Mckinsey, BCG, Kearney, Accenture)">Management Consulting (e.g., Mckinsey, BCG, Kearney, Accenture)</option>
+                                                <option value="Start-ups (e.g., Gojek, Tokopedia, Shopee, Jenius)">Start-ups (e.g., Gojek, Tokopedia, Shopee, Jenius)</option>
+                                                <option value="Other">Other</option>
+                                              </select>
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="batch">Batch</label>
+                                              <select id="batch" name="batch" class="custom-select form-control-border" aria-label="Default select example">
+                                                <option selected></option>
+                                                <option value="Y21 August">Y21 August</option>
+                                              </select>
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="advisor">Advisor (assigned to)</label>
+                                              <select id="advisor" name="advisor" class="custom-select form-control-border" aria-label="Default select example">
+                                                @foreach ($listAdvisorAll as $item)
+                                                  <option selected></option>
+                                                  <option value="{{$item->first_name}} {{$item->last_name}}">{{$item->first_name}} {{$item->last_name}}</option>
+                                                @endforeach
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="col-12 col-lg-6">
+                                            <div class="form-group">
+                                              <label for="strength">Strength</label>
+                                              <select id="strength" name="strength" class="custom-select form-control-border" aria-label="Default select example">
+                                                <option selected></option>
+                                                <option value="Super Strong">Super Strong</option>
+                                                <option value="Strong">Strong</option>
+                                                <option value="Relatively Strong">Relatively Strong</option>
+                                                <option value="Mediocre">Mediocre</option>
+                                              </select>
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="accept">Accepted?</label>
+                                              <select id="accept" name="accept" class="custom-select form-control-border" aria-label="Default select example">
+                                                <option selected></option>
+                                                <option value="Accepted">Accepted</option>
+                                                <option value="Waitlisted">Waitlisted</option>
+                                                <option value="Rejected">Rejected</option>
+                                              </select>
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="signed">Signed?</label>
+                                              <select id="signed" name="signed" class="custom-select form-control-border" aria-label="Default select example">
+                                                <option selected></option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -128,676 +205,156 @@
                         <div class="card-body">
                           <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Fellows</a>
+                              <a class="nav-link active">Fellows</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Accepted</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Rejected</a>
+                              <a class="nav-link" href="{{route('summary')}}">Summary</a>
                             </li>
                           </ul>
                           <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active mt-5" id="home" role="tabpanel" aria-labelledby="home-tab">
-                              <table id="example1" class="table table-bordered table-striped" style="overflow: auto">
+                              <table id="fellows_table" class="table table-bordered table-striped" style="overflow: auto">
                                 <thead>
                                 <tr>
                                   <th></th>
                                   <th>#</th>
-                                  <th>Full Name</th>
-                                  <th>Uni Status</th>
-                                  <th>Full Time / Internship</th>
-                                  <th>Job Search Horizon</th>
-                                  <th># of Past Internships</th>
-                                  <th>Target Roles</th>
-                                  <th>Salary Expectation</th>
+                                  <th>Application ID</th>
+                                  <th>Application Time Stamp</th>
+                                  <th>First name</th>
+                                  <th>Last Name</th>
+                                  <th>Email address</th>
+                                  <th>Phone number</th>
                                   <th>Gender</th>
-                                  <th>E-mail</th>
-                                  <th>Contact</th>
-                                  {{-- <th>Reason for Joining AIMZ</th> --}}
-                                  <th>CV Link</th>
-                                  <th>Interest (1st)</th>
-                                  <th>Interest (2nd)</th>
-                                  <th>Batch</th>
-                                  <th>Strength</th>
-                                  <th>Assigned to?</th>
-                                  <th>Final Advisor</th>
+                                  <th>University</th>
+                                  <th>GPA</th>
+                                  <th>How did you know about AIMZ?</th>
+                                  <th>Job hunting stage</th>
+                                  <th>No. of past internships</th>
+                                  <th>Experience in MNC/top company?</th>
+                                  <th>Field of Interest (1st priority)</th>
+                                  <th>Field of Interest (2nd priority)</th>
+                                  <th>Primary target roles/th>
+                                  <th>Salary expectation</th>
+                                  <th>Timeline to start working</th>
+                                  <th>Reason to join AIMZ</th>
+                                  <th>CV link</th>
+                                  <th>Referee's name</th>
+                                  <th>Referee's whatsapp number</th>
+                                  <th>Referee's email</th>
+                                  <th>Bootcamp Batch</th>
+                                  <th>Profile Strength</th>
+                                  <th>Advisor</th>
                                   <th>AIMZ Remarks</th>
                                   <th>Advisor Remarks</th>
                                   <th>Accepted?</th>
-                                  <th>Reason for Rejection</th>
-                                  <th>Comments (If Any)</th>
-                                  <th>Contract Signed</th>
+                                  <th>Reason for rejection</th>
+                                  <th>Internal Comments</th>
+                                  <th>Contract Signed?</th>
+                                  <th>Fellow status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                  @foreach($data as $key => $value)
-                                      <tr data-key={{$key}}>
-                                        <td height="30"><a href="/edit-fellows/{{$value['Email address']}}">edit</a></td>
-                                        <td height="30">{{$key}}</td>
-                                        <td height="30">{{$value['First name']}} {{$value['Last Name']}}</td>
-                                        <td height="30">{{$value['Where are you in your job hunting process?']}}</td>
-                                        <td height="30">{{$value['Where are you in your job hunting process?']}}</td>
-                                        <td height="30">{{$value['How soon would you be available to start working if you do get a job offer?']}}</td>
-                                        <td height="30">{{$value['How many internships or work experience do you have?']}}</td>
-                                        <td height="30">{{$value['What are your primary target roles in the industries that you have picked (e.g., product manager, digital marketing)?']}}</td>
-                                        <td height="30">{{$value['What is your salary expectation in IDR?']}}</td>
-                                        <td height="30">{{$value['Gender']}}</td>
-                                        <td height="30">{{$value['Email address']}}</td>
-                                        <td height="30">{{$value['Phone/Whatsapp number (we will contact you here to get in touch)']}}</td>
-                                        {{-- <td height="30">{{$value['Please briefly state your primary reason(s) for joining AIMZ bootcamp to help us understand your aspirations']}}</td> --}}
-                                        <td height="30">{{$value['Please drop your resume below as part of your application']}}</td>
-                                        <td height="30"><div style="width: 150px; overflow:auto;">{{$value['Which primary environment are you highly interested in?']}}</div></td>
-                                        <td height="30"><div style="width: 150px; overflow:auto;">{{$value['Which secondary environment(s) are you highly interested in? (If possible, please select more than 1)']}}</div></td>
+                                  @foreach($listFellows as $key => $value)
+                                      <tr data-key={{$key+1}}>
+                                        <td height="30"><a href="/edit-fellows/{{$value->app_id}}">edit</a></td>
+                                        <td height="30">{{$key+1}}</td>
+                                        <td height="30">{{$value->app_id}}</td>
+                                        <td height="30">{{$value->date}}</td>
+                                        <td height="30">{{$value->first_name}}</td>
+                                        <td>{{$value->last_name}}</td>
+                                        <td height="30">{{$value->email_address}}</td>
+                                        <td height="30">{{$value->phone}}</td>
+                                        <td height="30">{{$value->gender}}</td>
+                                        <td height="30">{{$value->university}}</td>
+                                        <td height="30">{{$value->gpa}}</td>
+                                        <td height="30">{{$value->question_1}}</td>
+                                        <td height="30">{{$value->question_2}}</td>
+                                        <td height="30">{{$value->question_3}}</td>
+                                        <td height="30">{{$value->question_4}}</td>
+                                        <td height="30">{{$value->question_5}}</td>
+                                        <td height="30">{{$value->question_6}}</td>
+                                        <td height="30">{{$value->question_7}}</td>
+                                        <td height="30">{{$value->question_8}}</td>
+                                        <td height="30">{{$value->question_9}}</td>
+                                        <td height="30">{{$value->reason_to_join}}</td>
+                                        <td height="30"><a href="{{$value->resume}}" target="_blank" rel="noopener">{{$value->resume}}</a></td>
+                                        <td height="30">{{$value->referee_name}}</td>
+                                        <td height="30">{{$value->referee_wa}}</td>
+                                        <td height="30">{{$value->referee_email}}</td>
+                                        <td height="30">{{$value->bootcamp_batch}}</td>
                                         <td height="30">
                                           @foreach ($appointmentSpdata as $item)
-                                            @if ($item->fellowEmail == $value['Email address'])
-                                              {{$item->batch}}
-                                            @else
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->profile_strength}}
                                             @endif
                                           @endforeach
                                         </td>
                                         <td height="30">
                                           @foreach ($appointmentSpdata as $item)
-                                            @if ($item->fellowEmail == $value['Email address'])
-                                              {{$item->strength}}
-                                            @else
-                                            @endif
-                                          @endforeach
-                                        </td>
-                                        <td height="30">
-                                          @foreach ($listAdvisor as $item)
-                                            @if ($item->fellowEmail == $value['Email address'])
-                                              {{$item->advisorName}}
-                                            @else
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->full_name}}
                                             @endif
                                           @endforeach
                                         </td>
                                         <td height="30">
                                           @foreach ($appointmentSpdata as $item)
-                                            @if ($item->fellowEmail == $value['Email address'])
-                                              @if ($item->accept == 0)
-    
-                                              @else
-                                                  {{$item->advisorName}}
-                                              @endif
-                                            @else
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->aimz_remarks}}
                                             @endif
                                           @endforeach
                                         </td>
                                         <td height="30">
                                           @foreach ($appointmentSpdata as $item)
-                                            @if ($item->fellowEmail == $value['Email address'])
-                                              {{$item->adminRemarks}}
-                                              @else
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->advisor_remarks}}
                                             @endif
                                           @endforeach
                                         </td>
                                         <td height="30">
                                           @foreach ($appointmentSpdata as $item)
-                                            @if ($item->fellowEmail == $value['Email address'])
-                                              {{$item->advisorRemarks}}
-                                              @else
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->accepted}}
                                             @endif
                                           @endforeach
                                         </td>
                                         <td height="30">
                                           @foreach ($appointmentSpdata as $item)
-                                            @if ($item->fellowEmail == $value['Email address'])
-                                            @if ($item->accept == 1)
-                                              Yes
-                                            @else
-                                              No
-                                            @endif
-                                            @else
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->reason_for_rejection}}
                                             @endif
                                           @endforeach
                                         </td>
                                         <td height="30">
                                           @foreach ($appointmentSpdata as $item)
-                                            @if ($item->fellowEmail == $value['Email address'])
-                                              {{$item->reason}}
-                                            @else
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->internal_comments}}
                                             @endif
                                           @endforeach
                                         </td>
                                         <td height="30">
                                           @foreach ($appointmentSpdata as $item)
-                                            @if ($item->fellowEmail == $value['Email address'])
-                                              {{$item->comment}}
-                                            @else
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->contract_signed}}
                                             @endif
                                           @endforeach
                                         </td>
                                         <td height="30">
                                           @foreach ($appointmentSpdata as $item)
-                                            @if ($item->fellowEmail == $value['Email address'])
-                                              @if ($item->contract)
-                                                  Yes
-                                              @else
-                                                  No
-                                              @endif
-                                            @else
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->fellow_status}}
                                             @endif
                                           @endforeach
                                         </td>
                                       </tr>
                                   @endforeach
                                 </tbody>
-                                <tfoot>
-                                <tr>
-                                  <th></th>
-                                  <th>#</th>
-                                  <th>Full Name</th>
-                                  <th>Uni Status</th>
-                                  <th>Full Time / Internship</th>
-                                  <th>Job Search Horizon</th>
-                                  <th># of Past Internships</th>
-                                  <th>Target Roles</th>
-                                  <th>Salary Expectation</th>
-                                  <th>Gender</th>
-                                  <th>E-mail</th>
-                                  <th>Contact</th>
-                                  {{-- <th>Reason for Joining AIMZ</th> --}}
-                                  <th>CV Link</th>
-                                  <th>Interest (1st)</th>
-                                  <th>Interest (2nd)</th>
-                                  <th>Batch</th>
-                                  <th>Strength</th>
-                                  <th>Assigned to?</th>
-                                  <th>Final Advisor</th>
-                                  <th>AIMZ Remarks</th>
-                                  <th>Advisor Remarks</th>
-                                  <th>Accepted?</th>
-                                  <th>Reason for Rejection</th>
-                                  <th>Comments (If Any)</th>
-                                  <th>Contract Signed</th>
-                                </tr>
-                                </tfoot>
+
                               </table>
                             </div>
-                            <div class="tab-pane fade mt-5" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                              <table id="example2" class="table table-bordered table-striped" style="overflow: auto">
-                                <thead>
-                                <tr>
-                                  <th></th>
-                                  <th>#</th>
-                                  <th>Full Name</th>
-                                  <th>Uni Status</th>
-                                  <th>Full Time / Internship</th>
-                                  <th>Job Search Horizon</th>
-                                  <th># of Past Internships</th>
-                                  <th>Target Roles</th>
-                                  <th>Salary Expectation</th>
-                                  <th>Gender</th>
-                                  <th>E-mail</th>
-                                  <th>Contact</th>
-                                  {{-- <th>Reason for Joining AIMZ</th> --}}
-                                  <th>CV Link</th>
-                                  <th>Interest (1st)</th>
-                                  <th>Interest (2nd)</th>
-                                  <th>Batch</th>
-                                  <th>Strength</th>
-                                  <th>Assigned to?</th>
-                                  <th>Final Advisor</th>
-                                  <th>AIMZ Remarks</th>
-                                  <th>Advisor Remarks</th>
-                                  <th>Accepted?</th>
-                                  <th>Reason for Rejection</th>
-                                  <th>Comments (If Any)</th>
-                                  <th>Contract Signed</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                  @foreach ($appointmentSpdata as $cek)
-                                    @foreach($data as $key => $value)
-                                      @if ($cek->fellowEmail == $value['Email address'])
-                                        @if ($cek->accept == 1)
-                                        <tr data-key={{$key}}>
-                                          <td height="30"><a href="/edit-fellows/{{$value['Email address']}}">edit</a></td>
-                                          <td height="30">{{$key}}</td>
-                                          <td height="30">{{$value['First name']}} {{$value['Last Name']}}</td>
-                                          <td height="30">{{$value['Where are you in your job hunting process?']}}</td>
-                                          <td height="30">{{$value['Where are you in your job hunting process?']}}</td>
-                                          <td height="30">{{$value['How soon would you be available to start working if you do get a job offer?']}}</td>
-                                          <td height="30">{{$value['How many internships or work experience do you have?']}}</td>
-                                          <td height="30">{{$value['What are your primary target roles in the industries that you have picked (e.g., product manager, digital marketing)?']}}</td>
-                                          <td height="30">{{$value['What is your salary expectation in IDR?']}}</td>
-                                          <td height="30">{{$value['Gender']}}</td>
-                                          <td height="30">{{$value['Email address']}}</td>
-                                          <td height="30">{{$value['Phone/Whatsapp number (we will contact you here to get in touch)']}}</td>
-                                          {{-- <td height="30">{{$value['Please briefly state your primary reason(s) for joining AIMZ bootcamp to help us understand your aspirations']}}</td> --}}
-                                          <td height="30">{{$value['Please drop your resume below as part of your application']}}</td>
-                                          <td height="30"><div style="width: 150px; overflow:auto;">{{$value['Which primary environment are you highly interested in?']}}</div></td>
-                                          <td height="30"><div style="width: 150px; overflow:auto;">{{$value['Which secondary environment(s) are you highly interested in? (If possible, please select more than 1)']}}</div></td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->batch}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->strength}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($listAdvisor as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->advisorName}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                @if ($item->accept == 0)
-      
-                                                @else
-                                                    {{$item->advisorName}}
-                                                @endif
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->adminRemarks}}
-                                                @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->advisorRemarks}}
-                                                @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                              @if ($item->accept == 1)
-                                                Yes
-                                              @else
-                                                No
-                                              @endif
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->reason}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->comment}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                @if ($item->contract)
-                                                    Yes
-                                                @else
-                                                    No
-                                                @endif
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                        </tr>
-                                        @elseif($cek->accept == 2)
-                                        <tr data-key={{$key}}>
-                                          <td height="30"><a href="/edit-fellows/{{$value['Email address']}}">edit</a></td>
-                                          <td height="30">{{$key}}</td>
-                                          <td height="30">{{$value['First name']}} {{$value['Last Name']}}</td>
-                                          <td height="30">{{$value['Where are you in your job hunting process?']}}</td>
-                                          <td height="30">{{$value['Where are you in your job hunting process?']}}</td>
-                                          <td height="30">{{$value['How soon would you be available to start working if you do get a job offer?']}}</td>
-                                          <td height="30">{{$value['How many internships or work experience do you have?']}}</td>
-                                          <td height="30">{{$value['What are your primary target roles in the industries that you have picked (e.g., product manager, digital marketing)?']}}</td>
-                                          <td height="30">{{$value['What is your salary expectation in IDR?']}}</td>
-                                          <td height="30">{{$value['Gender']}}</td>
-                                          <td height="30">{{$value['Email address']}}</td>
-                                          <td height="30">{{$value['Phone/Whatsapp number (we will contact you here to get in touch)']}}</td>
-                                          {{-- <td height="30">{{$value['Please briefly state your primary reason(s) for joining AIMZ bootcamp to help us understand your aspirations']}}</td> --}}
-                                          <td height="30">{{$value['Please drop your resume below as part of your application']}}</td>
-                                          <td height="30"><div style="width: 150px; overflow:auto;">{{$value['Which primary environment are you highly interested in?']}}</div></td>
-                                          <td height="30"><div style="width: 150px; overflow:auto;">{{$value['Which secondary environment(s) are you highly interested in? (If possible, please select more than 1)']}}</div></td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->batch}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->strength}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($listAdvisor as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->advisorName}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                @if ($item->accept == 0)
-      
-                                                @else
-                                                    {{$item->advisorName}}
-                                                @endif
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->adminRemarks}}
-                                                @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->advisorRemarks}}
-                                                @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                              @if ($item->accept == 1)
-                                                Yes
-                                              @else
-                                                No
-                                              @endif
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->reason}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->comment}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                @if ($item->contract)
-                                                    Yes
-                                                @else
-                                                    No
-                                                @endif
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                        </tr>
-                                        @endif
-                                      @endif
-                                    @endforeach
-                                  @endforeach
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                  <th></th>
-                                  <th>#</th>
-                                  <th>Full Name</th>
-                                  <th>Uni Status</th>
-                                  <th>Full Time / Internship</th>
-                                  <th>Job Search Horizon</th>
-                                  <th># of Past Internships</th>
-                                  <th>Target Roles</th>
-                                  <th>Salary Expectation</th>
-                                  <th>Gender</th>
-                                  <th>E-mail</th>
-                                  <th>Contact</th>
-                                  {{-- <th>Reason for Joining AIMZ</th> --}}
-                                  <th>CV Link</th>
-                                  <th>Interest (1st)</th>
-                                  <th>Interest (2nd)</th>
-                                  <th>Batch</th>
-                                  <th>Strength</th>
-                                  <th>Assigned to?</th>
-                                  <th>Final Advisor</th>
-                                  <th>AIMZ Remarks</th>
-                                  <th>Advisor Remarks</th>
-                                  <th>Accepted?</th>
-                                  <th>Reason for Rejection</th>
-                                  <th>Comments (If Any)</th>
-                                  <th>Contract Signed</th>
-                                </tr>
-                                </tfoot>
-                              </table>
-                            </div>
-                            <div class="tab-pane fade mt-5" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                              <table id="example3" class="table table-bordered table-striped" style="overflow: auto">
-                                <thead>
-                                <tr>
-                                  <th></th>
-                                  <th>#</th>
-                                  <th>Full Name</th>
-                                  <th>Uni Status</th>
-                                  <th>Full Time / Internship</th>
-                                  <th>Job Search Horizon</th>
-                                  <th># of Past Internships</th>
-                                  <th>Target Roles</th>
-                                  <th>Salary Expectation</th>
-                                  <th>Gender</th>
-                                  <th>E-mail</th>
-                                  <th>Contact</th>
-                                  {{-- <th>Reason for Joining AIMZ</th> --}}
-                                  <th>CV Link</th>
-                                  <th>Interest (1st)</th>
-                                  <th>Interest (2nd)</th>
-                                  <th>Batch</th>
-                                  <th>Strength</th>
-                                  <th>Assigned to?</th>
-                                  <th>Final Advisor</th>
-                                  <th>AIMZ Remarks</th>
-                                  <th>Advisor Remarks</th>
-                                  <th>Accepted?</th>
-                                  <th>Reason for Rejection</th>
-                                  <th>Comments (If Any)</th>
-                                  <th>Contract Signed</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                  @foreach ($appointmentSpdata as $cek)
-                                    @foreach($data as $key => $value)
-                                      @if ($cek->fellowEmail == $value['Email address'])
-                                        @if ($cek->accept == 0)
-                                        <tr data-key={{$key}}>
-                                          <td height="30"><a href="/edit-fellows/{{$value['Email address']}}">edit</a></td>
-                                          <td height="30">{{$key}}</td>
-                                          <td height="30">{{$value['First name']}} {{$value['Last Name']}}</td>
-                                          <td height="30">{{$value['Where are you in your job hunting process?']}}</td>
-                                          <td height="30">{{$value['Where are you in your job hunting process?']}}</td>
-                                          <td height="30">{{$value['How soon would you be available to start working if you do get a job offer?']}}</td>
-                                          <td height="30">{{$value['How many internships or work experience do you have?']}}</td>
-                                          <td height="30">{{$value['What are your primary target roles in the industries that you have picked (e.g., product manager, digital marketing)?']}}</td>
-                                          <td height="30">{{$value['What is your salary expectation in IDR?']}}</td>
-                                          <td height="30">{{$value['Gender']}}</td>
-                                          <td height="30">{{$value['Email address']}}</td>
-                                          <td height="30">{{$value['Phone/Whatsapp number (we will contact you here to get in touch)']}}</td>
-                                          {{-- <td height="30">{{$value['Please briefly state your primary reason(s) for joining AIMZ bootcamp to help us understand your aspirations']}}</td> --}}
-                                          <td height="30">{{$value['Please drop your resume below as part of your application']}}</td>
-                                          <td height="30"><div style="width: 150px; overflow:auto;">{{$value['Which primary environment are you highly interested in?']}}</div></td>
-                                          <td height="30"><div style="width: 150px; overflow:auto;">{{$value['Which secondary environment(s) are you highly interested in? (If possible, please select more than 1)']}}</div></td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->batch}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->strength}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($listAdvisor as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->advisorName}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                @if ($item->accept == 0)
-      
-                                                @else
-                                                    {{$item->advisorName}}
-                                                @endif
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->adminRemarks}}
-                                                @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->advisorRemarks}}
-                                                @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                              @if ($item->accept == 1)
-                                                Yes
-                                              @else
-                                                No
-                                              @endif
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->reason}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                {{$item->comment}}
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                          <td height="30">
-                                            @foreach ($appointmentSpdata as $item)
-                                              @if ($item->fellowEmail == $value['Email address'])
-                                                @if ($item->contract)
-                                                    Yes
-                                                @else
-                                                    No
-                                                @endif
-                                              @else
-                                              @endif
-                                            @endforeach
-                                          </td>
-                                        </tr>
-                                        @endif
-                                      @endif
-                                    @endforeach
-                                  @endforeach
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                  <th></th>
-                                  <th>#</th>
-                                  <th>Full Name</th>
-                                  <th>Uni Status</th>
-                                  <th>Full Time / Internship</th>
-                                  <th>Job Search Horizon</th>
-                                  <th># of Past Internships</th>
-                                  <th>Target Roles</th>
-                                  <th>Salary Expectation</th>
-                                  <th>Gender</th>
-                                  <th>E-mail</th>
-                                  <th>Contact</th>
-                                  {{-- <th>Reason for Joining AIMZ</th> --}}
-                                  <th>CV Link</th>
-                                  <th>Interest (1st)</th>
-                                  <th>Interest (2nd)</th>
-                                  <th>Batch</th>
-                                  <th>Strength</th>
-                                  <th>Assigned to?</th>
-                                  <th>Final Advisor</th>
-                                  <th>AIMZ Remarks</th>
-                                  <th>Advisor Remarks</th>
-                                  <th>Accepted?</th>
-                                  <th>Reason for Rejection</th>
-                                  <th>Comments (If Any)</th>
-                                  <th>Contract Signed</th>
-                                </tr>
-                                </tfoot>
-                              </table>
+                            <div class="tab-pane fade mt-5" id="summary" role="tabpanel" aria-labelledby="summary-tab">
                             </div>
                           </div>
                         </div>
-                        <!-- /.card-body -->
                     </div>
                 </div>
             </div>
@@ -853,26 +410,75 @@
 <script src="{{asset('template')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
   $(document).ready(function() {
-    $('#example1').DataTable();
-    $('#example2').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-           'csv', 'excel'
-        ]
+    var table = $('#fellows_table').DataTable({
+      fixedHeader: true,
+      scrollX: true,
+      scrollY:        '70vh',
+      scrollCollapse: true,
+      dom: 'Bfrtip',
+      buttons: [
+          'csv', 'excel'
+      ],
+      columnDefs: [
+            { width: 200, targets: 2 },
+            { width: 100, targets: 3 },
+            { width: 100, targets: 4 },
+            { width: 100, targets: 5 },
+            { width: 100, targets: 6 },
+            { width: 100, targets: 7 },
+            { width: 100, targets: 8 },
+            { width: 100, targets: 9 },
+            { width: 50, targets: 10 },
+            { width: 200, targets: 11 },
+            { width: 200, targets: 12 },
+            { width: 200, targets: 13 },
+            { width: 200, targets: 14 },
+            { width: 200, targets: 15 },
+            { width: 200, targets: 16 },
+            { width: 200, targets: 17 },
+            { width: 200, targets: 18 },
+            { width: 200, targets: 19 },
+            { width: 200, targets: 20 },
+            { width: 200, targets: 21 },
+            { width: 200, targets: 22 },
+            { width: 200, targets: 23 },
+            { width: 200, targets: 24 },
+            { width: 200, targets: 25 },
+            { width: 200, targets: 26 },
+            { width: 200, targets: 27 },
+            { width: 200, targets: 28 },
+            { width: 200, targets: 29 },
+            { width: 200, targets: 30 },
+            { width: 200, targets: 31 },
+            { width: 200, targets: 32 },
+            { width: 200, targets: 33 },
+            { width: 200, targets: 34 },
+      ],
     });
-    $('#example3').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-           'csv', 'excel'
-        ]
-    });
+
+    $('#interest').on('change',function (params) {
+      table.column(15).search(this.value).draw();
+    })
+    $('#batch').on('change',function (params) {
+      table.column(25).search(this.value).draw();
+    })
+    $('#advisor').on('change',function (params) {
+      table.column(27).search(this.value).draw();
+    })
+    $('#strength').on('change',function (params) {
+      table.column(26).search(this.value).draw();
+    })
+    $('#accept').on('change',function (params) {
+      table.column(30).search(this.value).draw();
+    })
+    $('#signed').on('change',function (params) {
+      table.column(33).search(this.value).draw();
+    })
+
+
   });
 
-  $('.advisorSelect').on('change',function (params) {
-    let thisEl = this
-    let dataID = $(thisEl).data('id')
-    alert( dataID );
-  })
+
 
 </script>
 </body>

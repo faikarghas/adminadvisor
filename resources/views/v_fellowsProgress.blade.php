@@ -82,7 +82,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/fellowsAdvisor" class="nav-link">
+            <a href="/fellows-advisor" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Advisor
@@ -119,96 +119,208 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-lg-12 text-right">
-                                    {{-- <a href="/create-appointment" class="btn-create">Create Appointment</a> --}}
+                                <div class="col-lg-12">
+                                  <h2 class="mb-4">Filter</h2>
+                                  <form action="">
+                                    <div class="container">
+                                      <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                          <div class="form-group">
+                                            <label for="batch">Batch</label>
+                                            <select id="batch" name="batch" class="custom-select form-control-border" aria-label="Default select example">
+                                              <option selected></option>
+                                              <option value="Y21 August">Y21 August</option>
+                                            </select>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="advisor">Advisor (assigned to)</label>
+                                            <select id="advisor" name="advisor" class="custom-select form-control-border" aria-label="Default select example">
+                                              <option selected></option>
+                                              @foreach ($listAdvisor as $item)
+                                                <option value="{{$item->first_name}} {{$item->last_name}}">{{$item->first_name}} {{$item->last_name}}</option>
+                                              @endforeach
+                                            </select>
+                                          </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                          <div class="form-group">
+                                            <label for="status">Status</label>
+                                            <select id="status" name="accept" class="custom-select form-control-border" aria-label="Default select example">
+                                              <option selected></option>
+                                              <option value="Admitted">Admitted</option>
+                                              <option value="Withdrew">Withdrew</option>
+                                              <option value="Employed">Employed</option>
+                                              <option value="Invoiced">Invoiced</option>
+                                              <option value="Paid">Paid</option>
+                                            </select>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="pod">Advisor Pod</label>
+                                            <select id="pod" name="pod" class="custom-select form-control-border" aria-label="Default select example">
+                                              <option selected></option>
+                                              <option value="Y21 August_1">Y21 August_1</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </form>
                                 </div>
                             </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                          <table id="table1" class="table table-bordered table-striped" style="overflow: auto">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>Full Name</th>
-                                <th>Email Address</th>
-                                <th>CV Finalized</th>
-                                <th># of Interviews Done/Scheduled</th>
-                                <th>Status</th>
-                                <th>Remarks</th>
-                                <th>Employer</th>
-                                <th>Employed Date</th>
-                                <th>Advisor</th>
-                                <th>Invoice</th>
-                                <th>Invoice Amount</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                  function rupiah($angka){
-                                    $hasil_rupiah = number_format($angka,2,',','.');
-                                    return $hasil_rupiah;
-                                  }
-                                ?>
-                                @foreach ($appointmentSpdata as $item)
-                                <tr class="table1_data">
-                                    <td><a href="/edit-fellowsProgress/{{$item->fellowEmail}}">edit</a></td>
-                                    <td>
-                                      @foreach ($data as $item2)
-                                        @if ($item2['Email address'] == $item->fellowEmail)
-                                          {{$item2['First name']}} {{$item2['Last Name']}}
-                                        @else
-
-                                        @endif
-                                      @endforeach
-                                    </td>
-                                    <td>{{$item->fellowEmail}}</td>
-                                    <td>
-                                      @if ($item->cvFinalized == 1)
-                                          Yes
-                                      @else
-                                          No
-                                      @endif
-                                    </td>
-                                    <td>{{$item->scheduled}}</td>
-                                    <td>{{$item->status}}</td>
-                                    <td>{{$item->remarks}}</td>
-                                    <td>{{$item->employer}}</td>
-                                    <td>{{$item->employedDate}}</td>
-                                    <td>{{$item->advisorName}}</td>
-                                    <td>
-                                      @if ($item->invoice == 0)
-                                          Not Paid
-                                      @else
-                                          Paid
-                                      @endif
-                                    </td>
-                                    <td>
-                                      <?php
-                                        echo rupiah($item->invoiceAmount)
-                                      ?>
-                                    </td>
+                          <table id="fellowsProgress_table" class="table table-bordered table-striped" style="overflow: auto">
+                                <thead>
+                                <tr>
+                                  <th></th>
+                                  <th>#</th>
+                                  <th>Fellow Name</th>
+                                  <th>Email Address</th>
+                                  <th>CV Link</th>
+                                  <th>Field of Interest (1st priority)</th>
+                                  <th>Field of Interest (2st priority)</th>
+                                  <th>Primary Target Roles</th>
+                                  <th>Job Hunting Stage</th>
+                                  <th>CV Finalized</th>
+                                  <th>Response Board Finalized</th>
+                                  <th># of Ongoing Applications</th>
+                                  <th># of Upcoming Applications</th>
+                                  <th>Target Companies</th>
+                                  <th>Comments</th>
+                                  <th>Status</th>
+                                  <th>Employer (If Employed)</th>
+                                  <th>Employed Date</th>
+                                  <th>Invoice Amount</th>
+                                  <th>Payment Method</th>
+                                  <th>Paid Amount</th>
+                                  <th>Batch</th>
+                                  <th>Advisor</th>
+                                  <th>Advisor Pod</th>
                                 </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                  @foreach($listFellows as $key => $value)
+                                      <tr data-key={{$key+1}}>
+                                        <td height="30"><a href="/edit-fellowsProgress/{{$value->app_id}}">edit</a></td>
+                                        <td height="30">{{$key+1}}</td>
+                                        <td height="30">{{$value->first_name}} {{$value->last_name}}</td>
+                                        <td height="30">{{$value->email_address}}</td>
+                                        <td height="30"><a href="{{$value->resume}}" target="_blank" rel="noopener">{{$value->resume}}</a></td>
+                                        <td height="30">{{$value->question_5}}</td>
+                                        <td height="30">{{$value->question_6}}</td>
+                                        <td height="30">{{$value->question_7}}</td>
+                                        <td height="30">{{$value->question_2}}</td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->cv_finalized}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->response_board_finalized}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->ongoing_applications}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->upcoming_applications}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->target_companies}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->comments}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->status}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->employer}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->employed_date}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->invoice_amount}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->payment_method}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->paid_amount}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->bootcamp_batch)
+                                            {{$item->paid_amount}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->first_name}} {{$item->last_name}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                        <td height="30">
+                                          @foreach ($appointmentSpdata as $item)
+                                            @if ($value->app_id == $item->app_id)
+                                            {{$item->current_pod}}
+                                            @endif
+                                          @endforeach
+                                        </td>
+                                      </tr>
+                                  @endforeach
+                                </tbody>
 
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <th></th>
-                                <th>Full Name</th>
-                                <th>Email Address</th>
-                                <th>CV Finalized</th>
-                                <th># of Interviews Done/Scheduled</th>
-                                <th>Status</th>
-                                <th>Remarks</th>
-                                <th>Employer</th>
-                                <th>Employed Date</th>
-                                <th>Advisor</th>
-                                <th>Invoice</th>
-                                <th>Invoice Amount</th>
-                            </tr>
-                            </tfoot>
-                          </table>
+                              </table>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -268,12 +380,30 @@
 
 <script>
   $(document).ready(function() {
-    $("#table1").DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-           'csv', 'excel'
-        ]
-      })
+    var table = $("#fellowsProgress_table").DataTable({
+      fixedHeader: true,
+      scrollX: true,
+      scrollY:        '70vh',
+      scrollCollapse: true,
+      dom: 'Bfrtip',
+      buttons: [
+          'csv', 'excel'
+      ],
+    })
+
+    $('#batch').on('change',function (params) {
+      table.column(21).search(this.value).draw();
+    })
+    $('#advisor').on('change',function (params) {
+      table.column(22).search(this.value).draw();
+    })
+    $('#status').on('change',function (params) {
+      table.column(15).search(this.value).draw();
+    })
+    $('#pod').on('change',function (params) {
+      table.column(27).search(this.value).draw();
+    })
+
   });
 </script>
 

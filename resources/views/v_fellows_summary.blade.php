@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>AdminLTE 3 | Dashboard 2</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -82,7 +83,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/fellowsAdvisor" class="nav-link">
+            <a href="/fellows-advisor" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Advisor
@@ -103,6 +104,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
+            <h1 class="m-0">List Fellows</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -118,92 +120,67 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-lg-12 text-right">
-                                    {{-- <a href="/create-appointment" class="btn-create">Create Appointment</a> --}}
+                                <div class="col-lg-12">
+                                    <h2 class="mb-4">Filter</h2>
+                                    <form action="">
+                                      <div class="container">
+                                        <div class="row">
+                                          <div class="col-12 col-lg-6">
+                                            <div class="form-group">
+                                              <label for="batch">Batch</label>
+                                              <select id="batch" name="batch" class="custom-select form-control-border" aria-label="Default select example">
+                                                <option selected></option>
+                                                <option value="Y21 August">Y21 August</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="table2" class="table table-bordered table-striped" style="overflow: auto">
+                          <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{route('fellows')}}">Fellows</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link active" >Summary</a>
+                            </li>
+                          </ul>
+                          <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade  mt-5" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            </div>
+                            <div class="tab-pane fade show active mt-5" id="summary" role="tabpanel" aria-labelledby="summary-tab">
+                              <table id="summary_table" class="table table-bordered table-striped" style="overflow: auto">
                                 <thead>
-                                    <tr>
-                                        <th colspan="4"></th>
-                                        <th colspan="6">Bootcamp Experience</th>
-                                        <th colspan="2"></th>
-                                    </tr>
-                                    <tr>
-                                        <th><div style="width: 100px">Amount Due</div></th>
-                                        <th># of Fellows</th>
-                                        <th># of Feedback</th>
-                                        <th>Participation %</th>
-
-                                        <th>Advisor Delivery</th>
-                                        <th>Content Usefulness</th>
-                                        <th><div style="width: 100px">Clarity on Next Steps</div></th>
-                                        <th><div style="width: 100px">Connection with Advisor</div></th>
-                                        <th>Feedback Quality</th>
-                                        <th>Average Score</th>
-
-                                        <th>Active Fellows</th>
-                                        <th>Placement Rate</th>
-                                    </tr>
+                                <tr>
+                                  <th>Advisor Name</th>
+                                  <th>Accepted</th>
+                                  <th>Waitlisted</th>
+                                  <th>Rejected</th>
+                                  <th>Blank</th>
+                                  <th>Bootcamp</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($bootcampData as $key => $item)
-                                        @if ($key == 0)
-
-                                        @elseif( $key == 1)
-
-                                        @elseif(ucwords($name) == $item['Advisor'])
-                                        <tr>
-                                            <td>1.000.000</td>
-                                            <td>{{$item['# of fellows']}}</td>
-                                            <td>{{$item['# of feedback']}}</td>
-
-                                            <td>{{$item['participation %']}}</td>
-                                            <td>{{$item['Advisor Delivery']}}</td>
-                                            <td>{{$item['Content Usefulness']}}</td>
-
-                                            <td>{{$item['Clarity on Next Steps']}}</td>
-                                            <td>{{$item['Connection with Advisor']}}</td>
-                                            <td>{{$item['Feedback Quality']}}</td>
-
-                                            <td>{{$item['Weighted Avg.']}}</td>
-                                            <td>
-                                              @foreach ($activeFellow as $item)
-                                                <ul>
-                                                  <li>{{$item->fellowName}}</li>
-                                                </ul>
-                                              @endforeach
-                                            </td>
-                                            <td>0%</td>
-                                        </tr>
-                                        @endif
-                                    @endforeach
+                                  @foreach($listFellows as $key => $value)
+                                      <tr>
+                                        <td>test</td>
+                                        <td>test</td>
+                                        <td>test</td>
+                                        <td>test</td>
+                                        <td>test</td>
+                                        <td>test</td>
+                                      </tr>
+                                  @endforeach
                                 </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>Amount Due</th>
-                                    <th># of Fellows</th>
-                                    <th># of Feedback</th>
-
-                                    <th>Participation %</th>
-                                    <th>Advisor Delivery</th>
-                                    <th>Content Usefulness</th>
-
-                                    <th>Clarity on Next Steps</th>
-                                    <th>Connection with Advisor</th>
-                                    <th>Feedback Quality</th>
-
-                                    <th>Average Score</th>
-                                    <th>Active Fellows</th>
-                                    <th>Placement Rate</th>
-                                </tr>
-                                </tfoot>
-                            </table>
+                              </table>
+                            </div>
+                          </div>
                         </div>
-                        <!-- /.card-body -->
                     </div>
                 </div>
             </div>
@@ -257,14 +234,26 @@
 <script src="{{asset('template')}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="{{asset('template')}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="{{asset('template')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<script src="{{asset('js/app.js')}}"></script>
-
 <script>
   $(document).ready(function() {
-        $('#table2').DataTable();
-        $('#table3').DataTable();
-  });
-</script>
+    $('#summary_table').DataTable({
+      fixedHeader: true,
+      scrollX: true,
+      scrollY:        '70vh',
+      scrollCollapse: true,
+      dom: 'Bfrtip',
+      buttons: [
+          'csv', 'excel'
+      ],
+      columnDefs: [
+            { width: 200, targets: 0 }
+      ],
+    })
 
+  });
+
+
+
+</script>
 </body>
 </html>

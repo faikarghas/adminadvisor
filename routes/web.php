@@ -24,14 +24,14 @@ Route::get('login',[AuthController::class,'index'])->name('login');
 Route::post('proses_login',[AuthController::class,'proses_login']);
 Route::get('logout',[AuthController::class,'logout'])->name('logout');
 Route::post('register_advisor/post',[AuthController::class,'register']);
+Route::post('registerAdvisors',[AuthController::class,'registerAdvisors']);
 
 
 
-Route::get('test',[AdminController::class,'googlesheet']);
 
 // ADMIN
-Route::post('appointment/post',[FellowsController::class,'postForm']);
-Route::post('invoice/post',[FellowsController::class,'postFellowsProgress']);
+Route::post('appointment/post/{id}',[FellowsController::class,'postForm']);
+Route::post('postFellowsProgress/{id}',[FellowsController::class,'postFellowsProgress']);
 Route::post('fellowAdvisor/post/{id}',[FellowsController::class,'postFellowsAdvisor']);
 
 
@@ -43,16 +43,16 @@ Route::post('fellowsFellowsProgressAdvisor/post/{email}',[AdvisorController::cla
 
 
 
-// auth
-
+// AUTH
 Route::group(['middleware'=>['auth']],function(){
     Route::group(['middleware'=>['check_auth:admin']],function(){
         Route::get('/',[AdminController::class,'index']);
         Route::get('fellows',[FellowsController::class,'index'])->name('fellows');
-        Route::get('edit-fellows/{email}',[FellowsController::class,'edit']);
+        Route::get('fellows-summary',[FellowsController::class,'summary'])->name('summary');
+        Route::get('edit-fellows/{id}',[FellowsController::class,'edit']);
         Route::get('fellows-progress',[FellowsController::class,'fellowsprogress'])->name('fellows-progress');
-        Route::get('edit-fellowsProgress/{email}',[FellowsController::class,'editFellowsProgress']);
-        Route::get('fellowsAdvisor',[FellowsController::class,'fellowsAdvisor'])->name('fellowsAdvisor');
+        Route::get('edit-fellowsProgress/{id}',[FellowsController::class,'editFellowsProgress']);
+        Route::get('fellows-advisor',[FellowsController::class,'fellowsAdvisor'])->name('fellowsAdvisor');
         Route::get('edit-fellowsAdvisor/{id}',[FellowsController::class,'editFellowsAdvisor']);
         Route::get('bootcamp-history/{name}',[FellowsController::class,'bootcampHistory']);
         Route::get('getDataFellowProgress/{idAdvisor}',[FellowsController::class,'getDataFellowProgress']);
@@ -61,10 +61,17 @@ Route::group(['middleware'=>['auth']],function(){
     });
     Route::group(['middleware'=>['check_auth:advisor']],function(){
         Route::get('fellows-assigned',[AdvisorController::class,'index'])->name('fellows-assigned');
-        Route::get('edit-fellowsAssigned/{email}',[AdvisorController::class,'edit']);
+        Route::get('signed-fellows',[AdvisorController::class,'signedFellows'])->name('signed-fellows');
+        Route::get('edit-fellows-assigned/{id}',[AdvisorController::class,'edit']);
         Route::get('fellows-progress-advisor',[AdvisorController::class,'fellowsProgressAdvisor'])->name('fellowsProgressAdvisor');
-        Route::get('edit-fellowsProgressAdvisor/{email}',[AdvisorController::class,'editFellowsProgressAdvisor']);
-        Route::get('weekly-feedback',[AdvisorController::class,'weeklyFeedback'])->name('weeklyFeedback');
-
+        Route::get('edit-fellowsProgressAdvisor/{id}',[AdvisorController::class,'editFellowsProgressAdvisor']);
+        Route::get('data-advisor',[AdvisorController::class,'data'])->name('data');
+        Route::post('postDataAdvisor/post/{id}',[AdvisorController::class,'postDataAdvisor']);
     });
 });
+
+
+Route::get('getFellowData',[FellowsController::class,'getFellowData'])->name('getFellowData');
+Route::post('updateData',[FellowsController::class,'updateData'])->name('updateData');
+Route::post('updateDataAdvisor',[FellowsController::class,'updateDataAdvisor'])->name('updateDataAdvisor');
+

@@ -19,25 +19,6 @@
     padding: unset;
 }
 
-#example1_wrapper{
-    overflow: auto;
-}
-
-#table1_wrapper{
-    overflow: auto;
-}
-
-#table2_wrapper{
-    overflow: auto;
-}
-
-#example2_wrapper{
-    overflow: auto;
-}
-
-#example3_wrapper{
-    overflow: auto;
-}
 
 .table.dataTable td {
     font-size: 12px;
