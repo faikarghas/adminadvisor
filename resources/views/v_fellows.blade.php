@@ -207,9 +207,9 @@
                             <li class="nav-item">
                               <a class="nav-link active">Fellows</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                               <a class="nav-link" href="{{route('summary')}}">Summary</a>
-                            </li>
+                            </li> --}}
                           </ul>
                           <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active mt-5" id="home" role="tabpanel" aria-labelledby="home-tab">
