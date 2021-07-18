@@ -19,13 +19,17 @@ class AdvisorController extends Controller
 
         $signedFellow = DB::table('appointment')->where('id_advisor',$user->id_advisor)->get();
         $listFellows = DB::table('fellows')->get();
-        $appointmentSpdata = DB::table('advisor')
+
+        $appointmentData = DB::table('advisor')
         ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
         ->join('fellows', 'appointment.app_id', '=', 'fellows.app_id')
         ->where('appointment.id_advisor',$user->id_advisor)
+        ->select('*','advisor.email_address as advisor_email')
         ->get();
 
         $idAdvisorList=[];
+
+        // dd($appointmentData);
 
         foreach ($signedFellow as $key => $value) {
             array_push($idAdvisorList,$value->id_advisor);
@@ -37,7 +41,7 @@ class AdvisorController extends Controller
             'listFellows' => $listFellows,
             'id_advisor' => $user->id_advisor,
             'id_advisorList' => $idAdvisorList,
-            'appointmentSpdata' => $appointmentSpdata
+            'appointmentData' => $appointmentData
         ];
 
 

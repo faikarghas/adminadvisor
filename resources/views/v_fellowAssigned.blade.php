@@ -213,7 +213,7 @@
                               </tr>
                               </thead>
                               <tbody>
-                                @foreach($listFellows as $key => $value)
+                                @foreach($appointmentData as $key => $value)
                                     <tr data-key={{$key+1}}>
                                       <td height="30"><a href="/edit-fellows-assigned/{{$value->app_id}}">edit</a></td>
                                       <td height="30">{{$key+1}}</td>
@@ -241,53 +241,33 @@
                                       <td height="30">{{$value->referee_email}}</td>
                                       <td height="30">{{$value->bootcamp_batch}}</td>
                                       <td height="30">
-                                        @foreach ($appointmentSpdata as $item)
-                                          @if ($value->app_id == $item->app_id)
-                                          {{$item->aimz_remarks}}
-                                          @endif
-                                        @endforeach
+                                          {{$value->aimz_remarks}}
                                       </td>
                                       <td height="30">
-                                        @foreach ($appointmentSpdata as $item)
-                                          @if ($value->app_id == $item->app_id)
-                                          {{$item->advisor_remarks}}
-                                          @endif
-                                        @endforeach
+                                          {{$value->advisor_remarks}}
                                       </td>
                                       <td height="30">
-                                        @foreach ($appointmentSpdata as $item)
-                                          @if ($value->app_id == $item->app_id)
-                                            @if ($item->accepted == 1)
+                                            @if ($value->accepted == 1)
                                               Accepted
-                                            @elseif($item->accepted == 2)
+                                            @elseif($value->accepted == 2)
                                               Waitlisted
-                                            @elseif($item->accepted == 3)
+                                            @elseif($value->accepted == 3)
                                               Rejected
                                             @endif
-                                          @endif
-                                        @endforeach
                                       </td>
                                       <td height="30">
-                                        @foreach ($appointmentSpdata as $item)
-                                          @if ($value->app_id == $item->app_id)
-                                          {{$item->reason_for_rejection}}
-                                          @endif
-                                        @endforeach
+                                          {{$value->reason_for_rejection}}
                                       </td>
                                       <td height="30">
-                                        @foreach ($appointmentSpdata as $item)
-                                          @if ($value->app_id == $item->app_id)
-                                            @if ($item->fellow_status == 0)
+                                            @if ($value->fellow_status == 0)
                                               Open
-                                            @elseif($item->fellow_status == 1)
+                                            @elseif($value->fellow_status == 1)
                                               Accepted
-                                            @elseif($item->fellow_status == 2)
+                                            @elseif($value->fellow_status == 2)
                                               Waitlisted
-                                            @elseif($item->fellow_status == 3)
+                                            @elseif($value->fellow_status == 3)
                                               Withdrew
                                             @endif
-                                          @endif
-                                        @endforeach
                                       </td>
                                     </tr>
                                 @endforeach
