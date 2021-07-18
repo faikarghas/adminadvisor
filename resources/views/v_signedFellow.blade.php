@@ -343,13 +343,13 @@
         ],
         columnDefs: [
             { width: 200, targets: 1 },
-            { width: 100, targets: 2 },
-            { width: 100, targets: 3 },
-            { width: 100, targets: 4 },
-            { width: 100, targets: 5 },
-            { width: 100, targets: 6 },
-            { width: 100, targets: 7 },
-            { width: 100, targets: 8 },
+            { width: 200, targets: 2 },
+            { width: 200, targets: 3 },
+            { width: 200, targets: 4 },
+            { width: 200, targets: 5 },
+            { width: 200, targets: 6 },
+            { width: 200, targets: 7 },
+            { width: 200, targets: 8 },
             { width: 200, targets: 9 },
             { width: 200, targets: 10 },
             { width: 200, targets: 11 },
@@ -369,6 +369,7 @@
             { width: 200, targets: 25 },
             { width: 200, targets: 26 },
             { width: 200, targets: 27 },
+            { width: 200, targets: 28 },
       ],
       })
 

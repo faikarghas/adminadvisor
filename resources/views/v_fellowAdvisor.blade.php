@@ -138,6 +138,7 @@
                             <thead>
                             <tr>
                                 <th></th>
+                                <th>Advisor ID</th>
                                 <th>Advisor Name</th>
                                 <th>Email Address</th>
                                 <th>Username</th>
@@ -162,6 +163,7 @@
                                 @foreach ($listAdvisor as $item)
                                 <tr class="table1_data">
                                     <td><a href="/edit-fellowsAdvisor/{{$item->id_advisor}}">edit</a></td>
+                                    <td>AVD{{str_pad($item->id_advisor, 5, '0', STR_PAD_LEFT)}}</td>
                                     <td>{{$item->full_name}}</td>
                                     <td>{{$item->email_address}}</td>
                                     <td>
@@ -259,6 +261,27 @@
           buttons: [
               'csv', 'excel'
           ],
+          columnDefs: [
+            { width: 200, targets: 1 },
+            { width: 200, targets: 2 },
+            { width: 200, targets: 3 },
+            { width: 200, targets: 4 },
+            { width: 200, targets: 5 },
+            { width: 200, targets: 6 },
+            { width: 200, targets: 7 },
+            { width: 200, targets: 8 },
+            { width: 200, targets: 9 },
+            { width: 200, targets: 10 },
+            { width: 200, targets: 11 },
+            { width: 200, targets: 12 },
+            { width: 200, targets: 13 },
+            { width: 200, targets: 14 },
+            { width: 200, targets: 15 },
+            { width: 200, targets: 16 },
+            { width: 200, targets: 17 },
+            { width: 200, targets: 18 },
+            { width: 200, targets: 19 },
+      ],
         });
   });
 </script>

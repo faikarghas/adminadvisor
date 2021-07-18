@@ -121,12 +121,9 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <form action="/updateData" method="post" accept-charset="utf-8">
+                                    <form action="/updateData" method="post" accept-charset="utf-8" class="mb-5">
                                       {{ csrf_field() }}
-                                      <div class="card-body">
-                                      </div>
-                                      <!-- /.card-body -->
-                                      <div class="card-footer">
+                                      <div class="card-body pl-0">
                                           <button type="submit" class="btn btn-primary">UPDATE</button>
                                       </div>
                                     </form>
@@ -437,14 +434,14 @@
       ],
       columnDefs: [
             { width: 200, targets: 2 },
-            { width: 100, targets: 3 },
-            { width: 100, targets: 4 },
-            { width: 100, targets: 5 },
-            { width: 100, targets: 6 },
-            { width: 100, targets: 7 },
-            { width: 100, targets: 8 },
-            { width: 100, targets: 9 },
-            { width: 50, targets: 10 },
+            { width: 200, targets: 3 },
+            { width: 200, targets: 4 },
+            { width: 200, targets: 5 },
+            { width: 200, targets: 6 },
+            { width: 200, targets: 7 },
+            { width: 200, targets: 8 },
+            { width: 200, targets: 9 },
+            { width: 200, targets: 10 },
             { width: 200, targets: 11 },
             { width: 200, targets: 12 },
             { width: 200, targets: 13 },
@@ -468,7 +465,6 @@
             { width: 200, targets: 31 },
             { width: 200, targets: 32 },
             { width: 200, targets: 33 },
-            { width: 200, targets: 34 },
       ],
     });
 

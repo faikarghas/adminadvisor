@@ -147,7 +147,7 @@
                                     <option @if($selectedStatus == "Admitted") selected @endif value="Admitted">Admitted</option>
                                     <option @if($selectedStatus == "Withdrew") selected @endif value="Withdrew">Withdrew</option>
                                     <option @if($selectedStatus == "Employed") selected @endif value="Employed">Employed</option>
-                                    <option @if($selectedStatus == "Invoiced") selected @endif value="Invoiced0">Invoiced</option>
+                                    <option @if($selectedStatus == "Invoiced") selected @endif value="Invoiced">Invoiced</option>
                                     <option @if($selectedStatus == "Paid") selected @endif value="Paid">Paid</option>
                                 </select>
                               </div>

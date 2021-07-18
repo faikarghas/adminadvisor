@@ -247,13 +247,13 @@
                                             {{$value->employed_date}}
                                         </td>
                                         <td height="30">
-                                            {{$value->invoice_amount}}
+                                            {{number_format($value->invoice_amount,2,',','.')}}
                                         </td>
                                         <td height="30">
                                             {{$value->payment_method}}
                                         </td>
                                         <td height="30">
-                                            {{$value->paid_amount}}
+                                            {{number_format($value->paid_amount,2,',','.')}}
                                         </td>
                                         <td height="30">
                                             {{$value->bootcamp_batch}}
