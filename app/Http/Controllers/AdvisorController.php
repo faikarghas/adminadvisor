@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Revolution\Google\Sheets\Facades\Sheets;
 use App\Models\AppointmentModel;
+use App\Models\FellowsListModel;
 
 class AdvisorController extends Controller
 {
@@ -27,20 +28,12 @@ class AdvisorController extends Controller
         ->select('*','advisor.email_address as advisor_email')
         ->get();
 
-        $idAdvisorList=[];
-
-        // dd($appointmentData);
-
-        foreach ($signedFellow as $key => $value) {
-            array_push($idAdvisorList,$value->id_advisor);
-        }
-
+        $listFellows = DB::table('fellows')->where('id_advisor',$user->id_advisor)->get();
 
         $data = [
             'dataSignedFellow' => $signedFellow,
             'listFellows' => $listFellows,
             'id_advisor' => $user->id_advisor,
-            'id_advisorList' => $idAdvisorList,
             'appointmentData' => $appointmentData
         ];
 
@@ -53,27 +46,10 @@ class AdvisorController extends Controller
         $appointment = DB::table('appointment')->where('app_id',$app_id)->get();
         $fellows = DB::table('fellows')->where('app_id',$app_id)->get();
 
-        $status;
-        $selectedAccept;
-
-        if (count($appointment) == 0) {
-            $status = 'create';
-        } else {
-            $status = 'edit';
-        }
-
-        if ($status == 'create') {
-            $selectedAccept = '';
-        } else {
-            $selectedAccept = $appointment[0]->accepted;
-        }
-
 
         $data = [
             'listAdvisor' => $listAdvisor,
             'appointment'=> $appointment,
-            'selectedAccept' => $selectedAccept,
-            'status' => $status,
             'fellows' => $fellows
         ];
 
@@ -87,7 +63,8 @@ class AdvisorController extends Controller
             'reason_for_rejection' => $request->input('reason_for_rejection'),
         ];
 
-        AppointmentModel::updateOrCreate(
+
+        FellowsListModel::updateOrCreate(
             [
               'app_id' => $app_id
             ], $data

@@ -28,7 +28,7 @@ class FellowsController extends Controller
 
         $listAdvisorAll = DB::table('advisor')->get();
 
-        $appointmentSpdata = DB::table('advisor')
+        $appointmentData = DB::table('advisor')
             ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
             ->join('fellows', 'appointment.app_id', '=', 'fellows.app_id')
             ->get();
@@ -37,7 +37,7 @@ class FellowsController extends Controller
             'listFellows' => $listFellows,
             'listAdvisor'=> $listAdvisor,
             'listAdvisorAll' => $listAdvisorAll,
-            'appointmentSpdata'=> $appointmentSpdata
+            'appointmentData'=> $appointmentData
         ];
         return view('v_fellows',$data);
     }
@@ -59,7 +59,12 @@ class FellowsController extends Controller
         ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
         ->where('appointment.id_advisor',5)->sum('accepted');
 
-        dd($test);
+        $test2 =  DB::select("
+            SELECT id_advisor, COUNT(accepted = 1) as `Accepted` ,  COUNT(accepted = 2) as `Waitlisted`
+            FROM `appointment`
+            GROUP BY id_advisor
+        ");
+        dd($test2);
 
         $data = [
             'listFellows' => $listFellows,
@@ -162,46 +167,12 @@ class FellowsController extends Controller
     public function edit($app_id){
 
         $fellows = DB::table('fellows')->where('app_id',$app_id)->get();
-        $appointment = DB::table('appointment')->where('app_id',$app_id)->get();
         $listAdvisor = DB::table('advisor')->get();
 
-        $status;
-        $selectedBatch;
-        $selectedStrength;
-        $selectedContract;
-        $selectedAdvisor;
-        $selectedStatus;
-
-        if (count($appointment) == 0) {
-            $status = 'create';
-        } else {
-            $status = 'edit';
-        }
-
-        if ($status == 'create') {
-            $selectedBatch = '';
-            $selectedStrength= '';
-            $selectedContract ='';
-            $selectedAdvisor='';
-            $selectedStatus='';
-        } else {
-            $selectedBatch = $appointment[0]->bootcamp_batch;
-            $selectedStrength = $appointment[0]->profile_strength;
-            $selectedContract =  $appointment[0]->contract_signed;
-            $selectedAdvisor = $appointment[0]->id_advisor;
-            $selectedStatus= $appointment[0]->fellow_status;
-        }
 
         $data = [
             'fellows' => $fellows,
-            'selectedBatch' => $selectedBatch,
-            'selectedStrength' => $selectedStrength,
             'listAdvisor' => $listAdvisor,
-            'appointment' => $appointment,
-            'selectedContract'=> $selectedContract,
-            'selectedAdvisor' => $selectedAdvisor,
-            'selectedStatus'=>$selectedStatus,
-            'status'=> $status,
         ];
 
         return view('v_editFellow',$data);
@@ -219,10 +190,16 @@ class FellowsController extends Controller
             'fellow_status' => $request->input('status')
         ];
 
+        FellowsListModel::updateOrCreate(
+            [
+                'app_id' => $app_id
+            ],$data
+        );
+
         AppointmentModel::updateOrCreate(
             [
-              'app_id' => $app_id
-            ],$data
+                'app_id' => $app_id
+            ],['id_advisor' => $request->input('advisor')]
         );
 
 
@@ -231,52 +208,15 @@ class FellowsController extends Controller
 
     // END FELLOW
 
-    public function listAdvisor(Request $request){
-        $rows = Sheets::spreadsheet('1pap4PbL2GcHgHt53cbzkW9q1eIV4eS96_hruu3D4lPs')->sheet('Form responses 1')->get();
-
-        $header = $rows->pull(0);
-        $values = Sheets::collection($header, $rows);
-        $values->toArray();
-
-        $content = DB::table('fellowss')->get();
-
-        $user = DB::table('users')->where('level','advisor')->get();
-
-        $emailList=[];
-
-        foreach ($user as $key => $value) {
-            array_push($emailList,$value->email);
-        }
-
-        $data = [
-            'listAdvisor'=> $values,
-            'user'=> $user,
-            'emailList'=> $emailList
-        ];
-
-        return view('v_listAdvisor',$data);
-    }
-
-    public function listMentee(Request $request){
-        $rows = Sheets::spreadsheet('1SZgn2fx3d_AIBfUodg7PNZVAhcMcSMl4iYJFWz75lL0')->sheet('Form responses 1')->get();
-
-        $header = $rows->pull(0);
-        $values = Sheets::collection($header, $rows);
-        $values->toArray();
-
-        $data = [
-            'listAdvisor'=> $values
-        ];
-
-        return view('v_listMentee',$data);
-    }
 
     // FELLOW PROGRESS
 
     public function fellowsprogress(Request $request){
 
-        $listFellows = DB::table('fellows')->get();
+        $listFellows = DB::table('fellows')->where('accepted', 1)->get();
+
         $listAdvisor = DB::table('advisor')->get();
+
         $appointmentData = DB::table('advisor')
         ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
         ->join('fellows', 'appointment.app_id', '=', 'fellows.app_id')

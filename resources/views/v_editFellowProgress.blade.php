@@ -144,6 +144,7 @@
                               <div class="form-group">
                                 <label for="status">Status</label>
                                 <select name="status" class="custom-select form-control-border" id="status">
+                                    <option selected></option>
                                     <option @if($selectedStatus == "Admitted") selected @endif value="Admitted">Admitted</option>
                                     <option @if($selectedStatus == "Withdrew") selected @endif value="Withdrew">Withdrew</option>
                                     <option @if($selectedStatus == "Employed") selected @endif value="Employed">Employed</option>
@@ -154,7 +155,7 @@
                               <div class="form-group">
                                 <label for="invoiceAmount">Invoice Amount</label>
                                 @if ($status == 'edit')
-                                  <input value="{{$appointment[0]->invoice_amount}}" name="invoiceAmount" type="number" class="form-control" id="invoiceAmount" placeholder="Invoice Amount">
+                                  <input value="{{$appointment[0]->invoice_amount}}" name="invoiceAmount" type="number" class="form-control" id="invoiceAmount" >
                                 @else
                                   <input name="invoiceAmount" type="number" class="form-control" id="invoiceAmount" placeholder="Invoice Amount">
                                 @endif
@@ -162,6 +163,7 @@
                               <div class="form-group">
                                 <label for="payMethod">Payment Method</label>
                                 <select name="payMethod" class="custom-select form-control-border" id="payMethod">
+                                    <option selected></option>
                                     <option @if($selectedPM == "One-time") selected @endif value="One-time">One-time</option>
                                     <option @if($selectedPM == "Three-months Instalment") selected @endif value="Three-months Instalment">Three-months Instalment</option>
                                 </select>
@@ -169,7 +171,7 @@
                               <div class="form-group">
                                 <label for="paidAmount">Paid Amount</label>
                                 @if ($status == 'edit')
-                                  <input value="{{$appointment[0]->paid_amount}}" name="paidAmount" type="number" class="form-control" id="paidAmount" placeholder="Invoice Amount">
+                                  <input value="{{$appointment[0]->paid_amount}}" name="paidAmount" type="number" class="form-control" id="paidAmount" ">
                                 @else
                                   <input name="paidAmount" type="number" class="form-control" id="paidAmount" placeholder="Invoice Amount">
                                 @endif
@@ -243,14 +245,6 @@
                                 @endif
                               </div>
                               <div class="form-group">
-                                <label>Status</label>
-                                @if ($status == 'edit')
-                                  <input placeholder="{{$appointment[0]->status}}"  type="number" class="form-control"  disabled>
-                                @else
-                                  <input placeholder=""  type="text" class="form-control"  disabled>
-                                @endif
-                              </div>
-                              <div class="form-group">
                                 <label>Employer (If Employed)</label>
                                 @if ($status == 'edit')
                                   <input placeholder="{{$appointment[0]->employer}}"  type="number" class="form-control"  disabled>
@@ -262,30 +256,6 @@
                                 <label>Employed Date</label>
                                 @if ($status == 'edit')
                                   <input placeholder="{{$appointment[0]->employed_date}}"  type="number" class="form-control"  disabled>
-                                @else
-                                  <input placeholder=""  type="text" class="form-control"  disabled>
-                                @endif
-                              </div>
-                              <div class="form-group">
-                                <label>Invoice Amount</label>
-                                @if ($status == 'edit')
-                                  <input placeholder="{{$appointment[0]->invoice_amount}}"  type="number" class="form-control"  disabled>
-                                @else
-                                  <input placeholder=""  type="text" class="form-control"  disabled>
-                                @endif
-                              </div>
-                              <div class="form-group">
-                                <label>Payment Method</label>
-                                @if ($status == 'edit')
-                                  <input placeholder="{{$appointment[0]->payment_method}}"  type="number" class="form-control"  disabled>
-                                @else 
-                                  <input placeholder=""  type="text" class="form-control"  disabled>
-                                @endif
-                              </div>
-                              <div class="form-group">
-                                <label>Paid Amount</label>
-                                @if ($status == 'edit')
-                                  <input placeholder="{{$appointment[0]->paid_amount}}"  type="number" class="form-control"  disabled>
                                 @else
                                   <input placeholder=""  type="text" class="form-control"  disabled>
                                 @endif

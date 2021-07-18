@@ -141,28 +141,20 @@
                             <div class="card-body">
                                 <div class="form-group">
                                   <label for="advisorRemarks">Advisor Remarks</label>
-                                  @if ($status == 'edit')
-                                    <textarea value="{{$appointment[0]->advisor_remarks}}" name="advisorRemarks"  class="form-control" id="advisorRemarks" placeholder="Enter Advisor Remarks"></textarea>
-                                  @else
-                                    <textarea name="advisorRemarks"  class="form-control" id="advisorRemarks"></textarea>
-                                  @endif
+                                    <textarea value="{{$fellows[0]->advisor_remarks}}" name="advisorRemarks"  class="form-control" id="advisorRemarks" ></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="accept">Accept?</label>
                                     <select name="accept" class="custom-select form-control-border" id="accept">
                                         <option selected ></option>
-                                        <option @if($selectedAccept == '1') selected @endif value="1">Accept</option>
-                                        <option @if($selectedAccept == '2') selected @endif value="2">Waitlist</option>
-                                        <option @if($selectedAccept == '3') selected @endif value="3">Reject</option>
+                                        <option @if($fellows[0]->accepted == '1') selected @endif value="1">Accept</option>
+                                        <option @if($fellows[0]->accepted == '2') selected @endif value="2">Waitlist</option>
+                                        <option @if($fellows[0]->accepted == '3') selected @endif value="3">Reject</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                   <label for="reason_for_rejection">Reason for rejection</label>
-                                  @if ($status == 'edit')
-                                    <textarea value="{{$appointment[0]->reason_for_rejection}}" name="reason_for_rejection" type="text" class="form-control" id="reason_for_rejection"></textarea>
-                                  @else
-                                    <textarea name="reason_for_rejection" type="text" class="form-control" id="reason_for_rejection"></textarea>
-                                  @endif
+                                    <textarea value="{{$fellows[0]->reason_for_rejection}}" name="reason_for_rejection" type="text" class="form-control" id="reason_for_rejection"></textarea>
                                 </div>
 
                                 <div class="form-group ">
@@ -257,31 +249,17 @@
                                   <label>Bootcamp Batch</label>
                                   <input type="text" class="form-control" value="{{$fellows[0]->bootcamp_batch}}" disabled>
                                 </div>
-
-
                                 <div class="form-group">
                                   <label for="aimz_remarks">AIMZ Remarks</label>
-                                  @if ($status == 'edit')
-                                    <input value="{{$appointment[0]->aimz_remarks}}" name="aimz_remarks" type="text" class="form-control" id="aimz_remarks" disabled>
-                                  @else
-                                    <input name="aimz_remarks" type="text" class="form-control" id="aimz_remarks"  disabled>
-                                  @endif
+                                    <input value="{{$fellows[0]->aimz_remarks}}" name="aimz_remarks" type="text" class="form-control" id="aimz_remarks" disabled>
                                 </div>
                                 <div class="form-group">
                                   <label for="advisor_remarks">Advisor Remarks</label>
-                                  @if ($status == 'edit')
-                                    <input value="{{$appointment[0]->advisor_remarks}}" name="advisor_remarks" type="text" class="form-control" id="advisor_remarks" disabled>
-                                  @else
-                                    <input name="advisor_remarks" type="text" class="form-control" id="advisor_remarks"  disabled>
-                                  @endif
+                                    <input value="{{$fellows[0]->advisor_remarks}}" name="advisor_remarks" type="text" class="form-control" id="advisor_remarks" disabled>
                                 </div>
                                 <div class="form-group">
                                   <label for="fellow_status">Fellow Status</label>
-                                  @if ($status == 'edit')
-                                    <input value="{{$appointment[0]->fellow_status}}" name="fellow_status" type="text" class="form-control" id="fellow_status" disabled>
-                                  @else
-                                    <input name="fellow_status" type="text" class="form-control" id="fellow_status"  disabled>
-                                  @endif
+                                    <input value="{{$fellows[0]->fellow_status}}" name="fellow_status" type="text" class="form-control" id="fellow_status" disabled>
                                 </div>
                             </div>
                             <!-- /.card-body -->

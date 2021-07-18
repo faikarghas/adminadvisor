@@ -252,7 +252,9 @@
                                 <tbody>
                                   @foreach($listFellows as $key => $value)
                                       <tr data-key={{$key+1}}>
-                                        <td height="30"><a href="/edit-fellows/{{$value->app_id}}">edit</a></td>
+                                        <td height="30">
+                                          <a href="/edit-fellows/{{$value->app_id}}">edit</a>
+                                        </td>
                                         <td height="30">{{$value->app_id}}</td>
                                         <td height="30">{{$value->date}}</td>
                                         <td height="30">{{$value->first_name}}</td>
@@ -278,85 +280,49 @@
                                         <td height="30">{{$value->referee_email}}</td>
                                         <td height="30">{{$value->bootcamp_batch}}</td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->profile_strength}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->profile_strength}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->full_name}}
-                                            @endif
-                                          @endforeach
+                                            {{-- {{$value->full_name}} --}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->aimz_remarks}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->aimz_remarks}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->advisor_remarks}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->advisor_remarks}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                              @if ($item->accepted == 1)
+                                              @if ($value->accepted == 1)
                                                 Accepted
-                                              @elseif($item->accepted == 2)
+                                              @elseif($value->accepted == 2)
                                                 Waitlisted
-                                              @elseif($item->accepted == 3)
+                                              @elseif($value->accepted == 3)
                                                 Rejected
-                                            @endif
-                                            @endif
-                                          @endforeach
+                                              @endif
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->reason_for_rejection}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->reason_for_rejection}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->internal_comments}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->internal_comments}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                              @if ($item->contract_signed == 0)
+                                              @if ($value->contract_signed == 0)
                                                   No
                                               @else
                                                   Yes
                                               @endif
-                                            @endif
-                                          @endforeach
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                              @if ($item->fellow_status == 0)
+                                              @if ($value->fellow_status == 0)
                                                 Open
-                                              @elseif($item->fellow_status == 1)
+                                              @elseif($value->fellow_status == 1)
                                                 Accepted
-                                              @elseif($item->fellow_status == 2)
+                                              @elseif($value->fellow_status == 2)
                                                 Waitlisted
-                                              @elseif($item->fellow_status == 3)
+                                              @elseif($value->fellow_status == 3)
                                                 Withdrew
                                               @endif
-                                            @endif
-                                          @endforeach
                                         </td>
                                       </tr>
                                   @endforeach
@@ -423,6 +389,8 @@
 <script src="{{asset('template')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
   $(document).ready(function() {
+
+
     var table = $('#fellows_table').DataTable({
       fixedHeader: true,
       scrollX: true,
@@ -450,7 +418,7 @@
             { width: 200, targets: 16 },
             { width: 200, targets: 17 },
             { width: 200, targets: 18 },
-            { width: 200, targets: 19 },
+            { width: 400, targets: 19 },
             { width: 200, targets: 20 },
             { width: 200, targets: 21 },
             { width: 200, targets: 22 },

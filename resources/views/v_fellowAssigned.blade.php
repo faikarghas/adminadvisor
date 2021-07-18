@@ -213,7 +213,7 @@
                               </tr>
                               </thead>
                               <tbody>
-                                @foreach($appointmentData as $key => $value)
+                                @foreach($listFellows as $key => $value)
                                     <tr data-key={{$key+1}}>
                                       <td height="30"><a href="/edit-fellows-assigned/{{$value->app_id}}">edit</a></td>
                                       <td height="30">{{$key+1}}</td>

@@ -144,56 +144,52 @@
                             <div class="form-group">
                               <label for="batch">Bootcamp Batch</label>
                               <select name="batch" class="custom-select form-control-border" id="batch">
-                                  <option @if($selectedBatch == "Y21 August") selected @endif value="Y21 August">Y21 August</option>
+                                  <option @if($fellows[0]->bootcamp_batch == "Y21 August") selected @endif value="Y21 August">Y21 August</option>
                               </select>
                             </div>
                             <div class="form-group">
                               <label for="strength">Strength</label>
                               <select name="strength" class="custom-select form-control-border" id="strength">
-                                  <option @if($selectedStrength == "Mediocre") selected @endif value="Mediocre">Mediocre</option>
-                                  <option @if($selectedStrength == "Relatively Strong") selected @endif value="Relatively Strong">Relatively Strong</option>
-                                  <option @if($selectedStrength == "Strong") selected @endif value="Strong">Strong</option>
-                                  <option @if($selectedStrength == "Super Strong") selected @endif value="Super Strong">Super Strong</option>
+                                  <option selected></option>
+                                  <option @if($fellows[0]->profile_strength == "Mediocre") selected @endif value="Mediocre">Mediocre</option>
+                                  <option @if($fellows[0]->profile_strength == "Relatively Strong") selected @endif value="Relatively Strong">Relatively Strong</option>
+                                  <option @if($fellows[0]->profile_strength == "Strong") selected @endif value="Strong">Strong</option>
+                                  <option @if($fellows[0]->profile_strength == "Super Strong") selected @endif value="Super Strong">Super Strong</option>
                               </select>
                             </div>
                               <div class="form-group">
                                   <label for="advisor">Advisor</label>
                                   <select name="advisor" class="custom-select form-control-border" id="advisor">
+                                      <option selected></option>
                                     @foreach ($listAdvisor as $item)
-                                      <option @if($selectedAdvisor == $item->id_advisor) selected @endif value="{{$item->id_advisor}}">{{$item->full_name}}</option>
+                                      <option @if($fellows[0]->id_advisor == $item->id_advisor) selected @endif value="{{$item->id_advisor}}">{{$item->full_name}}</option>
                                     @endforeach
                                   </select>
                               </div>
                               <div class="form-group">
                                 <label for="remarks">AIMZ Remarks</label>
-                                @if ($status == 'edit')
-                                  <input value="{{$appointment[0]->aimz_remarks}}" name="remarks" type="text" class="form-control" id="remarks" placeholder="Enter remarks">
-                                @else
-                                  <input name="remarks" type="text" class="form-control" id="remarks" >
-                                @endif
+                                  <input value="{{$fellows[0]->aimz_remarks}}" name="remarks" type="text" class="form-control" id="remarks">
                               </div>
                               <div class="form-group">
                                 <label for="comment">Internal Comments</label>
-                                @if ($status == 'edit')
-                                  <input value="{{$appointment[0]->internal_comments}}" name="comment" type="text" class="form-control" id="comment" placeholder="Enter remarks">
-                                @else
-                                  <input name="comment" type="text" class="form-control" id="comment" >
-                                @endif
+                                  <input value="{{$fellows[0]->internal_comments}}" name="comment" type="text" class="form-control" id="comment">
                               </div>
                               <div class="form-group">
                                 <label for="contract">Contract Signed</label>
                                 <select name="contract" class="custom-select form-control-border" id="contract">
-                                    <option @if($selectedContract == 0) selected @endif value="0">No</option>
-                                    <option @if($selectedContract == 1) selected @endif value="1">Yes</option>
+                                    <option selected></option>
+                                    <option @if($fellows[0]->contract_signed == 0) selected @endif value="0">No</option>
+                                    <option @if($fellows[0]->contract_signed == 1) selected @endif value="1">Yes</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label for="status">Fellow Status</label>
                                 <select name="status" class="custom-select form-control-border" id="status">
-                                    <option @if($selectedStatus == 0) selected @endif value="0">Open</option>
-                                    <option @if($selectedStatus == 1) selected @endif value="1">Accepted</option>
-                                    <option @if($selectedStatus == 2) selected @endif value="2">Waitlisted</option>
-                                    <option @if($selectedStatus == 3) selected @endif value="3">Withdrew</option>
+                                    <option selected></option>
+                                    <option @if($fellows[0]->fellow_status == 0) selected @endif value="0">Open</option>
+                                    <option @if($fellows[0]->fellow_status == 1) selected @endif value="1">Accepted</option>
+                                    <option @if($fellows[0]->fellow_status == 2) selected @endif value="2">Waitlisted</option>
+                                    <option @if($fellows[0]->fellow_status == 3) selected @endif value="3">Withdrew</option>
                                 </select>
                               </div>
 
