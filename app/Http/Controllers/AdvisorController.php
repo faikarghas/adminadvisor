@@ -22,6 +22,7 @@ class AdvisorController extends Controller
         $appointmentSpdata = DB::table('advisor')
         ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
         ->join('fellows', 'appointment.app_id', '=', 'fellows.app_id')
+        ->where('appointment.id_advisor',$user->id_advisor)
         ->get();
 
         $idAdvisorList=[];
