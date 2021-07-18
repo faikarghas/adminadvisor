@@ -334,7 +334,11 @@
                                         <td height="30">
                                           @foreach ($appointmentSpdata as $item)
                                             @if ($value->app_id == $item->app_id)
-                                            {{$item->contract_signed}}
+                                              @if ($item->contract_signed == 0)
+                                                  No
+                                              @else
+                                                  Yes
+                                              @endif
                                             @endif
                                           @endforeach
                                         </td>
