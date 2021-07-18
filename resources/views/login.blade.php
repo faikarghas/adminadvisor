@@ -35,7 +35,7 @@
                     </button>
                 </div>
             @enderror
-            <input name="username" type="username" class="form-control" placeholder="username">
+            <input name="username" type="username" class="form-control" placeholder="Username">
             {{-- @if($errors->has('username'))
                 <span class="error">{{ $errors->first('username') }}</span>
             @endif --}}

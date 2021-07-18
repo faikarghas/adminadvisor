@@ -121,7 +121,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    {{-- <form action="/updateDataAdvisor" method="post" accept-charset="utf-8">
+                                    <form action="/updateData" method="post" accept-charset="utf-8">
                                       {{ csrf_field() }}
                                       <div class="card-body">
                                       </div>
@@ -129,7 +129,7 @@
                                       <div class="card-footer">
                                           <button type="submit" class="btn btn-primary">UPDATE</button>
                                       </div>
-                                    </form> --}}
+                                    </form>
                                     <h2 class="mb-4">Filter</h2>
                                     <form action="">
                                       <div class="container">
@@ -217,7 +217,6 @@
                                 <thead>
                                 <tr>
                                   <th></th>
-                                  <th>#</th>
                                   <th>Application ID</th>
                                   <th>Application Time Stamp</th>
                                   <th>First name</th>
@@ -257,7 +256,6 @@
                                   @foreach($listFellows as $key => $value)
                                       <tr data-key={{$key+1}}>
                                         <td height="30"><a href="/edit-fellows/{{$value->app_id}}">edit</a></td>
-                                        <td height="30">{{$key+1}}</td>
                                         <td height="30">{{$value->app_id}}</td>
                                         <td height="30">{{$value->date}}</td>
                                         <td height="30">{{$value->first_name}}</td>
@@ -313,7 +311,13 @@
                                         <td height="30">
                                           @foreach ($appointmentSpdata as $item)
                                             @if ($value->app_id == $item->app_id)
-                                            {{$item->accepted}}
+                                              @if ($item->accepted == 1)
+                                                Accepted
+                                              @elseif($item->accepted == 2)
+                                                Waitlisted
+                                              @elseif($item->accepted == 3)
+                                                Rejected
+                                            @endif
                                             @endif
                                           @endforeach
                                         </td>
@@ -345,7 +349,15 @@
                                         <td height="30">
                                           @foreach ($appointmentSpdata as $item)
                                             @if ($value->app_id == $item->app_id)
-                                            {{$item->fellow_status}}
+                                              @if ($item->fellow_status == 0)
+                                                Open
+                                              @elseif($item->fellow_status == 1)
+                                                Accepted
+                                              @elseif($item->fellow_status == 2)
+                                                Waitlisted
+                                              @elseif($item->fellow_status == 3)
+                                                Withdrew
+                                              @endif
                                             @endif
                                           @endforeach
                                         </td>
@@ -461,22 +473,22 @@
     });
 
     $('#interest').on('change',function (params) {
-      table.column(15).search(this.value).draw();
+      table.column(14).search(this.value).draw();
     })
     $('#batch').on('change',function (params) {
-      table.column(25).search(this.value).draw();
+      table.column(24).search(this.value).draw();
     })
     $('#advisor').on('change',function (params) {
-      table.column(27).search(this.value).draw();
-    })
-    $('#strength').on('change',function (params) {
       table.column(26).search(this.value).draw();
     })
+    $('#strength').on('change',function (params) {
+      table.column(25).search(this.value).draw();
+    })
     $('#accept').on('change',function (params) {
-      table.column(30).search(this.value).draw();
+      table.column(29).search(this.value).draw();
     })
     $('#signed').on('change',function (params) {
-      table.column(33).search(this.value).draw();
+      table.column(32).search(this.value).draw();
     })
 
 

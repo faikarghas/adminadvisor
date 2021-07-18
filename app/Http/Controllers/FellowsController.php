@@ -277,14 +277,16 @@ class FellowsController extends Controller
 
         $listFellows = DB::table('fellows')->get();
         $listAdvisor = DB::table('advisor')->get();
-        $appointmentSpdata = DB::table('advisor')
+        $appointmentData = DB::table('advisor')
         ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
+        ->join('fellows', 'appointment.app_id', '=', 'fellows.app_id')
+        ->where('accepted','1')
         ->get();
 
 
         $data = [
             'listFellows' => $listFellows,
-            'appointmentSpdata' => $appointmentSpdata,
+            'appointmentData' => $appointmentData,
             'listAdvisor' => $listAdvisor
         ];
 

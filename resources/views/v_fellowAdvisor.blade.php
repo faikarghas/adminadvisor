@@ -190,17 +190,6 @@
                                 @endforeach
 
                             </tbody>
-                            <tfoot>
-                            <tr>
-                                <th></th>
-                                <th>Advisor Name</th>
-                                <th>Class Size</th>
-                                <th>Industry</th>
-                                <th>Level</th>
-                                <th>Fee Split</th>
-                                <th>Bootcamp History</th>
-                            </tr>
-                            </tfoot>
                           </table>
                         </div>
                         <!-- /.card-body -->

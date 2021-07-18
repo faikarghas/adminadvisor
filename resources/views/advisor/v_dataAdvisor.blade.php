@@ -96,7 +96,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/weekly-feedback" class="nav-link">
+                <a href="/data-advisor" class="nav-link">
                     <i class="nav-icon fas fa-edit"></i>
                     <p>Data</p>
                 </a>
@@ -157,7 +157,7 @@
                                 </div>
                                 <div class="form-group">
                                   <label for="pod">Current Pod #</label>
-                                  <select name="pod" class="custom-select form-control-border" id="pod">
+                                  <select name="pod" class="custom-select form-control-border" id="pod" disabled>
                                       <option @if($listAdvisor[0]->current_pod == "Y21 June_1") selected @endif value="Y21 June_1">Y21 June_1</option>
                                       <option @if($listAdvisor[0]->current_pod == "Y21 June_2") selected @endif value="Y21 June_2">Y21 June_2</option>
                                       <option @if($listAdvisor[0]->current_pod == "Y21 June_3") selected @endif value="Y21 June_3">Y21 June_3</option>
@@ -221,22 +221,22 @@
                                 </div>
                                 <div class="form-group">
                                   <label for="pod_connect_schedule">Pod Connect Schedule</label>
-                                  <input placeholder="{{$listAdvisor[0]->pod_connect_schedule}}" value="{{$listAdvisor[0]->pod_connect_schedule}}" name="pod_connect_schedule" type="text" class="form-control" id="pod_connect_schedule">
+                                  <input disabled placeholder="{{$listAdvisor[0]->pod_connect_schedule}}" value="{{$listAdvisor[0]->pod_connect_schedule}}" name="pod_connect_schedule" type="text" class="form-control" id="pod_connect_schedule">
                                 </div>
                                 <div class="form-group">
                                   <label for="fee">Fee Split</label>
-                                  <input placeholder="{{$listAdvisor[0]->fee}}" value="{{$listAdvisor[0]->fee}}" name="fee" type="text" class="form-control" id="fee">
+                                  <input disabled placeholder="{{$listAdvisor[0]->fee}}" value="{{$listAdvisor[0]->fee}}" name="fee" type="text" class="form-control" id="fee">
                                 </div>
                                 <div class="form-group">
                                   <label for="advisor_type">Advisor Type</label>
-                                  <select name="advisor_type" class="custom-select form-control-border" id="advisor_type">
+                                  <select disabled name="advisor_type" class="custom-select form-control-border" id="advisor_type">
                                       <option @if($listAdvisor[0]->advisor_type == "1") selected @endif value="1">Individual</option>
                                       <option @if($listAdvisor[0]->advisor_type == "2") selected @endif value="2">Tag Team</option>
                                   </select>
                                 </div>
                                 <div class="form-group">
                                   <label for="class">Class</label>
-                                  <select name="class" class="custom-select form-control-border" id="class">
+                                  <select disabled name="class" class="custom-select form-control-border" id="class">
                                       <option @if($listAdvisor[0]->class == "Advisor") selected @endif value="Advisor">Advisor</option>
                                       <option @if($listAdvisor[0]->class == "AIMZ Partner") selected @endif value="AIMZ Partner">AIMZ Partner</option>
                                   </select>

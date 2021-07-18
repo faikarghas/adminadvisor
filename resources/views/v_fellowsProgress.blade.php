@@ -200,7 +200,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                  @foreach($listFellows as $key => $value)
+                                  @foreach($appointmentData as $key => $value)
                                       <tr data-key={{$key+1}}>
                                         <td height="30"><a href="/edit-fellowsProgress/{{$value->app_id}}">edit</a></td>
                                         <td height="30">{{$key+1}}</td>
@@ -212,109 +212,57 @@
                                         <td height="30">{{$value->question_7}}</td>
                                         <td height="30">{{$value->question_2}}</td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->cv_finalized}}
-                                            @endif
-                                          @endforeach
+                                          @if ($value->cv_finalized == 0)
+                                              No
+                                          @else
+                                              Yes
+                                          @endif
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->response_board_finalized}}
-                                            @endif
-                                          @endforeach
+                                          @if ($value->response_board_finalized == 0)
+                                              No
+                                          @else
+                                              Yes
+                                          @endif
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->ongoing_applications}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->ongoing_applications}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->upcoming_applications}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->upcoming_applications}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->target_companies}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->target_companies}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->comments}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->comments}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->status}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->status}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->employer}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->employer}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->employed_date}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->employed_date}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->invoice_amount}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->invoice_amount}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->payment_method}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->payment_method}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->paid_amount}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->paid_amount}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->bootcamp_batch)
-                                            {{$item->paid_amount}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->bootcamp_batch}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->first_name}} {{$item->last_name}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->full_name}}
                                         </td>
                                         <td height="30">
-                                          @foreach ($appointmentSpdata as $item)
-                                            @if ($value->app_id == $item->app_id)
-                                            {{$item->current_pod}}
-                                            @endif
-                                          @endforeach
+                                            {{$value->current_pod}}
                                         </td>
                                       </tr>
                                   @endforeach
@@ -389,6 +337,30 @@
       buttons: [
           'csv', 'excel'
       ],
+      columnDefs: [
+          { width: 200, targets: 2 },
+          { width: 200, targets: 3 },
+          { width: 200, targets: 4 },
+          { width: 200, targets: 5 },
+          { width: 200, targets: 6 },
+          { width: 200, targets: 7 },
+          { width: 200, targets: 8 },
+          { width: 200, targets: 9 },
+          { width: 200, targets: 10 },
+          { width: 200, targets: 11 },
+          { width: 200, targets: 12 },
+          { width: 200, targets: 13 },
+          { width: 200, targets: 14 },
+          { width: 200, targets: 15 },
+          { width: 200, targets: 16 },
+          { width: 200, targets: 17 },
+          { width: 200, targets: 18 },
+          { width: 200, targets: 19 },
+          { width: 200, targets: 20 },
+          { width: 200, targets: 21 },
+          { width: 200, targets: 22 },
+          { width: 200, targets: 23 },
+      ],
     })
 
     $('#batch').on('change',function (params) {
@@ -401,7 +373,7 @@
       table.column(15).search(this.value).draw();
     })
     $('#pod').on('change',function (params) {
-      table.column(27).search(this.value).draw();
+      table.column(23).search(this.value).draw();
     })
 
   });
