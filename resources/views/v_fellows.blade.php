@@ -229,7 +229,7 @@
                                   <th>Experience in MNC/top company?</th>
                                   <th>Field of Interest (1st priority)</th>
                                   <th>Field of Interest (2nd priority)</th>
-                                  <th>Primary target roles/th>
+                                  <th>Primary target roles</th>
                                   <th>Salary expectation</th>
                                   <th>Timeline to start working</th>
                                   <th>Reason to join AIMZ</th>
