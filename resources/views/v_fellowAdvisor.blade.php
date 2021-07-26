@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard 2</title>
+    <title>ADMIN AIMZSEA</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -120,7 +120,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-lg-12">
-                                  {{-- <form action="/registerAdvisors" method="post" accept-charset="utf-8">
+                                  {{-- <form action="/updateDataAppointmentFellow" method="post" accept-charset="utf-8">
                                       {{ csrf_field() }}
                                       <div class="card-body">
                                       </div>
@@ -162,7 +162,7 @@
                             <tbody>
                                 @foreach ($listAdvisor as $item)
                                 <tr class="table1_data">
-                                    <td><a href="/edit-fellowsAdvisor/{{$item->id_advisor}}">edit</a></td>
+                                    <td><a href="/edit-fellowsAdvisor/{{$item->id_advisor}}"><img src="{{asset('images/edit.svg')}}" width="20px" alt=""></a></td>
                                     <td>AVD{{str_pad($item->id_advisor, 5, '0', STR_PAD_LEFT)}}</td>
                                     <td>{{$item->full_name}}</td>
                                     <td>{{$item->email_address}}</td>
@@ -173,7 +173,7 @@
                                         @endif
                                       @endforeach
                                     </td>
-                                    <td>advisor#aimz123!@</td>
+                                    <td>{{$item->show_pass}}</td>
                                     <td>{{$item->current_pod}}</td>
                                     <td>{{$item->class_size}}</td>
                                     <td>{{$item->primary_stream}}</td>
@@ -182,7 +182,7 @@
                                     <td>{{$item->last_company}}</td>
                                     <td>{{$item->enrollment_key}}</td>
                                     <td><a href="{{$item->calendly_link}}">{{$item->calendly_link}}</a></td>
-                                    <td>{{$item->workshop_link}}</td>
+                                    <td><a href="{{$item->calendly_link}}">{{$item->workshop_link}}</a></td>
                                     <td>{{$item->workshop_schedule}}</td>
                                     <td>{{$item->pod_connect_schedule}}</td>
                                     <td>{{$item->fee}}</td>
@@ -257,7 +257,7 @@
           scrollX: true,
           scrollY:        '70vh',
           scrollCollapse: true,
-          dom: 'Bfrtip',
+          dom: 'Bflrtip',
           buttons: [
               'csv', 'excel'
           ],

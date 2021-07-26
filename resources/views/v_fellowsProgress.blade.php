@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard 2</title>
+    <title>ADMIN AIMZSEA</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -127,14 +127,14 @@
                                         <div class="col-12 col-lg-6">
                                           <div class="form-group">
                                             <label for="batch">Batch</label>
-                                            <select id="batch" name="batch" class="custom-select form-control-border" aria-label="Default select example">
+                                            <select id="batch_fp" name="batch" class="custom-select form-control-border" aria-label="Default select example">
                                               <option selected></option>
                                               <option value="Y21 August">Y21 August</option>
                                             </select>
                                           </div>
                                           <div class="form-group">
                                             <label for="advisor">Advisor (assigned to)</label>
-                                            <select id="advisor" name="advisor" class="custom-select form-control-border" aria-label="Default select example">
+                                            <select id="advisor_fp" name="advisor" class="custom-select form-control-border" aria-label="Default select example">
                                               <option selected></option>
                                               @foreach ($listAdvisor as $item)
                                                 <option value="{{$item->first_name}} {{$item->last_name}}">{{$item->first_name}} {{$item->last_name}}</option>
@@ -145,7 +145,7 @@
                                         <div class="col-12 col-lg-6">
                                           <div class="form-group">
                                             <label for="status">Status</label>
-                                            <select id="status" name="accept" class="custom-select form-control-border" aria-label="Default select example">
+                                            <select id="status_fp" name="accept" class="custom-select form-control-border" aria-label="Default select example">
                                               <option selected></option>
                                               <option value="Admitted">Admitted</option>
                                               <option value="Withdrew">Withdrew</option>
@@ -156,7 +156,7 @@
                                           </div>
                                           <div class="form-group">
                                             <label for="pod">Advisor Pod</label>
-                                            <select id="pod" name="pod" class="custom-select form-control-border" aria-label="Default select example">
+                                            <select id="pod_fp" name="pod" class="custom-select form-control-border" aria-label="Default select example">
                                               <option selected></option>
                                               <option value="Y21 August_1">Y21 August_1</option>
                                             </select>
@@ -202,7 +202,11 @@
                                 <tbody>
                                   @foreach($appointmentData as $key => $value)
                                       <tr data-key={{$key+1}}>
-                                        <td height="30"><a href="/edit-fellowsProgress/{{$value->app_id}}">edit</a></td>
+                                        <td height="30">
+                                          <a href="/edit-fellowsProgress/{{$value->app_id}}">
+                                            <img src="{{asset('images/edit.svg')}}" width="20px" alt="">
+                                          </a>
+                                        </td>
                                         <td height="30">{{$key+1}}</td>
                                         <td height="30">{{$value->first_name}} {{$value->last_name}}</td>
                                         <td height="30">{{$value->email_address}}</td>
@@ -333,7 +337,8 @@
       scrollX: true,
       scrollY:        '70vh',
       scrollCollapse: true,
-      dom: 'Bfrtip',
+      lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+      dom: 'Bflrtip',
       buttons: [
           'csv', 'excel'
       ],
@@ -363,18 +368,39 @@
       ],
     })
 
-    $('#batch').on('change',function (params) {
+    
+    let getLocal1 = localStorage.getItem("batch_fp")
+    let getLocal2 = localStorage.getItem("advisor_fp")
+    let getLocal3 = localStorage.getItem("status_fp")
+    let getLocal4 = localStorage.getItem("pod_fp")
+
+    getLocal1 ? table.column(21).search(getLocal1).draw() : null
+    getLocal2 ? table.column(22).search(getLocal2).draw() : null
+    getLocal3 ? table.column(15).search(getLocal3).draw() : null
+    getLocal4 ? table.column(23).search(getLocal4).draw() : null
+
+    $('#batch_fp').on('change',function (params) {
       table.column(21).search(this.value).draw();
+      localStorage.setItem("batch_fp", this.value);
     })
-    $('#advisor').on('change',function (params) {
+    $('#advisor_fp').on('change',function (params) {
       table.column(22).search(this.value).draw();
+      localStorage.setItem("advisor_fp", this.value);
     })
-    $('#status').on('change',function (params) {
+    $('#status_fp').on('change',function (params) {
       table.column(15).search(this.value).draw();
+      localStorage.setItem("status_fp", this.value);
     })
-    $('#pod').on('change',function (params) {
+    $('#pod_fp').on('change',function (params) {
       table.column(23).search(this.value).draw();
+      localStorage.setItem("pod_fp", this.value);
     })
+
+    
+    $(`#batch_fp option[value="${getLocal1}"]`).attr('selected','selected');
+    $(`#advisor_fp option[value="${getLocal2}"]`).attr('selected','selected');
+    $(`#status_fp option[value="${getLocal3}"]`).attr('selected','selected');
+    $(`#pod_fp option[value="${getLocal4}"]`).attr('selected','selected');
 
   });
 </script>

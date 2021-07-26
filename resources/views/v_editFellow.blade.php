@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard 2</title>
+    <title>ADMIN AIMZSEA</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -267,11 +267,24 @@
                               </div>
                               <div class="form-group ">
                                 <label>Reason to join AIMZ</label>
-                                <textarea type="text" class="form-control" value="{{$fellows[0]->reason_to_join}}" disabled></textarea>
+                                <textarea type="text" class="form-control" placeholder="{{$fellows[0]->reason_to_join}}" disabled></textarea>
+                              </div>
+                              <div class="form-group ">
+                                <label>Advisor Remarks</label>
+                                <textarea type="text" class="form-control" placeholder="{{$fellows[0]->advisor_remarks}}" disabled></textarea>
+                              </div>
+                              <div class="form-group ">
+                                <label>Accept?</label>
+                                <select name="accepted" class="custom-select form-control-border" id="strength" disabled>
+                                  <option selected></option>
+                                  <option @if($fellows[0]->accepted == "1") selected @endif value="1">Accepted</option>
+                                  <option @if($fellows[0]->accepted == "2") selected @endif value="2">Waitlisted (accept)</option>
+                                  <option @if($fellows[0]->accepted == "3") selected @endif value="3">Rejected</option>
+                                 </select>
                               </div>
                               <div class="form-group ">
                                 <label>CV link</label>
-                                <input type="text" class="form-control" value="{{$fellows[0]->resume}}" disabled>
+                                <div class="link_wrapper"><a href="{{$fellows[0]->resume}}">{{$fellows[0]->resume}}</a></div>
                               </div>
                               <div class="form-group ">
                                 <label>Referee's name</label>

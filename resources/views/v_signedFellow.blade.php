@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard 2</title>
+    <title>ADMIN AIMZSEA</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -100,14 +100,12 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="/data-advisor" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Data
-              </p>
+              <p>Advisor Profile</p>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -186,7 +184,7 @@
                                 <th>Experience in MNC/top company?</th>
                                 <th>Field of Interest (1st priority)</th>
                                 <th>Field of Interest (2nd priority)</th>
-                                <th>Primary target roles/th>
+                                <th>Primary target roles</th>
                                 <th>Salary expectation</th>
                                 <th>Timeline to start working</th>
                                 <th>Reason to join AIMZ</th>
@@ -235,7 +233,7 @@
                                             @if ($value->accepted == 1)
                                               Accepted
                                             @elseif($value->accepted == 2)
-                                              Waitlisted
+                                              Waitlisted (accept)
                                             @elseif($value->accepted == 3)
                                               Rejected
                                             @endif
@@ -247,7 +245,7 @@
                                             @elseif($value->fellow_status == 1)
                                                 Accepted
                                             @elseif($value->fellow_status == 2)
-                                                Waitlisted
+                                              Waitlisted (accept)
                                             @elseif($value->fellow_status == 3)
                                                 Withdrew
                                             @endif

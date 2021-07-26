@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard 2</title>
+    <title>ADMIN AIMZSEA</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -100,14 +100,12 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="/data-advisor" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Data
-              </p>
+              <p>Advisor Profile</p>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -138,24 +136,25 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                   <form action="">
                                     <div class="container">
                                       <div class="row">
-                                        <div class="col-12 col-lg-6">
+                                        <div class="col-12">
                                           <div class="form-group">
                                             <label for="batch">Batch</label>
                                             <select id="batch" name="batch" class="custom-select form-control-border" aria-label="Default select example">
-                                              <option selected></option>
-                                              <option value="Y21 August">Y21 August</option>
+                                              <option ></option>
+                                              <option selected value="Y21 August">Y21 August</option>
                                             </select>
                                           </div>
                                           <div class="form-group">
                                             <label for="accept">Accepted?</label>
                                             <select id="accept" name="accept" class="custom-select form-control-border" aria-label="Default select example">
-                                              <option selected></option>
+                                              <option ></option>
+                                              <option selected value="Open (undecided)">Open (undecided)</option>
                                               <option value="Accepted">Accepted</option>
-                                              <option value="Waitlisted">Waitlisted</option>
+                                              <option value="Waitlisted (accept)">Waitlisted (accept)</option>
                                               <option value="Rejected">Rejected</option>
                                             </select>
                                           </div>
@@ -163,6 +162,14 @@
                                       </div>
                                     </div>
                                   </form>
+                                </div>
+                                <div class="col-lg-6">
+                                  <div class="summary">
+                                    <p><b> Open (undecided) - <span class="op"></span> candidates waiting review</b></p>
+                                    <p><b> Rejected - <span class="rj"></span> candidates rejected</b></p>
+                                    <p><b> Waitlisted (accept) - <span class="wt"></span> candidates waitlisted due to capacity</b></p>
+                                    <p><b> Accepted - <span class="ac"></span> applications accepted</b></p>
+                                  </div>
                                 </div>
                             </div>
                         </div>
@@ -177,68 +184,105 @@
                             </li>
                           </ul>
                           <div class="tab-pane fade show active mt-5" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                            <button class="mb-5 getselect btn btn-dark" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                              Bulk Edit
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form id="bacth_bulk_edit" action="/bulk-accept/post" method="post" accept-charset="utf-8" class="mb-5">
+                                      {{ csrf_field() }}
+                                      <div class="form-group ">
+                                        <label>Accept?</label>
+                                        <select name="acceptedBulk" class="custom-select form-control-border" id="acceptedBulk">
+                                          <option selected></option>
+                                          <option value="1">Accepted</option>
+                                          <option value="2">Waitlisted (accept)</option>
+                                          <option value="3">Rejected</option>
+                                         </select>
+                                      </div>
+                                      <div class="form-group d-none">
+                                        <label for="list_id">ID</label>
+                                        <input id="list_id" type="text" name="list_id" value="">
+                                      </div>
+                                    </form>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button form="bacth_bulk_edit" type="submit" class="btn btn-primary">Save changes</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+
                             <table id="fellowsAssigned_table" class="table table-bordered table-striped" style="overflow: auto">
                               <thead>
                               <tr>
+                                <th>
+                                  <input type="checkbox" value="" id="checkAll">
+                                </th>
                                 <th></th>
                                 <th>#</th>
-                                <th>Application Time Stamp</th>
+                                <th>CV link</th>
                                 <th>First name</th>
                                 <th>Last Name</th>
                                 <th>Email address</th>
                                 <th>Phone number</th>
-                                <th>Gender</th>
                                 <th>University</th>
                                 <th>GPA</th>
-                                <th>How did you know about AIMZ?</th>
                                 <th>Job hunting stage</th>
                                 <th>No. of past internships</th>
-                                <th>Experience in MNC/top company?</th>
                                 <th>Field of Interest (1st priority)</th>
                                 <th>Field of Interest (2nd priority)</th>
-                                <th>Primary target roles/th>
+                                <th>Primary target roles</th>
                                 <th>Salary expectation</th>
                                 <th>Timeline to start working</th>
                                 <th>Reason to join AIMZ</th>
-                                <th>CV link</th>
-                                <th>Referee's name</th>
-                                <th>Referee's whatsapp number</th>
-                                <th>Referee's email</th>
                                 <th>Bootcamp Batch</th>
                                 <th>AIMZ Remarks</th>
                                 <th>Advisor Remarks</th>
                                 <th>Accepted?</th>
                                 <th>Reason for rejection</th>
-                                <th>Fellow status</th>
+                                {{-- <th>Fellow status</th> --}}
                               </tr>
                               </thead>
                               <tbody>
                                 @foreach($listFellows as $key => $value)
                                     <tr data-key={{$key+1}}>
-                                      <td height="30"><a href="/edit-fellows-assigned/{{$value->app_id}}">edit</a></td>
+                                      <td height="30">
+                                        <input class="messageCheckbox" type="checkbox" value="{{$value->app_id}}" name="mailId[]">
+                                      </td>
+                                      <td height="30"><a href="/edit-fellows-assigned/{{$value->app_id}}"><img src="{{asset('images/edit.svg')}}" width="20px" alt=""></a></td>
                                       <td height="30">{{$key+1}}</td>
-                                      <td height="30">{{$value->date}}</td>
+                                      <td height="30"><a href="{{$value->resume}}" target="_blank" rel="noopener">{{$value->resume}}</a></td>
                                       <td height="30">{{$value->first_name}}</td>
                                       <td>{{$value->last_name}}</td>
                                       <td height="30">{{$value->email_address}}</td>
                                       <td height="30">{{$value->phone}}</td>
-                                      <td height="30">{{$value->gender}}</td>
                                       <td height="30">{{$value->university}}</td>
                                       <td height="30">{{$value->gpa}}</td>
-                                      <td height="30">{{$value->question_1}}</td>
                                       <td height="30">{{$value->question_2}}</td>
                                       <td height="30">{{$value->question_3}}</td>
-                                      <td height="30">{{$value->question_4}}</td>
                                       <td height="30">{{$value->question_5}}</td>
                                       <td height="30">{{$value->question_6}}</td>
                                       <td height="30">{{$value->question_7}}</td>
                                       <td height="30">{{$value->question_8}}</td>
                                       <td height="30">{{$value->question_9}}</td>
-                                      <td height="30">{{$value->reason_to_join}}</td>
-                                      <td height="30"><a href="{{$value->resume}}" target="_blank" rel="noopener">{{$value->resume}}</a></td>
-                                      <td height="30">{{$value->referee_name}}</td>
-                                      <td height="30">{{$value->referee_wa}}</td>
-                                      <td height="30">{{$value->referee_email}}</td>
+                                      <td height="30">
+                                        <div style="height: 90px;overflow: auto">
+                                          {{$value->reason_to_join}}
+                                        </div>
+                                      </td>
                                       <td height="30">{{$value->bootcamp_batch}}</td>
                                       <td height="30">
                                           {{$value->aimz_remarks}}
@@ -247,28 +291,30 @@
                                           {{$value->advisor_remarks}}
                                       </td>
                                       <td height="30">
-                                            @if ($value->accepted == 1)
-                                              Accepted
-                                            @elseif($value->accepted == 2)
-                                              Waitlisted
-                                            @elseif($value->accepted == 3)
-                                              Rejected
-                                            @endif
+                                        @if ($value->accepted == 1)
+                                        Accepted
+                                        @elseif($value->accepted == 2)
+                                          Waitlisted (accept)
+                                        @elseif($value->accepted == 3)
+                                          Rejected
+                                        @elseif($value->accepted == 0)
+                                          open (undecided)
+                                        @endif
                                       </td>
                                       <td height="30">
                                           {{$value->reason_for_rejection}}
                                       </td>
-                                      <td height="30">
+                                      {{-- <td height="30">
                                             @if ($value->fellow_status == 0)
                                               Open
                                             @elseif($value->fellow_status == 1)
                                               Accepted
                                             @elseif($value->fellow_status == 2)
-                                              Waitlisted
+                                              Waitlisted (accept)
                                             @elseif($value->fellow_status == 3)
                                               Withdrew
                                             @endif
-                                      </td>
+                                      </td> --}}
                                     </tr>
                                 @endforeach
                               </tbody>
@@ -292,14 +338,6 @@
   </aside>
   <!-- /.control-sidebar -->
 
-  <!-- Main Footer -->
-  {{-- <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.1.0
-    </div>
-  </footer> --}}
 </div>
 <!-- ./wrapper -->
 
@@ -354,12 +392,12 @@
         scrollX: true,
         scrollY:        '70vh',
         scrollCollapse: true,
-        dom: 'Bfrtip',
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        dom: 'Bflrtip',
         buttons: [
             'csv', 'excel'
         ],
         columnDefs: [
-            { width: 200, targets: 2 },
             { width: 200, targets: 3 },
             { width: 200, targets: 4 },
             { width: 200, targets: 5 },
@@ -380,24 +418,138 @@
             { width: 200, targets: 20 },
             { width: 200, targets: 21 },
             { width: 200, targets: 22 },
-            { width: 200, targets: 23 },
-            { width: 200, targets: 24 },
-            { width: 200, targets: 25 },
-            { width: 200, targets: 26 },
-            { width: 200, targets: 27 },
-            { width: 200, targets: 28 },
-            { width: 200, targets: 29 },
+            // { width: 200, targets: 23 }
 
         ],
       })
 
-      $('#batch').on('change',function (params) {
-        table.column(24).search(this.value).draw();
+      ///////////////////////////////////////////////////////////////
+
+      // set accept filter
+      table.column(21).search('Open (undecided)').draw();
+
+
+      var bacthSum =null;
+      var acceptSum =null;
+
+      $('#batch').on('change',function (e) {
+        table.column(18).search(this.value).draw();
+
+        bacthSum = $(this).val()
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        e.preventDefault();
+
+        var ajaxurl = `getFellowAssignedSummary`;
+        var type = "get";
+        var token = $('meta[name="csrf-token"]').attr('content')
+        $.ajax({
+              type: type,
+              url: ajaxurl,
+              data: { '_token': token,'accept':acceptSum,'batch':bacthSum},
+              dataType: 'json',
+              success: function (data) {
+                $('.op').html(data.data[0].Blank)
+                $('.rj').html(data.data[0].Rejected)
+                $('.wt').html(data.data[0].Waitlisted)
+                $('.ac').html(data.data[0].Accepted)
+
+              },
+              error: function (data) {
+                  // console.log(data,'error');
+              }
+        });
+
       })
 
-      $('#accept').on('change',function (params) {
-        table.column(27).search(this.value).draw();
+      $('#accept').on('change',function (e) {
+        table.column(21).search(this.value).draw();
+
+        acceptSum = $(this).val()
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        e.preventDefault();
+
+        var ajaxurl = `getFellowAssignedSummary`;
+        var type = "get";
+        var token = $('meta[name="csrf-token"]').attr('content')
+        $.ajax({
+              type: type,
+              url: ajaxurl,
+              data: { '_token': token,'accept':acceptSum,'batch':bacthSum},
+              dataType: 'json',
+              success: function (data) {
+                $('.op').html(data.data[0].Blank)
+                $('.rj').html(data.data[0].Rejected)
+                $('.wt').html(data.data[0].Waitlisted)
+                $('.ac').html(data.data[0].Accepted)
+
+              },
+              error: function (data) {
+                  // console.log(data,'error');
+              }
+        });
       })
+
+      function getData(params) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var ajaxurl = `getFellowAssignedSummary`;
+        var type = "get";
+        var token = $('meta[name="csrf-token"]').attr('content')
+        $.ajax({
+              type: type,
+              url: ajaxurl,
+              data: { '_token': token,'accept':'Open (undecided)','batch':'Y21 August'},
+              dataType: 'json',
+              success: function (data) {
+                $('.op').html(data.data[0].Blank)
+                $('.rj').html(data.data[0].Rejected)
+                $('.wt').html(data.data[0].Waitlisted)
+                $('.ac').html(data.data[0].Accepted)
+
+              },
+              error: function (data) {
+                  // console.log(data,'error');
+              }
+        });
+      }
+
+      getData()
+
+      //////////////////////////////////////////////////////////
+
+      var dataku = []
+
+      $(".getselect").click(function (e) {
+        $('.messageCheckbox:checked').each(function (params) {
+          dataku.push($(this).val())
+        });
+
+        var uniq = [ ...new Set(dataku) ];
+        var stringData = uniq.join(',')
+        $('#list_id').val(stringData)
+        console.log(uniq);
+      });
+
+
+    $("#checkAll").click(function () {
+      $('input:checkbox').not(this).prop('checked', this.checked);
+    });
 
     });
   </script>

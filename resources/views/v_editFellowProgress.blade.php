@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard 2</title>
+    <title>ADMIN AIMZSEA</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -186,7 +186,7 @@
                               </div>
                               <div class="form-group">
                                 <label for="cv">CV Link</label>
-                                <input placeholder="{{$fellows[0]->resume}}" name="cv" type="number" class="form-control" id="cv"  disabled>
+                                <div class="link_wrapper"><a href="{{$fellows[0]->resume}}">{{$fellows[0]->resume}}</a></div>
                               </div>
                               <div class="form-group">
                                 <label for="interest1">Field of Interest (1st priority)</label>
@@ -205,60 +205,77 @@
                                 <input placeholder="{{$fellows[0]->question_2}}" name="job" type="number" class="form-control" id="job"  disabled>
                               </div>
                               <div class="form-group">
-                                <label>CV Finalized</label>
-                                @if ($status == 'edit')
-                                  <input placeholder="{{$appointment[0]->cv_finalized}}"  type="number" class="form-control"  disabled>
-                                @else
-                                  <input placeholder=""  type="text" class="form-control"  disabled>
-                                @endif
+                                <label for="cv_finalized">CV Finalized</label>
+                                <select name="cv_finalized" class="custom-select form-control-border" id="cv_finalized" disabled>
+                                    <option selected></option>
+                                    <option @if($appointment[0]->cv_finalized == "1") selected @endif value="1">Yes</option>
+                                    <option @if($appointment[0]->cv_finalized == "0") selected @endif value="0">No</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label>Response Board Finalized</label>
+                                <select name="response_board_finalized" class="custom-select form-control-border" id="response_board_finalized" disabled>
+                                  <option selected></option>
+                                  <option @if($appointment[0]->response_board_finalized == "1") selected @endif value="1">Yes</option>
+                                  <option @if($appointment[0]->response_board_finalized == "0") selected @endif value="0">No</option>
+                              </select>
                               </div>
                               <div class="form-group">
                                 <label># of Ongoing Applications</label>
-                                @if ($status == 'edit')
-                                  <input placeholder="{{$appointment[0]->ongoing_applications}}"  type="number" class="form-control"  disabled>
-                                @else
-                                  <input placeholder=""  type="text" class="form-control"  disabled>
-                                @endif
+                                <select name="ongoing_applications" class="custom-select form-control-border" id="ongoing_applications" disabled>
+                                  <option selected></option>
+                                  <option @if($appointment[0]->ongoing_applications == "0") selected @endif value="0">0</option>
+                                  <option @if($appointment[0]->ongoing_applications == "1-3") selected @endif value="1-3">1-3</option>
+                                  <option @if($appointment[0]->ongoing_applications == "4-8") selected @endif value="4-8">4-8</option>
+                                  <option @if($appointment[0]->ongoing_applications == "9-15") selected @endif value="9-15">9-15</option>
+                                  <option @if($appointment[0]->ongoing_applications == ">15") selected @endif value=">15">>15</option>
+                              </select>
                               </div>
                               <div class="form-group">
                                 <label># of Upcoming Applications</label>
-                                @if ($status == 'edit')
-                                  <input placeholder="{{$appointment[0]->upcoming_applications}}"  type="number" class="form-control"  disabled>
-                                @else
-                                  <input placeholder=""  type="text" class="form-control"  disabled>
-                                @endif
+                                <select name="upcoming_applications" class="custom-select form-control-border" id="upcoming_applications" disabled>
+                                  <option selected></option>
+                                  <option @if($appointment[0]->upcoming_applications == "0") selected @endif value="0">0</option>
+                                  <option @if($appointment[0]->upcoming_applications == "1-2") selected @endif value="1-2">1-2</option>
+                                  <option @if($appointment[0]->upcoming_applications == "3-5") selected @endif value="3-5">3-5</option>
+                                  <option @if($appointment[0]->upcoming_applications == "6-8") selected @endif value="6-8">6-8</option>
+                                  <option @if($appointment[0]->upcoming_applications == ">8") selected @endif value=">8">>8</option>
+                              </select>
                               </div>
                               <div class="form-group">
                                 <label>Target Companies</label>
                                 @if ($status == 'edit')
-                                  <input placeholder="{{$appointment[0]->target_companies}}"  type="number" class="form-control"  disabled>
+                                  <input name="target_companies" value="{{$appointment[0]->target_companies}}"  type="text" class="form-control"  disabled>
                                 @else
-                                  <input placeholder=""  type="text" class="form-control"  disabled>
+                                  <input name="target_companies"  type="text" class="form-control"  >
                                 @endif
                               </div>
                               <div class="form-group">
                                 <label>Comments</label>
                                 @if ($status == 'edit')
-                                  <input placeholder="{{$appointment[0]->comments}}"  type="number" class="form-control"  disabled>
+                                  <input name="comments" value="{{$appointment[0]->comments}}"  type="text" class="form-control"  disabled>
                                 @else
-                                  <input placeholder=""  type="text" class="form-control"  disabled>
+                                  <input name="comments" type="text" class="form-control"  >
                                 @endif
                               </div>
                               <div class="form-group">
                                 <label>Employer (If Employed)</label>
                                 @if ($status == 'edit')
-                                  <input placeholder="{{$appointment[0]->employer}}"  type="number" class="form-control"  disabled>
+                                  <input name="employer" value="{{$appointment[0]->employer}}"  type="text" class="form-control"  disabled>
                                 @else
-                                  <input placeholder=""  type="text" class="form-control"  disabled>
+                                  <input name="employer" type="text" class="form-control"  >
                                 @endif
                               </div>
                               <div class="form-group">
-                                <label>Employed Date</label>
-                                @if ($status == 'edit')
-                                  <input placeholder="{{$appointment[0]->employed_date}}"  type="number" class="form-control"  disabled>
-                                @else
-                                  <input placeholder=""  type="text" class="form-control"  disabled>
-                                @endif
+                                <div class="form-group">
+                                    <label>Employed Date</label>
+                                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                        <input name="employed_date" value="{{$appointment[0]->employed_date}}" type="text" class="form-control datetimepicker-input" data-target="#reservationdate" disabled/>
+                                        <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
                               </div>
                           </div>
                           <!-- /.card-body -->

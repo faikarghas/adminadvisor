@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard 2</title>
+    <title>ADMIN AIMZSEA</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -95,12 +95,12 @@
                     </p>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="/weekly-feedback" class="nav-link">
                     <i class="nav-icon fas fa-edit"></i>
-                    <p>Data</p>
+                    <p>Advisor Profile</p>
                 </a>
-            </li>
+            </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -196,6 +196,7 @@
                                 <div class="form-group">
                                   <label for="status">Status</label>
                                   <select name="status" class="custom-select form-control-border" id="status">
+                                      <option selected></option>
                                       <option @if($appointment[0]->status == "Admitted") selected @endif  value="Admitted">Admitted</option>
                                       <option @if($appointment[0]->status == "Withdrew") selected @endif  value="Withdrew">Withdrew</option>
                                       <option @if($appointment[0]->status == "Employed") selected @endif  value="Employed">Employed</option>
@@ -210,17 +211,15 @@
                                   @endif
                                 </div>
                                 <div class="form-group">
-                                    <label>Employed Date</label>
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="far fa-clock"></i></span>
+                                    <div class="form-group">
+                                      <label>Employed Date</label>
+                                      <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                          <input name="employed_date" value="{{$appointment[0]->employed_date}}" type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
+                                          <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                          </div>
                                       </div>
-                                      @if ($status == 'edit')
-                                          <input value="{{$appointment[0]->employed_date}}" name="employed_date" type="text" class="form-control float-right" id="reservationtime">
-                                      @else
-                                          <input  name="employed_date" type="text" class="form-contro float-rightl" id="reservationtime">
-                                      @endif
-                                    </div>
+                                  </div>
                                 </div>
 
                                 <div class="form-group">

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard 2</title>
+    <title>ADMIN AIMZSEA</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -95,12 +95,12 @@
                     </p>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="/data-advisor" class="nav-link">
                     <i class="nav-icon fas fa-edit"></i>
-                    <p> Data</p>
+                    <p>Advisor Profile</p>
                 </a>
-            </li>
+            </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -132,34 +132,42 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                        <a href="/fellows-assigned" class="card-title d-flex align-items-center"><img class="mr-2" src="{{asset('/images/left-arrow.svg')}}" width="20px" alt="">Back</a>
+                          <div class="container">
+                            <div class="row">
+                              <div class="col-12 col-lg-6 d-flex">
+                                <a href="/fellows-assigned" class="card-title d-flex align-items-center"><img class="mr-2" src="{{asset('/images/left-arrow.svg')}}" width="20px" alt="">Back</a>
+                              </div>
+                              <div class="col-12 col-lg-6 text-right">
+                                <button form="edit_fellow_assigned" type="submit" class="btn btn-light">Submit</button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="/fellowsAssigned/post/{{$fellows[0]->app_id}}" method="post" accept-charset="utf-8">
+                        <form id="edit_fellow_assigned" action="/fellowsAssigned/post/{{$fellows[0]->app_id}}" method="post" accept-charset="utf-8">
                           {{ csrf_field() }}
                             <div class="card-body">
                                 <div class="form-group">
-                                  <label for="advisorRemarks">Advisor Remarks</label>
-                                    <textarea value="{{$fellows[0]->advisor_remarks}}" name="advisorRemarks"  class="form-control" id="advisorRemarks" ></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="accept">Accept?</label>
-                                    <select name="accept" class="custom-select form-control-border" id="accept">
-                                        <option selected ></option>
-                                        <option @if($fellows[0]->accepted == '1') selected @endif value="1">Accept</option>
-                                        <option @if($fellows[0]->accepted == '2') selected @endif value="2">Waitlist</option>
-                                        <option @if($fellows[0]->accepted == '3') selected @endif value="3">Reject</option>
-                                    </select>
+                                  <label for="accept">Accept?</label>
+                                  <select name="accept" class="custom-select form-control-border" id="accept">
+                                      <option selected ></option>
+                                      <option @if($fellows[0]->accepted == '1') selected @endif value="1">Accepted</option>
+                                      <option @if($fellows[0]->accepted == '2') selected @endif value="2">Waitlisted (accept)</option>
+                                      <option @if($fellows[0]->accepted == '3') selected @endif value="3">Rejected</option>
+                                  </select>
                                 </div>
                                 <div class="form-group">
                                   <label for="reason_for_rejection">Reason for rejection</label>
-                                    <textarea value="{{$fellows[0]->reason_for_rejection}}" name="reason_for_rejection" type="text" class="form-control" id="reason_for_rejection"></textarea>
+                                    <textarea name="reason_for_rejection" type="text" class="form-control" id="reason_for_rejection">{{$fellows[0]->reason_for_rejection}}</textarea>
                                 </div>
-
+                                <div class="form-group">
+                                  <label for="advisorRemarks">Advisor Remarks</label>
+                                    <textarea name="advisorRemarks"  class="form-control" id="advisorRemarks" >{{$fellows[0]->advisor_remarks}}</textarea>
+                                </div>
                                 <div class="form-group ">
-                                  <label>Application Time Stamp</label>
-                                  <input type="text" class="form-control" value="{{$fellows[0]->date}}" disabled>
+                                  <label>CV link</label>
+                                  <div class="link_wrapper"><a target="_blank" rel="noopener" href="{{$fellows[0]->resume}}">{{$fellows[0]->resume}}</a></div>
                                 </div>
                                 <div class="form-group ">
                                   <label>First name</label>
@@ -190,8 +198,8 @@
                                   <input type="text" class="form-control" value="{{$fellows[0]->gpa}}" disabled>
                                 </div>
                                 <div class="form-group ">
-                                  <label>How did you know about AIMZ?</label>
-                                  <input type="text" class="form-control" value="{{$fellows[0]->question_1}}" disabled>
+                                  <label>Reason to join AIMZ</label>
+                                  <textarea type="text" class="form-control" placeholder="{{$fellows[0]->reason_to_join}}" disabled></textarea>
                                 </div>
                                 <div class="form-group ">
                                   <label>Job hunting stage</label>
@@ -200,10 +208,6 @@
                                 <div class="form-group ">
                                   <label>No. of past internships</label>
                                   <input type="text" class="form-control" value="{{$fellows[0]->question_3}}" disabled>
-                                </div>
-                                <div class="form-group ">
-                                  <label>Experience in MNC/top company?</label>
-                                  <input type="text" class="form-control" value="{{$fellows[0]->question_4}}" disabled>
                                 </div>
                                 <div class="form-group ">
                                   <label>Field of Interest (1st priority)</label>
@@ -226,26 +230,6 @@
                                   <input type="text" class="form-control" value="{{$fellows[0]->question_9}}" disabled>
                                 </div>
                                 <div class="form-group ">
-                                  <label>Reason to join AIMZ</label>
-                                  <textarea type="text" class="form-control" value="{{$fellows[0]->reason_to_join}}" disabled></textarea>
-                                </div>
-                                <div class="form-group ">
-                                  <label>CV link</label>
-                                  <input type="text" class="form-control" value="{{$fellows[0]->resume}}" disabled>
-                                </div>
-                                <div class="form-group ">
-                                  <label>Referee's name</label>
-                                  <input type="text" class="form-control" value="{{$fellows[0]->referee_name}}" disabled>
-                                </div>
-                                <div class="form-group ">
-                                  <label>Referee's whatsapp number</label>
-                                  <input type="text" class="form-control" value="{{$fellows[0]->referee_wa}}" disabled>
-                                </div>
-                                <div class="form-group ">
-                                  <label>Referee's email</label>
-                                  <input type="text" class="form-control" value="{{$fellows[0]->referee_email}}" disabled>
-                                </div>
-                                <div class="form-group ">
                                   <label>Bootcamp Batch</label>
                                   <input type="text" class="form-control" value="{{$fellows[0]->bootcamp_batch}}" disabled>
                                 </div>
@@ -263,9 +247,9 @@
                                 </div>
                             </div>
                             <!-- /.card-body -->
-                            <div class="card-footer">
+                            {{-- <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
+                            </div> --}}
                         </form>
                     </div>
                 </div>

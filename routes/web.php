@@ -34,6 +34,8 @@ Route::post('appointment/post/{id}',[FellowsController::class,'postForm']);
 Route::post('postFellowsProgress/{id}',[FellowsController::class,'postFellowsProgress']);
 Route::post('fellowAdvisor/post/{id}',[FellowsController::class,'postFellowsAdvisor']);
 
+Route::post('bulk-batch/post',[FellowsController::class,'bulkBatch']);
+Route::post('bulk-accept/post',[AdvisorController::class,'bulkBatch']);
 
 // ADVISOR
 Route::post('approveFellows/post',[AdvisorController::class,'approveForm']);
@@ -41,6 +43,7 @@ Route::post('cancelFellows/post',[AdvisorController::class,'cancelForm']);
 Route::post('fellowsAssigned/post/{id}',[AdvisorController::class,'postFellowsAssigned']);
 Route::post('fellowsFellowsProgressAdvisor/post/{email}',[AdvisorController::class,'postFellowsProgressAdvisor']);
 
+Route::get('getFellowAssignedSummary',[AdvisorController::class,'getFellowAssignedSummary']);
 
 
 // AUTH
@@ -49,6 +52,7 @@ Route::group(['middleware'=>['auth']],function(){
         Route::get('/',[AdminController::class,'index']);
         Route::get('fellows',[FellowsController::class,'index'])->name('fellows');
         Route::get('fellows-summary',[FellowsController::class,'summary'])->name('summary');
+        Route::get('fellows-summary-signed',[FellowsController::class,'summarySigned'])->name('summary-signed');
         Route::get('edit-fellows/{id}',[FellowsController::class,'edit']);
         Route::get('fellows-progress',[FellowsController::class,'fellowsprogress'])->name('fellows-progress');
         Route::get('edit-fellowsProgress/{id}',[FellowsController::class,'editFellowsProgress']);
@@ -74,4 +78,9 @@ Route::group(['middleware'=>['auth']],function(){
 Route::get('getFellowData',[FellowsController::class,'getFellowData'])->name('getFellowData');
 Route::post('updateData',[FellowsController::class,'updateData'])->name('updateData');
 Route::post('updateDataAdvisor',[FellowsController::class,'updateDataAdvisor'])->name('updateDataAdvisor');
+Route::post('updateDataAppointment',[FellowsController::class,'updateDataAppointment'])->name('updateDataAppointment');
+Route::post('updateDataAppointmentFellow',[FellowsController::class,'updateDataAppointmentFellow'])->name('updateDataAppointmentFellow');
+
+
+// BULK EDIT
 

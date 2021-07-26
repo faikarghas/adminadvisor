@@ -19,7 +19,7 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="{{asset('template')}}/index2.html" class="h1"><b>Admin</b> AIMZSEA</a>
+      <a  class="h1" style="font-size:1.2rem;"><b>AIMZSEA Fellow Management System</b></a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Sign in</p>

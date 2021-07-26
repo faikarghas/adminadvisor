@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>AdminLTE 3 | Dashboard 2</title>
+    <title>ADMIN AIMZSEA</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -147,7 +147,10 @@
                               <a class="nav-link" href="{{route('fellows')}}">Fellows</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link active" >Summary</a>
+                              <a class="nav-link active" href="{{route('summary')}}">Summary - Acceptance</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{route('summary-signed')}}">Summary - Signed</a>
                             </li>
                           </ul>
                           <div class="tab-content" id="myTabContent">
@@ -159,21 +162,21 @@
                                 <tr>
                                   <th>Advisor Name</th>
                                   <th>Accepted</th>
-                                  <th>Waitlisted</th>
+                                  <th>Waitlisted (accept)</th>
                                   <th>Rejected</th>
                                   <th>Blank</th>
                                   <th>Bootcamp</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                  @foreach($listFellows as $key => $value)
+                                  @foreach($acceptedSummary as $key => $value)
                                       <tr>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
+                                        <td>{{$value->AdvisorName}}</td>
+                                        <td>{{$value->Accepted}}</td>
+                                        <td>{{$value->Waitlisted}}</td>
+                                        <td>{{$value->Rejected}}</td>
+                                        <td>{{$value->Blank}}</td>
+                                        <td>{{$value->bootcamp_batch}}</td>
                                       </tr>
                                   @endforeach
                                 </tbody>
@@ -236,18 +239,23 @@
 <script src="{{asset('template')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
   $(document).ready(function() {
-    $('#summary_table').DataTable({
+    var table = $('#summary_table').DataTable({
       fixedHeader: true,
       scrollX: true,
       scrollY:        '70vh',
       scrollCollapse: true,
-      dom: 'Bfrtip',
+      lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+      dom: 'Bflrtip',
       buttons: [
           'csv', 'excel'
       ],
       columnDefs: [
             { width: 200, targets: 0 }
       ],
+    })
+
+    $('#batch').on('change',function (params) {
+      table.column(5).search(this.value).draw();
     })
 
   });

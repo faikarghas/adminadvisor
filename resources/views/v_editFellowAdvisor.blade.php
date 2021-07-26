@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard 2</title>
+    <title>ADMIN AIMZSEA</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -175,6 +175,7 @@
                                     <option @if($listAdvisor[0]->current_pod == "Y21 June_5") selected @endif value="Y21 June_5">Y21 June_5</option>
                                     <option @if($listAdvisor[0]->current_pod == "Y21 June_6") selected @endif value="Y21 June_6">Y21 June_6</option>
                                     <option @if($listAdvisor[0]->current_pod == "Y21 August_1") selected @endif value="Y21 August_1">Y21 August_1</option>
+                                    <option @if($listAdvisor[0]->current_pod == "Y21 August_9") selected @endif value="Y21 August_9">Y21 August_9</option>
                                 </select>
                               </div>
                               <div class="form-group">

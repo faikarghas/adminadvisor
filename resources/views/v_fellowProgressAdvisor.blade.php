@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard 2</title>
+    <title>ADMIN AIMZSEA</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -81,14 +81,12 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a href="/data-advisor" class="nav-link">
                   <i class="nav-icon fas fa-edit"></i>
-                  <p>
-                    Data
-                  </p>
+                  <p>Advisor Profile</p>
                 </a>
-              </li>
+              </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -154,7 +152,7 @@
                                 <tbody>
                                   @foreach($appointmentData as $key => $value)
                                       <tr data-key={{$key+1}}>
-                                        <td height="30"><a href="/edit-fellowsProgressAdvisor/{{$value->app_id}}">edit</a></td>
+                                        <td height="30"><a href="/edit-fellowsProgressAdvisor/{{$value->app_id}}"><img src="{{asset('images/edit.svg')}}" width="20px" alt=""></a></td>
                                         <td height="30">{{$key+1}}</td>
                                         <td height="30">{{$value->first_name}} {{$value->last_name}}</td>
                                         <td height="30">{{$value->email_address}}</td>
@@ -266,14 +264,14 @@
       scrollX: true,
       scrollY:        '70vh',
       scrollCollapse: true,
-      dom: 'Bfrtip',
+      dom: 'Bflrtip',
       buttons: [
           'csv', 'excel'
       ],
       columnDefs: [
             { width: 200, targets: 2 },
-            { width: 100, targets: 3 },
-            { width: 100, targets: 4 },
+            { width: 200, targets: 3 },
+            { width: 200, targets: 4 },
             { width: 200, targets: 5 },
             { width: 200, targets: 6 },
             { width: 200, targets: 7 },

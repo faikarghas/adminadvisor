@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard 2</title>
+    <title>ADMIN AIMZSEA</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -95,12 +95,12 @@
                     </p>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="/data-advisor" class="nav-link">
                     <i class="nav-icon fas fa-edit"></i>
-                    <p>Data</p>
+                    <p>Advisor Profile</p>
                 </a>
-            </li>
+            </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -216,8 +216,15 @@
                                   <input placeholder="{{$listAdvisor[0]->workshop_link}}" value="{{$listAdvisor[0]->workshop_link}}" name="workshop_link" type="text" class="form-control" id="workshop_link">
                                 </div>
                                 <div class="form-group">
-                                  <label for="workshop_schedule">Workshop Schedule</label>
-                                  <input placeholder="{{$listAdvisor[0]->workshop_schedule}}" value="{{$listAdvisor[0]->workshop_schedule}}" name="workshop_schedule" type="text" class="form-control" id="workshop_schedule">
+                                  <div class="form-group">
+                                    <label>Workshop Schedule:</label>
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-clock"></i></span>
+                                      </div>
+                                      <input name="workshop_schedule" value="{{$listAdvisor[0]->workshop_schedule}}" type="text" class="form-control float-right" id="reservationtime">
+                                    </div>
+                                  </div>
                                 </div>
                                 <div class="form-group">
                                   <label for="pod_connect_schedule">Pod Connect Schedule</label>

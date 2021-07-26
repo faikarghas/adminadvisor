@@ -75,6 +75,7 @@ class AuthController extends Controller
         $data = [];
         set_time_limit(0);
         foreach ($advisors as $key => $value) {
+            $pass = strtolower(implode(explode(' ',$value->full_name))).'#aimz'.rand(1,99).'!@';
 
             User::updateOrCreate(
             [
@@ -85,7 +86,8 @@ class AuthController extends Controller
                 'username' => 'advisor_'.''.strtolower(implode(explode(' ',$value->full_name))),
                 'email' => $value->email_address,
                 'level' => 'advisor',
-                'password' => bcrypt('advisor#aimz123!@'),
+                'password' => bcrypt($pass),
+                'show_pass'=> $pass,
                 'id_advisor' => $value->id_advisor
             ]);
 

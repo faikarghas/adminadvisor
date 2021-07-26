@@ -1920,7 +1920,15 @@ $('.register').on('click', function name(params) {
   })["catch"](function (error) {
     console.log(error);
   });
-});
+}); // window.onbeforeunload = function() {
+//     localStorage.removeItem("interest");
+//     localStorage.removeItem("batch");
+//     localStorage.removeItem("advisor");
+//     localStorage.removeItem("strength");
+//     localStorage.removeItem("accept");
+//     localStorage.removeItem("signed");
+//     return '';
+// };
 
 /***/ }),
 

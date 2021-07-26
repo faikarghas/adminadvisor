@@ -44,34 +44,50 @@ class FellowsController extends Controller
 
     public function summary(Request $request){
 
-        $listFellows = DB::table('fellows')->get();
 
-        $listAdvisor = DB::table('advisor')
-            ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
-            ->get();
-
-        $appointmentData = DB::table('advisor')
-            ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
-            ->join('fellows', 'appointment.app_id', '=', 'fellows.app_id')
-            ->get();
-
-        $test = DB::table('advisor')
-        ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
-        ->where('appointment.id_advisor',5)->sum('accepted');
-
-        $test2 =  DB::select("
-            SELECT id_advisor, COUNT(accepted = 1) as `Accepted` ,  COUNT(accepted = 2) as `Waitlisted`
-            FROM `appointment`
-            GROUP BY id_advisor
+        $acceptedSummary =  DB::select("
+            SELECT
+            advisor.full_name as 'AdvisorName',
+            COUNT(IF(accepted = 0, 0, NULL)) as 'Blank',
+            COUNT(IF(accepted = 1, 1, NULL)) as 'Accepted',
+            COUNT(IF(accepted = 2, 1, NULL)) as 'Waitlisted',
+            COUNT(IF(accepted = 3, 1, NULL)) as 'Rejected',
+            bootcamp_batch
+            FROM `fellows`
+            RIGHT JOIN
+            advisor ON
+            fellows.id_advisor = advisor.id_advisor
+            GROUP BY advisor.full_name, fellows.bootcamp_batch
         ");
-        dd($test2);
 
         $data = [
-            'listFellows' => $listFellows,
-            'listAdvisor'=> $listAdvisor,
-            'appointmentData'=> $appointmentData
+            'acceptedSummary' => $acceptedSummary
         ];
+
         return view('v_fellows_summary',$data);
+    }
+
+    public function summarySigned(Request $request){
+
+
+        $acceptedSummary =  DB::select("
+            SELECT
+            advisor.full_name as 'AdvisorName',
+            COUNT(IF(contract_signed = 0, 0, NULL)) as 'No',
+            COUNT(IF(contract_signed = 1, 1, NULL)) as 'Yes',
+            bootcamp_batch
+            FROM `fellows`
+            RIGHT JOIN
+            advisor ON
+            fellows.id_advisor = advisor.id_advisor
+            GROUP BY advisor.full_name, fellows.bootcamp_batch
+        ");
+
+        $data = [
+            'acceptedSummary' => $acceptedSummary
+        ];
+
+        return view('v_fellows_summarySigned',$data);
     }
 
     public function updateData(Request $request){
@@ -82,43 +98,91 @@ class FellowsController extends Controller
         $values = Sheets::collection($header, $rows);
         $values->toArray();
 
+        $listAdvisor = DB::table('advisor')->get();
+        $id;
+
         $data = collect();
         set_time_limit(0);
+
         foreach ($values as $key => $value) {
-            FellowsListModel::updateOrCreate(
-                [
-                  'id'   => $key+1,
-                ],
-                [
-                  'app_id' => $value['Application ID'],
-                  'date' => $value['Application Time Stamp'],
-                  'first_name' => $value['First name'],
-                  'last_name' => $value['Last Name'],
-                  'email_address' => $value['Email address'],
-                  'phone' => $value['Phone number'],
-                  'gender' => $value['Gender'],
-                  'university' => $value['University'],
-                  'gpa' => $value['GPA'],
-                  'question_1' => $value['How did you know about AIMZ?'],
-                  'question_2' => $value['Job hunting stage'],
-                  'question_3' => $value['No. of past internships'],
-                  'question_4' => $value['Experience in MNC/top company?'],
-                  'question_5' => $value['Field of Interest (1st priority)'],
-                  'question_6' => $value['Field of Interest (2nd priority)'],
-                  'question_7' => $value['Primary target roles'],
-                  'question_8' => $value['Salary expectation'],
-                  'question_9' => $value['Timeline to start working'],
-                  'reason_to_join' => utf8_encode($value['Reason to join AIMZ']),
-                  'resume' => $value['CV link'],
-                  'referee_name' => $value["Referee's name"],
-                  'referee_wa' => $value["Referee's whatsapp number"],
-                  'referee_email' => $value["Referee's email"],
-                  'bootcamp_batch' => $value['Bootcamp Batch'],
-                ]
-            );
+            foreach ($listAdvisor as $item) {
+                if ($value["Advisor"] == $item->full_name) {
+                    $id = $item->id_advisor;
+                    FellowsListModel::updateOrCreate(
+                        [
+                          'id'   => $key+1,
+                        ],
+                        [
+                          'app_id' => $value['Application ID'],
+                          'date' => $value['Application Time Stamp'],
+                          'first_name' => $value['First name'],
+                          'last_name' => $value['Last Name'],
+                          'email_address' => $value['Email address'],
+                          'phone' => $value['Phone number'],
+                          'gender' => $value['Gender'],
+                          'university' => $value['University'],
+                          'gpa' => $value['GPA'],
+                          'question_1' => $value['How did you know about AIMZ?'],
+                          'question_2' => $value['Job hunting stage'],
+                          'question_3' => $value['No. of past internships'],
+                          'question_4' => $value['Experience in MNC/top company?'],
+                          'question_5' => $value['Field of Interest (1st priority)'],
+                          'question_6' => $value['Field of Interest (2nd priority)'],
+                          'question_7' => $value['Primary target roles'],
+                          'question_8' => $value['Salary expectation'],
+                          'question_9' => $value['Timeline to start working'],
+                          'reason_to_join' => utf8_encode($value['Reason to join AIMZ']),
+                          'resume' => $value['CV link'],
+                          'referee_name' => $value["Referee's name"],
+                          'referee_wa' => $value["Referee's whatsapp number"],
+                          'referee_email' => $value["Referee's email"],
+                          'bootcamp_batch' => $value["Bootcamp Batch"],
+                          'profile_strength' => $value["Profile Strength"],
+                          'id_advisor' => $id,
+                        ]
+                    );
+                } elseif($value["Advisor"] == "x") {
+                    $id = 0;
+                    FellowsListModel::updateOrCreate(
+                        [
+                          'id'   => $key+1,
+                        ],
+                        [
+                          'app_id' => $value['Application ID'],
+                          'date' => $value['Application Time Stamp'],
+                          'first_name' => $value['First name'],
+                          'last_name' => $value['Last Name'],
+                          'email_address' => $value['Email address'],
+                          'phone' => $value['Phone number'],
+                          'gender' => $value['Gender'],
+                          'university' => $value['University'],
+                          'gpa' => $value['GPA'],
+                          'question_1' => $value['How did you know about AIMZ?'],
+                          'question_2' => $value['Job hunting stage'],
+                          'question_3' => $value['No. of past internships'],
+                          'question_4' => $value['Experience in MNC/top company?'],
+                          'question_5' => $value['Field of Interest (1st priority)'],
+                          'question_6' => $value['Field of Interest (2nd priority)'],
+                          'question_7' => $value['Primary target roles'],
+                          'question_8' => $value['Salary expectation'],
+                          'question_9' => $value['Timeline to start working'],
+                          'reason_to_join' => utf8_encode($value['Reason to join AIMZ']),
+                          'resume' => $value['CV link'],
+                          'referee_name' => $value["Referee's name"],
+                          'referee_wa' => $value["Referee's whatsapp number"],
+                          'referee_email' => $value["Referee's email"],
+                          'bootcamp_batch' => $value["Bootcamp Batch"],
+                          'profile_strength' => $value["Profile Strength"],
+                          'id_advisor' => $id,
+                        ]
+                    );
+                }
+            }
         }
 
-        return redirect()->route('fellows')->with('pesan','data berhasil ditambahkan');
+        return response()->json([
+            'respond' => 'success'
+        ]);
     }
 
     public function updateDataAdvisor(Request $request){
@@ -128,15 +192,13 @@ class FellowsController extends Controller
         $header = $rows->pull(0);
         $values = Sheets::collection($header, $rows);
         $values->toArray();
-        // dd($values);
 
         $data = collect();
         set_time_limit(0);
         foreach ($values as $key => $value) {
-            // echo $values[3]['Application ID'];
             Advisor::updateOrCreate(
                 [
-                  'id_advisor'   => $key,
+                  'id_advisor'  => $key,
                 ],
                 [
                   'full_name' => $value['Full Name'],
@@ -159,6 +221,54 @@ class FellowsController extends Controller
                   'class' => $value['Class'],
                 ]
             );
+        }
+
+        return redirect()->route('fellows')->with('pesan','data berhasil ditambahkan');
+    }
+
+    public function updateDataAppointment(Request $request){
+
+        $listFellows = DB::table('fellows')->get();
+
+        set_time_limit(0);
+        foreach ($listFellows as $key => $value) {
+            if ($value->id_advisor == 0) {
+            } else {
+                AppointmentModel::updateOrCreate(
+                    [
+                      'id'  => $key,
+                    ],
+                    [
+                      'app_id' => $value->app_id,
+                      'id_advisor' => $value->id_advisor,
+                    ]
+                );
+            }
+        }
+
+        return redirect()->route('fellows')->with('pesan','data berhasil ditambahkan');
+    }
+
+    public function updateDataAppointmentFellow(Request $request){
+
+        $listAppointment = DB::table('appointment')->get();
+        $listFellows = DB::table('fellows')->get();
+
+        set_time_limit(0);
+        foreach ($listAppointment as $key => $value) {
+            foreach ($listFellows as $key => $item) {
+                if ($item->id_advisor != 0) {
+                    // FellowsListModel::where([['app_id', $value->app_id],['id', '>', 620]])->update(['appointment_id' => $value->id]);
+                    // FellowsListModel::updateOrCreate(
+                    //     [
+                    //       'app_id'  => $value->app_id,
+                    //     ],
+                    //     [
+                    //       'appointment_id' => $value->id,
+                    //     ]
+                    // );
+                }
+            }
         }
 
         return redirect()->route('fellows')->with('pesan','data berhasil ditambahkan');
@@ -289,7 +399,16 @@ class FellowsController extends Controller
             'invoice_amount' => $request->input('invoiceAmount'),
             'payment_method' => $request->input('payMethod'),
             'paid_amount' => $request->input('paidAmount'),
+            // 'cv_finalized' => $request->input('cv_finalized'),
+            // 'response_board_finalized' => $request->input('response_board_finalized'),
+            // 'ongoing_applications' => $request->input('ongoing_applications'),
+            // 'upcoming_applications' => $request->input('upcoming_applications'),
+            // 'target_companies' => $request->input('target_companies'),
+            // 'comments' => $request->input('comments'),
+            // 'employer' => $request->input('employer'),
+            // 'employed_date' => $request->input('employed_date')
         ];
+
 
         DB::table('appointment')->updateOrInsert(
             [
@@ -306,8 +425,9 @@ class FellowsController extends Controller
     public function fellowsAdvisor(Request $request){
         $users = DB::table('users')->get();
 
-        $listAdvisor = DB::table('advisor')->get();
-
+        $listAdvisor = DB::table('advisor')
+        ->join('users','users.id_advisor','=','advisor.id_advisor')
+        ->get();
 
         $data = [
             'listAdvisor' => $listAdvisor,
@@ -375,4 +495,52 @@ class FellowsController extends Controller
         return response()->json($check);
     }
 
+
+    // BULK EDIT
+    public function bulkBatch(Request $request){
+
+        $data = $request->all();
+
+        $list_id = explode(',',$request->input('list_id'));
+
+        $name1 = $request->input('batchBulk') ? 'bootcamp_batch' : '';
+        $name2 = $request->input('strengthBulk') ? 'profile_strength' : '';
+        $name3 = $request->input('advisorBulk') ? 'id_advisor' : '';
+        $name4 = $request->input('contractBulk') ? 'contract_signed' : '';
+        $name5 = $request->input('statusBulk') ? 'fellow_status' : '';
+        $name6 = $request->input('acceptedBulk') ? 'accepted' : '';
+
+        $val1 = $request->input('batchBulk') ? $request->input('batchBulk') : '';
+        $val2 = $request->input('strengthBulk') ? $request->input('strengthBulk') : '';
+        $val3 = $request->input('advisorBulk') ? $request->input('advisorBulk') : '';
+        $val4 = $request->input('contractBulk') ? $request->input('contractBulk') : '';
+        $val5 = $request->input('statusBulk') ? $request->input('statusBulk') : '';
+        $val6 = $request->input('acceptedBulk') ? $request->input('acceptedBulk') : '';
+
+        foreach ($list_id as $key => $value) {
+            FellowsListModel::updateOrCreate(
+                [
+                    'app_id'   => $value,
+                ],
+                [
+                    $name1 => $val1,
+                    $name2 => $val2,
+                    $name3 => $val3,
+                    $name4 => $val4,
+                    $name5 => $val5,
+                    $name6 => $val6,
+                ]
+            );
+
+            AppointmentModel::updateOrCreate(
+                [
+                    'app_id' => $value
+                ],['id_advisor' => $request->input('advisorBulk')]
+            );
+        }
+
+
+        return redirect()->route('fellows')->with('pesan','data berhasil ditambahkan');
+    }
 }
+

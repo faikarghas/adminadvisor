@@ -41,6 +41,61 @@ class AdvisorController extends Controller
         return view('v_fellowAssigned',$data);
     }
 
+    public function getFellowAssignedSummary(Request $request){
+        $user = Auth::user();
+
+        $getData = $request->all();
+        $accept = $getData['accept'];
+        $batch = $getData['batch'];
+
+        if ($batch == null) {
+            $data =  DB::select("
+                SELECT
+                advisor.full_name as 'AdvisorName',
+                COUNT(IF(accepted = 0, 1, NULL)) as 'Blank',
+                COUNT(IF(accepted = 1, 1, NULL)) as 'Accepted',
+                COUNT(IF(accepted = 2, 1, NULL)) as 'Waitlisted',
+                COUNT(IF(accepted = 3, 1, NULL)) as 'Rejected'
+                FROM `fellows`
+                RIGHT JOIN
+                advisor ON
+                fellows.id_advisor = advisor.id_advisor
+                where fellows.id_advisor = $user->id_advisor
+                GROUP BY advisor.full_name
+            ");
+        } else {
+            $data =  DB::select("
+                SELECT
+                advisor.full_name as 'AdvisorName',
+                COUNT(IF(accepted = 0, 1, NULL)) as 'Blank',
+                COUNT(IF(accepted = 1, 1, NULL)) as 'Accepted',
+                COUNT(IF(accepted = 2, 1, NULL)) as 'Waitlisted',
+                COUNT(IF(accepted = 3, 1, NULL)) as 'Rejected',
+                bootcamp_batch
+                FROM `fellows`
+                RIGHT JOIN
+                advisor ON
+                fellows.id_advisor = advisor.id_advisor
+                where fellows.id_advisor = $user->id_advisor AND
+                fellows.bootcamp_batch = '$batch'
+                GROUP BY advisor.full_name, fellows.bootcamp_batch
+            ");
+        }
+
+        return response()->json([
+            'respond' => 'success',
+            'data' => $data
+        ]);
+    }
+
+    public function filterSummary(Request $request){
+
+
+        return response()->json([
+            'respond' => 'success'
+        ]);
+    }
+
     public function edit($app_id){
         $listAdvisor = DB::table('advisor')->get();
         $appointment = DB::table('appointment')->where('app_id',$app_id)->get();
@@ -77,10 +132,9 @@ class AdvisorController extends Controller
 
         $user = Auth::user();
 
-        $appointmentData = DB::table('advisor')
-        ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
-        ->join('fellows', 'appointment.app_id', '=', 'fellows.app_id')
-        ->where(['appointment.id_advisor'=>$user->id_advisor,'accepted'=>'1','contract_signed'=>1])
+        $appointmentData = DB::table('fellows')
+        ->join('appointment', 'appointment.app_id', '=', 'fellows.app_id')
+        ->where(['fellows.id_advisor'=>$user->id_advisor,'fellows.accepted'=>'1','fellows.contract_signed'=>1])
         ->get();
 
         $data = [
@@ -101,7 +155,7 @@ class AdvisorController extends Controller
         $appointmentData = DB::table('advisor')
         ->join('appointment', 'advisor.id_advisor', '=', 'appointment.id_advisor')
         ->join('fellows', 'appointment.app_id', '=', 'fellows.app_id')
-        ->where(['appointment.id_advisor'=>$user->id_advisor,'accepted'=>'1'])
+        ->where(['appointment.id_advisor'=>$user->id_advisor,'accepted'=>'1','contract_signed'=>'1'])
         ->get();
 
         $data = [
@@ -204,5 +258,30 @@ class AdvisorController extends Controller
         return redirect()->route('data')->with('pesan','data berhasil ditambahkan');
     }
     //END DATA ADVISOR
+
+    // BULK EDIT
+    public function bulkBatch(Request $request){
+
+        $data = $request->all();
+
+        $list_id = explode(',',$request->input('list_id'));
+
+        $name1 = $request->input('acceptedBulk') ? 'accepted' : '';
+        $val1 = $request->input('acceptedBulk') ? $request->input('acceptedBulk') : '';
+
+        foreach ($list_id as $key => $value) {
+            FellowsListModel::updateOrCreate(
+                [
+                    'app_id'   => $value,
+                ],
+                [
+                    $name1 => $val1,
+                ]
+            );
+        }
+
+
+        return redirect()->route('fellows-assigned')->with('pesan','data berhasil ditambahkan');
+    }
 
 }
